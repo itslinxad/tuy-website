@@ -7,12 +7,15 @@ import Navbar from "../components/Navbar.tsx";
 import Button from "../components/Button.tsx";
 import SkeletonCard from "../components/SkeletonCard";
 import TuyMap from "../components/TuyMap";
+import CalendarOfEvents from "../components/CalendarOfEvents";
 import { formatDate } from "../utils/dateFormat";
 import { useFacebookPosts } from "../hooks/useFacebookPosts";
+import { useWeather } from "../hooks/useWeather";
 
 function Home() {
   const { offset } = useParallax({ speed: 0.3 });
   const { posts, loading } = useFacebookPosts();
+  const { weather } = useWeather();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -152,6 +155,43 @@ function Home() {
             Your Gateway to Quality Local Governance
           </p>
         </div>
+
+        {/* Weather Widget Overlay */}
+        {weather && (
+          <div
+            className="absolute bottom-20 left-4 sm:left-8 z-20 animate-fadeIn"
+            style={{ animationDelay: "1s" }}
+          >
+            <div className="bg-white/15 backdrop-blur-md rounded-xl px-4 py-3 sm:px-5 sm:py-3.5 border border-white/20 shadow-lg">
+              <div className="flex items-center gap-3 text-white">
+                <i className={`fas ${weather.icon} text-2xl sm:text-3xl drop-shadow-md`}></i>
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-2xl sm:text-3xl font-bold drop-shadow-md">
+                      {weather.temperature}°C
+                    </span>
+                    <span className="text-sm sm:text-base text-white/90 font-medium">
+                      {weather.description}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs sm:text-sm text-white/80 mt-0.5">
+                    <span>
+                      <i className="fas fa-droplet mr-1"></i>
+                      {weather.humidity}%
+                    </span>
+                    <span>
+                      <i className="fas fa-wind mr-1"></i>
+                      {weather.windSpeed} km/h
+                    </span>
+                    <span className="hidden sm:inline text-white/60">
+                      Tuy, Batangas
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce z-20">
@@ -557,10 +597,13 @@ function Home() {
         </div>
       </section>
 
+      {/* Calendar of Events Section */}
+      <CalendarOfEvents />
+
       {/* Explore Tuy Section */}
       <section
         ref={exploreRef.elementRef as React.RefObject<HTMLElement>}
-        className="py-12 md:py-16 bg-gray-50"
+        className="py-12 md:py-16 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <div

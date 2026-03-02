@@ -1,32 +1,44 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import Login from "./pages/Login.tsx";
-import Home from "./pages/Home.tsx";
-import About from "./pages/profile/About.tsx";
-import History from "./pages/profile/History.tsx";
-import Demography from "./pages/profile/Demography.tsx";
-import Maps from "./pages/profile/Maps.tsx";
-import SocioEconomic from "./pages/profile/SocioEconomic.tsx";
-import Officials from "./pages/government/Officials.tsx";
-import DepartmentHeads from "./pages/government/DepartmentHeads.tsx";
-import BarangayOfficials from "./pages/government/BarangayOfficials.tsx";
-import AccomplishmentReports from "./pages/transparencies/AccomplishmentReports.tsx";
-import CitizensCharter from "./pages/transparencies/CitizensCharter.tsx";
-import FinancialStatements from "./pages/transparencies/FinancialStatements.tsx";
-import InvitationToBid from "./pages/transparencies/InvitationToBid.tsx";
-import Forms from "./pages/downloadables/Forms.tsx";
-import Resolutions from "./pages/downloadables/Resolutions.tsx";
-import Ordinances from "./pages/downloadables/Ordinances.tsx";
-import Gallery from "./pages/Gallery.tsx";
-import ContactUs from "./pages/ContactUs.tsx";
+
+// Lazy-loaded page components
+const Login = lazy(() => import("./pages/Login.tsx"));
+const Home = lazy(() => import("./pages/Home.tsx"));
+const About = lazy(() => import("./pages/profile/About.tsx"));
+const History = lazy(() => import("./pages/profile/History.tsx"));
+const Demography = lazy(() => import("./pages/profile/Demography.tsx"));
+const Maps = lazy(() => import("./pages/profile/Maps.tsx"));
+const SocioEconomic = lazy(() => import("./pages/profile/SocioEconomic.tsx"));
+const Officials = lazy(() => import("./pages/government/Officials.tsx"));
+const DepartmentHeads = lazy(() => import("./pages/government/DepartmentHeads.tsx"));
+const BarangayOfficials = lazy(() => import("./pages/government/BarangayOfficials.tsx"));
+const AccomplishmentReports = lazy(() => import("./pages/transparencies/AccomplishmentReports.tsx"));
+const CitizensCharter = lazy(() => import("./pages/transparencies/CitizensCharter.tsx"));
+const FinancialStatements = lazy(() => import("./pages/transparencies/FinancialStatements.tsx"));
+const InvitationToBid = lazy(() => import("./pages/transparencies/InvitationToBid.tsx"));
+const Forms = lazy(() => import("./pages/downloadables/Forms.tsx"));
+const Resolutions = lazy(() => import("./pages/downloadables/Resolutions.tsx"));
+const Ordinances = lazy(() => import("./pages/downloadables/Ordinances.tsx"));
+const Gallery = lazy(() => import("./pages/Gallery.tsx"));
+const ContactUs = lazy(() => import("./pages/ContactUs.tsx"));
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter basename={import.meta.env.VITE_BASE_PATH}>
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+              <div className="text-center">
+                <i className="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
+                <p className="text-gray-500">Loading...</p>
+              </div>
+            </div>
+          }
+        >
         <Routes>
           {/* Public Route - Login */}
           <Route path="/login" element={<Login />} />
@@ -187,6 +199,7 @@ createRoot(document.getElementById("root")!).render(
             }
           />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   </StrictMode>,

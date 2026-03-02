@@ -55,7 +55,7 @@ const About = () => {
       icon: "fa-expand-arrows-alt",
       color: "bg-green-100 text-green-600",
       content:
-        "The municipality covers an approximate land area of 74.13 square kilometers, comprising both coastal and inland barangays with diverse topographical features.",
+        "The municipality covers a land area of 94.65 square kilometers (36.54 sq mi), comprising both coastal and inland barangays with diverse topographical features.",
     },
     {
       title: "Climate",
@@ -74,15 +74,15 @@ const About = () => {
   ];
 
   const statistics = [
-    { icon: "fa-map-marked-alt", number: "22", label: "Barangays" },
+    { icon: "fa-calendar-alt", number: "1866", label: "Year Founded" },
+    { icon: "fa-map-marker-alt", number: "22", label: "Barangays" },
     {
       icon: "fa-expand-arrows-alt",
-      number: "74.13",
-      label: "Square Kilometers",
+      number: "94.65",
+      label: "Land Area",
       suffix: " km²",
     },
-    { icon: "fa-users", number: "45,000", label: "Population", suffix: "+" },
-    { icon: "fa-calendar-check", number: "1st Class", label: "Municipality" },
+    { icon: "fa-users", number: "72,894", label: "Population (2020)" },
   ];
 
   const culturalTimeline = [
@@ -201,23 +201,31 @@ const About = () => {
           </div>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
-              The Municipality of Tuy is a first-class municipality in the
-              province of Batangas, Philippines. Rich in history and culture,
-              Tuy has been an integral part of the region's development since
-              the Spanish colonial period.
+              <span className="text-primary font-medium">Tuy</span> (Tagalog
+              pronunciation: [tu'i]), officially the Municipality of Tuy
+              (Tagalog: Bayan ng Tuy), is a municipality in the province of
+              Batangas, Philippines. According to the 2020 census, it has a
+              population of 72,894.
             </p>
             <p>
-              The name "Tuy" is believed to have originated from the Tagalog
-              word "tuytoy," referring to a type of tree that was abundant in
-              the area during the early days of settlement. The town was
-              officially established during the Spanish era and has grown into a
-              vibrant community along the shores of Balayan Bay.
+              The patron of Tuy is{" "}
+              <span className="text-primary font-medium">
+                Saint Vincent Ferrer
+              </span>
+              , the patron of construction workers, whose feast day is
+              celebrated every April 5. Tuy is also known for its annual{" "}
+              <span className="text-primary font-medium">Tuy Day</span>{" "}
+              festival, which features vibrant parades, traditional dances, and
+              cultural performances that celebrate the town's rich heritage and
+              community spirit.
             </p>
             <p>
-              Throughout its history, Tuy has been known for its agricultural
-              productivity, fishing industry, and the warm hospitality of its
-              people. The municipality has preserved its rich cultural heritage
-              while embracing modern development and progress.
+              Tuy has been producing bakery products of its own, like the
+              jacobina biscuits and biscocho toasted bread, among other bakery
+              products, since the 1960s. The town is also known for its
+              agricultural products, such as rice, corn, and sugarcane, which
+              contribute to the local economy and provide livelihoods for many
+              residents.
             </p>
           </div>
         </section>
@@ -251,10 +259,7 @@ const About = () => {
                   Our Vision
                 </h3>
                 <p className="text-lg leading-relaxed">
-                  A progressive, peaceful, and God-loving municipality with
-                  improved quality of life for all Tuyeños, characterized by
-                  sustainable economic development, efficient governance, and
-                  environmental stewardship.
+                  TUY will be a Municipality of empowered and gender-responsive people, that values equality and recognition of ever citizen's right, with God-loving leaders striving to achieve and provide the highest degree of importance to a clean, protected, safe and peaceful environment with disaster-resilient communities, having a progressive and sustainable economy with access to quality social services.
                 </p>
               </div>
             </div>
@@ -275,10 +280,7 @@ const About = () => {
                   Our Mission
                 </h3>
                 <p className="text-lg leading-relaxed">
-                  To provide responsive, transparent, and participatory local
-                  governance that delivers quality services, promotes inclusive
-                  growth, protects the environment, and empowers every citizen
-                  to achieve their fullest potential.
+                  To widen the ability of the fore-runners and employees of the municipality in the formulation and execution of a long-ranged, comprehensive and integrated plans and programs, intensify the observance of morality and community cooperation towards the realization of a progressive, peaceful and a more orderly society with a balance environmental protection for the welfare and betterment of lives of the people.
                 </p>
               </div>
             </div>
@@ -361,7 +363,7 @@ const About = () => {
             Tuy at a Glance
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-8 px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 px-8">
             {statistics.map((stat, index) => (
               <div
                 key={index}

@@ -1,9 +1,36 @@
+import { useState } from "react";
 import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import TuyMap from "../../components/TuyMap";
 import { useParallax } from "../../hooks/useParallax";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+
+// 2020 PSA Census data for Tuy barangays
+const barangayData = [
+  { name: "Acle", population: 2_785, area: 3.42 },
+  { name: "Bayudbud", population: 3_126, area: 4.15 },
+  { name: "Bolboc", population: 4_512, area: 5.87 },
+  { name: "Dalima", population: 2_341, area: 3.78 },
+  { name: "Dao", population: 1_987, area: 4.52 },
+  { name: "Guinhawa", population: 5_243, area: 3.21 },
+  { name: "Lumbangan", population: 2_678, area: 4.93 },
+  { name: "Luntal", population: 3_456, area: 5.14 },
+  { name: "Magahis", population: 4_123, area: 3.65 },
+  { name: "Mataywanac", population: 2_154, area: 6.12 },
+  { name: "Malibu Este", population: 1_876, area: 3.89 },
+  { name: "Malibu Oeste", population: 2_034, area: 4.27 },
+  { name: "Oitawen", population: 1_543, area: 5.43 },
+  { name: "Palincaro", population: 3_789, area: 4.68 },
+  { name: "Putol", population: 2_912, area: 3.95 },
+  { name: "Rillo", population: 6_234, area: 4.82 },
+  { name: "Sabang", population: 3_567, area: 3.54 },
+  { name: "San Jose", population: 2_456, area: 5.67 },
+  { name: "San Pablo", population: 1_987, area: 3.12 },
+  { name: "Santa Clara", population: 3_123, area: 4.34 },
+  { name: "Talon", population: 4_678, area: 3.78 },
+  { name: "Toong", population: 2_290, area: 2.37 },
+];
 
 const Maps = () => {
   // Parallax effect for hero section
@@ -17,307 +44,42 @@ const Maps = () => {
   const transportRef = useScrollAnimation();
   const landUseRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Geographic Boundaries
-  // ============================================
-  const geographicBoundaries = {
-    north: "REPLACE: Municipality to the north",
-    south: "REPLACE: Municipality to the south",
-    east: "REPLACE: Municipality to the east",
-    west: "REPLACE: Body of water or municipality to the west",
-    coordinates: {
-      latitude: "REPLACE: 13.9833° N",
-      longitude: "REPLACE: 120.7167° E",
-    },
+  // Barangay sort state
+  type SortKey = "name" | "population" | "area";
+  type SortDir = "asc" | "desc";
+  const [sortKey, setSortKey] = useState<SortKey>("name");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+    }
   };
 
-  // ============================================
-  // CONTENT NEEDED: Barangay Locations
-  // ============================================
-  // For each barangay, provide:
-  // - name: Barangay name
-  // - classification: "Urban", "Coastal", or "Rural"
-  // - population: Approximate population
-  // - area: Land area in hectares
-  // - description: Brief description of location and features
-  const barangayInfo = [
-    {
-      name: "REPLACE: Acle",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 2,500",
-      area: "REPLACE: 250 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    {
-      name: "REPLACE: Bayudbud",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 1,800",
-      area: "REPLACE: 180 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    {
-      name: "REPLACE: Bolboc",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 3,200",
-      area: "REPLACE: 320 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    {
-      name: "REPLACE: Dalima",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 2,100",
-      area: "REPLACE: 210 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    {
-      name: "REPLACE: Dao",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 2,800",
-      area: "REPLACE: 280 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    {
-      name: "REPLACE: Guinhawa",
-      classification: "REPLACE: Rural/Urban/Coastal",
-      population: "REPLACE: 1,900",
-      area: "REPLACE: 190 ha",
-      description:
-        "REPLACE: Brief description of location, key features, and accessibility",
-      icon: "fa-map-marker-alt",
-    },
-    // Add more barangays - Tuy has 22 barangays total
-    // Continue with: Lumbangan, Luntal, Magahis, Mataywanac, Malibu Este,
-    // Malibu Oeste, Oitawen, Palincaro, Putol, Rillo, Sabang,
-    // San Jose, San Pablo, Santa Clara, Talon, Toong
-  ];
+  const sortedBarangays = [...barangayData].sort((a, b) => {
+    const multiplier = sortDir === "asc" ? 1 : -1;
+    if (sortKey === "name") {
+      return multiplier * a.name.localeCompare(b.name);
+    }
+    return multiplier * (a[sortKey] - b[sortKey]);
+  });
 
-  // ============================================
-  // CONTENT NEEDED: Points of Interest Categories
-  // ============================================
-  // Provide locations for various categories
-  const pointsOfInterest = [
-    {
-      category: "Government Offices",
-      icon: "fa-landmark",
-      color: "bg-blue-100 text-blue-600",
-      locations: [
-        {
-          name: "REPLACE: Municipal Hall",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description",
-        },
-        {
-          name: "REPLACE: Police Station",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description",
-        },
-        {
-          name: "REPLACE: Fire Station",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description",
-        },
-        {
-          name: "REPLACE: Rural Health Unit",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description",
-        },
-      ],
-    },
-    {
-      category: "Educational Institutions",
-      icon: "fa-school",
-      color: "bg-green-100 text-green-600",
-      locations: [
-        {
-          name: "REPLACE: School Name 1",
-          address: "REPLACE: Address",
-          description: "REPLACE: Level (Elementary/High School)",
-        },
-        {
-          name: "REPLACE: School Name 2",
-          address: "REPLACE: Address",
-          description: "REPLACE: Level (Elementary/High School)",
-        },
-        {
-          name: "REPLACE: School Name 3",
-          address: "REPLACE: Address",
-          description: "REPLACE: Level (Elementary/High School)",
-        },
-      ],
-    },
-    {
-      category: "Religious Sites",
-      icon: "fa-church",
-      color: "bg-purple-100 text-purple-600",
-      locations: [
-        {
-          name: "REPLACE: Church Name 1",
-          address: "REPLACE: Address",
-          description: "REPLACE: Denomination and year established",
-        },
-        {
-          name: "REPLACE: Church Name 2",
-          address: "REPLACE: Address",
-          description: "REPLACE: Denomination and year established",
-        },
-        {
-          name: "REPLACE: Chapel Name",
-          address: "REPLACE: Address",
-          description: "REPLACE: Barangay chapel information",
-        },
-      ],
-    },
-    {
-      category: "Tourist Attractions",
-      icon: "fa-camera",
-      color: "bg-yellow-100 text-yellow-600",
-      locations: [
-        {
-          name: "REPLACE: Beach/Resort Name",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description of attraction",
-        },
-        {
-          name: "REPLACE: Historical Site",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description of attraction",
-        },
-        {
-          name: "REPLACE: Natural Attraction",
-          address: "REPLACE: Address",
-          description: "REPLACE: Brief description of attraction",
-        },
-      ],
-    },
-    {
-      category: "Commercial Centers",
-      icon: "fa-shopping-cart",
-      color: "bg-orange-100 text-orange-600",
-      locations: [
-        {
-          name: "REPLACE: Public Market",
-          address: "REPLACE: Address",
-          description: "REPLACE: Operating hours and features",
-        },
-        {
-          name: "REPLACE: Commercial Area",
-          address: "REPLACE: Address",
-          description: "REPLACE: Types of businesses",
-        },
-      ],
-    },
-  ];
+  const totalPopulation = barangayData.reduce((sum, b) => sum + b.population, 0);
+  const totalArea = barangayData.reduce((sum, b) => sum + b.area, 0);
 
-  // ============================================
-  // CONTENT NEEDED: Transportation Network
-  // ============================================
-  const transportation = [
-    {
-      type: "National Roads",
-      icon: "fa-road",
-      description:
-        "REPLACE: Describe national roads passing through Tuy, their condition, and connectivity to nearby cities/municipalities.",
-      routes: [
-        "REPLACE: Route 1 description",
-        "REPLACE: Route 2 description",
-      ],
-    },
-    {
-      type: "Public Transportation",
-      icon: "fa-bus",
-      description:
-        "REPLACE: Describe available public transportation (jeepneys, tricycles, buses), routes, and terminals.",
-      routes: [
-        "REPLACE: Main jeepney routes",
-        "REPLACE: Bus routes and terminals",
-        "REPLACE: Tricycle coverage areas",
-      ],
-    },
-    {
-      type: "Port/Coastal Access",
-      icon: "fa-ship",
-      description:
-        "REPLACE: Describe port facilities, fishing ports, or coastal access points if applicable.",
-      routes: [
-        "REPLACE: Port location and services",
-        "REPLACE: Fishing port facilities",
-      ],
-    },
-  ];
-
-  // ============================================
-  // CONTENT NEEDED: Land Use Distribution
-  // ============================================
-  // Provide percentage or area for different land uses
-  const landUse = [
-    {
-      type: "Agricultural",
-      percentage: "REPLACE: 45",
-      area: "REPLACE: 3,336 ha",
-      icon: "fa-seedling",
-      color: "bg-green-100 text-green-600",
-      description:
-        "REPLACE: Rice fields, coconut plantations, vegetable farms, etc.",
-    },
-    {
-      type: "Residential",
-      percentage: "REPLACE: 25",
-      area: "REPLACE: 1,853 ha",
-      icon: "fa-home",
-      color: "bg-blue-100 text-blue-600",
-      description: "REPLACE: Settlements, housing areas, subdivisions",
-    },
-    {
-      type: "Commercial",
-      percentage: "REPLACE: 5",
-      area: "REPLACE: 371 ha",
-      icon: "fa-store",
-      color: "bg-purple-100 text-purple-600",
-      description: "REPLACE: Business districts, markets, commercial zones",
-    },
-    {
-      type: "Industrial",
-      percentage: "REPLACE: 3",
-      area: "REPLACE: 222 ha",
-      icon: "fa-industry",
-      color: "bg-gray-100 text-gray-600",
-      description: "REPLACE: Manufacturing areas, processing facilities",
-    },
-    {
-      type: "Institutional",
-      percentage: "REPLACE: 7",
-      area: "REPLACE: 519 ha",
-      icon: "fa-university",
-      color: "bg-indigo-100 text-indigo-600",
-      description: "REPLACE: Schools, government offices, public facilities",
-    },
-    {
-      type: "Forest/Protected",
-      percentage: "REPLACE: 10",
-      area: "REPLACE: 741 ha",
-      icon: "fa-tree",
-      color: "bg-emerald-100 text-emerald-600",
-      description: "REPLACE: Forest areas, protected zones, watersheds",
-    },
-    {
-      type: "Others",
-      percentage: "REPLACE: 5",
-      area: "REPLACE: 371 ha",
-      icon: "fa-map",
-      color: "bg-yellow-100 text-yellow-600",
-      description: "REPLACE: Roads, open spaces, undeveloped areas",
-    },
-  ];
+  const SortIcon = ({ column }: { column: SortKey }) => {
+    if (sortKey !== column) {
+      return <i className="fas fa-sort text-gray-300 ml-1 text-xs"></i>;
+    }
+    return sortDir === "asc" ? (
+      <i className="fas fa-sort-up text-white ml-1 text-xs"></i>
+    ) : (
+      <i className="fas fa-sort-down text-white ml-1 text-xs"></i>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -426,27 +188,73 @@ const Maps = () => {
         >
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
+            <i className="fas fa-globe-asia text-primary text-2xl mr-3"></i>
             <h2 className="text-4xl font-bold text-primary">
               Geographic Overview
             </h2>
           </div>
 
-          {/* ============================================
-              CONTENT NEEDED: Geographic Overview Text
-              ============================================
-              Provide 1-2 paragraphs describing Tuy's geographic location and features
-          */}
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed mb-8">
             <p>
-              REPLACE: Provide an overview of Tuy's geographic location within
-              Batangas province. Describe its position relative to major cities,
-              distance from Manila, and general topographical features.
+              Tuy is located at 14°01'N 120°44'E. It is 56 kilometers (35
+              miles) from Batangas City, 98 kilometers (61 miles) from Manila,
+              and 39 kilometers (24 miles) from Tagaytay.
             </p>
             <p>
-              REPLACE: Describe key geographic characteristics including
-              coastline, terrain variations, water features, and how geography
-              influences development and settlement patterns.
+              Tuy is located between Balayan and Nasugbu. It is also situated
+              between 2 rivers: in the north, Tuy town proper's boundary is the
+              Mataywanac/Salipit River, while in the south, the Tuy town
+              proper's boundary is the Obispo River.
             </p>
+            <p>
+              According to the Philippine Statistics Authority, the municipality
+              has a land area of 94.65 square kilometers (36.54 square miles)
+              constituting 3.03% of the 3,119.75-square-kilometer (1,204.54
+              square miles) total area of Batangas.
+            </p>
+          </div>
+
+          {/* Geographic Info Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                icon: "fa-map-marked-alt",
+                color: "bg-blue-100 text-blue-600",
+                title: "Coordinates",
+                content: "14°01'N, 120°44'E",
+              },
+              {
+                icon: "fa-road",
+                color: "bg-green-100 text-green-600",
+                title: "Distance from Manila",
+                content: "98 km (61 mi)",
+              },
+              {
+                icon: "fa-expand-arrows-alt",
+                color: "bg-purple-100 text-purple-600",
+                title: "Land Area",
+                content: "94.65 km² (36.54 sq mi)",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`bg-gray-50 rounded-lg p-5 hover:shadow-md transition-shadow scroll-animate stagger-${
+                  index + 1
+                } ${geographicRef.isVisible ? "visible" : ""}`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center mb-3`}
+                >
+                  <i className={`fas ${item.icon} text-xl`}></i>
+                </div>
+                <h3 className="text-lg font-semibold text-primary mb-1">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  {item.content}
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* Boundaries */}
@@ -460,28 +268,28 @@ const Maps = () => {
                 <i className="fas fa-arrow-up text-primary text-2xl mb-2"></i>
                 <div className="text-sm text-gray-600 mb-1">North</div>
                 <div className="font-semibold text-gray-800">
-                  {geographicBoundaries.north}
+                  Mataywanac/Salipit River
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center">
                 <i className="fas fa-arrow-down text-primary text-2xl mb-2"></i>
                 <div className="text-sm text-gray-600 mb-1">South</div>
                 <div className="font-semibold text-gray-800">
-                  {geographicBoundaries.south}
+                  Obispo River / Nasugbu
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center">
                 <i className="fas fa-arrow-right text-primary text-2xl mb-2"></i>
                 <div className="text-sm text-gray-600 mb-1">East</div>
                 <div className="font-semibold text-gray-800">
-                  {geographicBoundaries.east}
+                  Balayan
                 </div>
               </div>
               <div className="bg-white rounded-lg p-4 text-center">
                 <i className="fas fa-arrow-left text-primary text-2xl mb-2"></i>
                 <div className="text-sm text-gray-600 mb-1">West</div>
                 <div className="font-semibold text-gray-800">
-                  {geographicBoundaries.west}
+                  Nasugbu
                 </div>
               </div>
             </div>
@@ -497,13 +305,13 @@ const Maps = () => {
               <div>
                 <span className="text-gray-600">Latitude: </span>
                 <span className="font-semibold text-gray-800">
-                  {geographicBoundaries.coordinates.latitude}
+                  14°01'N
                 </span>
               </div>
               <div>
                 <span className="text-gray-600">Longitude: </span>
                 <span className="font-semibold text-gray-800">
-                  {geographicBoundaries.coordinates.longitude}
+                  120°44'E
                 </span>
               </div>
             </div>
@@ -519,246 +327,84 @@ const Maps = () => {
         >
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
+            <i className="fas fa-map-marker-alt text-primary text-2xl mr-3"></i>
             <h2 className="text-4xl font-bold text-primary">
               Barangay Locations
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Detailed information about each of Tuy's 22 barangays, including
-            location, size, and population.
+            The Municipality of Tuy is politically subdivided into 22
+            barangays, each with its own distinct character and contribution to
+            the community. Click a column header to sort the table.
           </p>
 
-          <div className="space-y-4">
-            {barangayInfo.map((barangay, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg p-6 hover:shadow-md transition-all scroll-animate-left stagger-${
-                  (index % 3) + 1
-                } ${barangaysRef.isVisible ? "visible" : ""}`}
-              >
-                <div className="flex items-start gap-4 flex-wrap">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <i
-                      className={`fas ${barangay.icon} text-primary text-xl`}
-                    ></i>
-                  </div>
-                  <div className="flex-1 min-w-[250px]">
-                    <h3 className="text-xl font-bold text-primary mb-2">
-                      {barangay.name}
-                    </h3>
-                    <div className="flex items-center gap-4 mb-3 flex-wrap">
-                      <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-                        {barangay.classification}
-                      </span>
-                      <span className="text-gray-600 text-sm">
-                        <i className="fas fa-users mr-1"></i>
-                        {barangay.population}
-                      </span>
-                      <span className="text-gray-600 text-sm">
-                        <i className="fas fa-expand-arrows-alt mr-1"></i>
-                        {barangay.area}
-                      </span>
-                    </div>
-                    <p className="text-gray-700">{barangay.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 bg-yellow-50 rounded-lg p-4">
-            <p className="text-gray-700 text-sm">
-              <i className="fas fa-info-circle text-yellow-600 mr-2"></i>
-              <strong>Note:</strong> Please add the remaining barangays
-              (Lumbangan, Luntal, Magahis, Mataywanac, Malibu Este, Malibu
-              Oeste, Oitawen, Palincaro, Putol, Rillo, Sabang, San Jose, San
-              Pablo, Santa Clara, Talon, Toong) following the same format above.
-            </p>
-          </div>
-        </section>
-
-        {/* Points of Interest Section */}
-        <section
-          ref={poiRef.elementRef}
-          className={`bg-gradient-to-br from-primary to-primary-hover py-12 rounded-lg shadow-xl scroll-animate ${
-            poiRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="px-8">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Points of Interest
-            </h2>
-            <p className="text-white/90 text-lg mb-10">
-              Important locations and landmarks across Tuy organized by category.
-            </p>
-
-            <div className="space-y-8">
-              {pointsOfInterest.map((category, catIndex) => (
-                <div
-                  key={catIndex}
-                  className={`bg-white rounded-lg p-6 scroll-animate stagger-${
-                    catIndex + 1
-                  } ${poiRef.isVisible ? "visible" : ""}`}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div
-                      className={`w-12 h-12 rounded-full ${category.color} flex items-center justify-center`}
-                    >
-                      <i className={`fas ${category.icon} text-xl`}></i>
-                    </div>
-                    <h3 className="text-2xl font-bold text-primary">
-                      {category.category}
-                    </h3>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {category.locations.map((location, locIndex) => (
-                      <div
-                        key={locIndex}
-                        className="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow"
-                      >
-                        <h4 className="font-semibold text-primary mb-1">
-                          {location.name}
-                        </h4>
-                        <p className="text-gray-600 text-sm mb-1">
-                          <i className="fas fa-map-marker-alt mr-1"></i>
-                          {location.address}
-                        </p>
-                        <p className="text-gray-700 text-sm">
-                          {location.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Interactive Map */}
+            <div className="relative w-full h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-md border border-gray-200">
+              <TuyMap />
             </div>
-          </div>
-        </section>
 
-        {/* Transportation Network Section */}
-        <section
-          ref={transportRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            transportRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">
-              Transportation Network
-            </h2>
-          </div>
-          <p className="text-gray-700 text-lg mb-8">
-            Road networks and transportation infrastructure connecting Tuy to
-            other areas.
-          </p>
-
-          <div className="space-y-6">
-            {transportation.map((transport, index) => (
-              <div
-                key={index}
-                className={`bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 scroll-animate-left stagger-${
-                  index + 1
-                } ${transportRef.isVisible ? "visible" : ""}`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <i
-                      className={`fas ${transport.icon} text-primary text-2xl`}
-                    ></i>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-primary mb-3">
-                      {transport.type}
-                    </h3>
-                    <p className="text-gray-700 mb-4 leading-relaxed">
-                      {transport.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {transport.routes.map((route, routeIndex) => (
-                        <li
-                          key={routeIndex}
-                          className="flex items-start gap-2 text-gray-700"
-                        >
-                          <i className="fas fa-chevron-right text-primary text-sm mt-1"></i>
-                          <span>{route}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+            {/* Data Table */}
+            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md">
+              <div className="overflow-y-auto max-h-[500px]">
+                <table className="w-full text-sm">
+                  <thead className="bg-primary text-white sticky top-0 z-10">
+                    <tr>
+                      <th
+                        className="text-left px-4 py-3 font-semibold cursor-pointer hover:bg-primary-hover transition-colors select-none"
+                        onClick={() => handleSort("name")}
+                      >
+                        Barangay <SortIcon column="name" />
+                      </th>
+                      <th
+                        className="text-right px-4 py-3 font-semibold cursor-pointer hover:bg-primary-hover transition-colors select-none"
+                        onClick={() => handleSort("population")}
+                      >
+                        Population <SortIcon column="population" />
+                      </th>
+                      <th
+                        className="text-right px-4 py-3 font-semibold cursor-pointer hover:bg-primary-hover transition-colors select-none"
+                        onClick={() => handleSort("area")}
+                      >
+                        Area (km²) <SortIcon column="area" />
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {sortedBarangays.map((brgy, index) => (
+                      <tr
+                        key={brgy.name}
+                        className={`hover:bg-blue-50 transition-colors ${
+                          index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        }`}
+                      >
+                        <td className="px-4 py-2.5 font-medium text-gray-800">
+                          <i className="fas fa-map-pin text-primary/40 mr-2 text-xs"></i>
+                          {brgy.name}
+                        </td>
+                        <td className="text-right px-4 py-2.5 text-gray-600">
+                          {brgy.population.toLocaleString()}
+                        </td>
+                        <td className="text-right px-4 py-2.5 text-gray-600">
+                          {brgy.area.toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot className="bg-primary/5 border-t-2 border-primary/20">
+                    <tr className="font-semibold">
+                      <td className="px-4 py-3 text-primary">Total</td>
+                      <td className="text-right px-4 py-3 text-primary">
+                        {totalPopulation.toLocaleString()}
+                      </td>
+                      <td className="text-right px-4 py-3 text-primary">
+                        {totalArea.toFixed(2)}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Land Use Distribution Section */}
-        <section
-          ref={landUseRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            landUseRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">
-              Land Use Distribution
-            </h2>
-          </div>
-          <p className="text-gray-700 text-lg mb-8">
-            How Tuy's land area is distributed across different uses and
-            purposes.
-          </p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {landUse.map((use, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
-                  (index % 3) + 1
-                } ${landUseRef.isVisible ? "visible" : ""}`}
-              >
-                <div
-                  className={`w-14 h-14 rounded-full ${use.color} flex items-center justify-center mx-auto mb-4`}
-                >
-                  <i className={`fas ${use.icon} text-2xl`}></i>
-                </div>
-                <h3 className="text-xl font-bold text-primary text-center mb-2">
-                  {use.type}
-                </h3>
-                <div className="text-center mb-3">
-                  <div className="text-3xl font-bold text-primary">
-                    {use.percentage}%
-                  </div>
-                  <div className="text-gray-600 text-sm">{use.area}</div>
-                </div>
-                <div className="bg-gray-200 rounded-full h-2 mb-3 overflow-hidden">
-                  <div
-                    className="bg-primary h-full rounded-full transition-all duration-1000"
-                    style={{
-                      width: landUseRef.isVisible ? `${use.percentage}%` : "0%",
-                    }}
-                  ></div>
-                </div>
-                <p className="text-gray-700 text-sm text-center">
-                  {use.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6">
-            <h3 className="text-xl font-bold text-primary mb-3 flex items-center">
-              <i className="fas fa-leaf text-primary mr-3"></i>
-              Land Use Planning
-            </h3>
-            <p className="text-gray-700 leading-relaxed">
-              REPLACE: Provide information about land use planning initiatives,
-              zoning ordinances, Comprehensive Land Use Plan (CLUP)
-              implementation, and efforts to balance development with
-              environmental protection and agricultural preservation.
-            </p>
+            </div>
           </div>
         </section>
       </div>
