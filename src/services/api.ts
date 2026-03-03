@@ -188,6 +188,53 @@ export async function apiDeleteEvent(id: number) {
 }
 
 // ============================================
+// Map Pins
+// ============================================
+
+export interface MapPin {
+  id: number;
+  category: 'halls' | 'barangays' | 'offices';
+  title: string;
+  lat: number;
+  lng: number;
+  address: string | null;
+  description: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
+export async function apiGetPins(category?: string) {
+  const params = category ? `?category=${encodeURIComponent(category)}` : '';
+  return request<MapPin[]>(`pins.php${params}`);
+}
+
+export async function apiAddPin(data: {
+  category: 'halls' | 'barangays' | 'offices';
+  title: string;
+  lat: number;
+  lng: number;
+  address?: string;
+  description?: string;
+  sort_order?: number;
+}) {
+  return request('pins.php', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function apiUpdatePin(id: number, data: Partial<Omit<MapPin, 'id' | 'created_at'>>) {
+  return request(`pins.php?id=${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
+}
+
+export async function apiDeletePin(id: number) {
+  return request(`pins.php?id=${id}`, { method: 'DELETE' });
+}
+
+// ============================================
 // Settings
 // ============================================
 
@@ -239,11 +286,12 @@ export async function apiUploadFile(file: File, type: 'gallery' | 'forms' | 'ord
 // ============================================
 
 export async function apiGetDashboardStats() {
-  const [gallery, forms, ordinances, events] = await Promise.all([
+  const [gallery, forms, ordinances, events, pins] = await Promise.all([
     apiGetGallery(),
     apiGetFiles('form'),
     apiGetFiles('ordinance'),
     apiGetEvents(),
+    apiGetPins(),
   ]);
 
   return {
@@ -251,5 +299,6 @@ export async function apiGetDashboardStats() {
     formsCount: forms.data?.length ?? 0,
     ordinancesCount: ordinances.data?.length ?? 0,
     eventsCount: events.data?.length ?? 0,
+    pinsCount: pins.data?.length ?? 0,
   };
 }

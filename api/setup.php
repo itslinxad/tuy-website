@@ -112,6 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             `setting_value` TEXT NOT NULL,
             `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
+        
+        "CREATE TABLE IF NOT EXISTS `map_pins` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `category` ENUM('halls','barangays','offices') NOT NULL,
+            `title` VARCHAR(255) NOT NULL,
+            `lat` DECIMAL(10,7) NOT NULL,
+            `lng` DECIMAL(10,7) NOT NULL,
+            `address` VARCHAR(500) DEFAULT NULL,
+            `description` TEXT DEFAULT NULL,
+            `sort_order` INT DEFAULT 0,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
     ];
     
     foreach ($tables as $sql) {
@@ -248,6 +260,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare("INSERT INTO site_settings (setting_key, setting_value) VALUES (?, ?)");
     foreach ($settings as $s) {
         $stmt->bind_param('ss', $s[0], $s[1]);
+        $stmt->execute();
+    }
+    $stmt->close();
+    
+    // ============================================
+    // Seed map pins (33 markers)
+    // ============================================
+    $pins = [
+        // Halls (3)
+        ['halls', 'Tuy Municipal Hall', 14.0191338, 120.7302307, 'Municipal Hall, Tuy, Batangas 4214', 'Main government center and administrative office of the Municipality of Tuy'],
+        ['halls', 'Tuy Municipal Gymnasium', 13.9975000, 120.7265000, 'Tuy, Batangas', 'Multi-purpose sports and events facility'],
+        ['halls', 'Tuy Municipal Plaza', 13.9990000, 120.7255000, 'Town Center, Tuy, Batangas', 'Public gathering place and community events venue'],
+        // Barangays (22)
+        ['barangays', 'Barangay Acle', 14.0125000, 120.7350000, null, 'One of the 22 barangays in Tuy municipality'],
+        ['barangays', 'Barangay Bayudbud', 14.0050000, 120.7400000, null, 'Coastal barangay along Balayan Bay'],
+        ['barangays', 'Barangay Bolbok', 13.9850000, 120.7150000, null, 'Agricultural barangay in Tuy'],
+        ['barangays', 'Barangay Dalima', 13.9750000, 120.7200000, null, 'Rural barangay with farming community'],
+        ['barangays', 'Barangay Dao', 13.9900000, 120.7100000, null, 'Mountainous barangay with scenic views'],
+        ['barangays', 'Barangay Guinhawa', 14.0000000, 120.7300000, null, 'Residential and commercial barangay'],
+        ['barangays', 'Barangay Lumbangan', 13.9650000, 120.7250000, null, 'Southern barangay of Tuy'],
+        ['barangays', 'Barangay Luntal', 13.9800000, 120.7350000, null, 'Barangay with mixed residential and agricultural areas'],
+        ['barangays', 'Barangay Magahis', 14.0100000, 120.7250000, null, 'Northern barangay near town center'],
+        ['barangays', 'Barangay Malibu', 14.0150000, 120.7450000, null, 'Coastal barangay with beach access'],
+        ['barangays', 'Barangay Mataywanac', 13.9700000, 120.7100000, null, 'Western barangay of Tuy'],
+        ['barangays', 'Barangay Burgos', 13.9850000, 120.7450000, null, 'Eastern barangay with rural character'],
+        ['barangays', 'Barangay Luna', 13.9920000, 120.7180000, null, 'Central barangay near municipal center'],
+        ['barangays', 'Barangay Palincaro', 14.0080000, 120.7320000, null, 'Barangay with commercial establishments'],
+        ['barangays', 'Barangay Rillo', 14.0200000, 120.7280000, null, 'Northern barangay of Tuy'],
+        ['barangays', 'Barangay Putol', 13.9780000, 120.7280000, null, 'Agricultural barangay in southern Tuy'],
+        ['barangays', 'Barangay Sabang', 14.0020000, 120.7480000, null, 'Coastal barangay along Balayan Bay'],
+        ['barangays', 'Barangay Rizal', 13.9880000, 120.7220000, null, 'Barangay near town proper'],
+        ['barangays', 'Barangay Talon', 13.9950000, 120.7150000, null, 'Western barangay with farming areas'],
+        ['barangays', 'Barangay Toong', 13.9720000, 120.7320000, null, 'Southern barangay of Tuy'],
+        ['barangays', 'Barangay Tuyon-Tuyon', 14.0030000, 120.7200000, null, 'Central barangay in Tuy municipality'],
+        ['barangays', 'Barangay San Jose', 13.9550000, 120.7500000, null, 'Southern barangay of Tuy municipality'],
+        // Offices (8)
+        ['offices', 'Tuy Rural Health Unit', 13.9990000, 120.7260000, 'Tuy, Batangas', 'Primary healthcare facility providing medical services to residents'],
+        ['offices', 'Tuy Police Station', 13.9978000, 120.7245000, 'Tuy, Batangas', 'Municipal police station ensuring peace and order'],
+        ['offices', 'Tuy Fire Station', 13.9970000, 120.7270000, 'Tuy, Batangas', 'Fire protection and emergency response services'],
+        ['offices', 'Tuy Post Office', 13.9988000, 120.7258000, 'Tuy, Batangas', 'Philippine Postal Corporation branch office'],
+        ['offices', 'Tuy Public Market', 13.9995000, 120.7268000, 'Town Center, Tuy, Batangas', 'Municipal market serving the community'],
+        ['offices', 'Tuy Central School', 14.0005000, 120.7240000, 'Tuy, Batangas', 'Public elementary school'],
+        ['offices', 'Tuy National High School', 14.0015000, 120.7275000, 'Tuy, Batangas', 'Public secondary school'],
+        ['offices', 'Tuy Parish Church', 13.9985000, 120.7252000, 'Town Center, Tuy, Batangas', 'Historic Catholic church - Saint Vincent Ferrer Parish Church'],
+    ];
+    
+    $stmt = $conn->prepare("INSERT INTO map_pins (category, title, lat, lng, address, description, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    foreach ($pins as $i => $p) {
+        $order = $i + 1;
+        $stmt->bind_param('ssddssi', $p[0], $p[1], $p[2], $p[3], $p[4], $p[5], $order);
         $stmt->execute();
     }
     $stmt->close();

@@ -1,12 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   APIProvider,
   Map,
-  Marker,
+  AdvancedMarker,
+  Pin,
   InfoWindow,
 } from "@vis.gl/react-google-maps";
 import MapFilterPills from "./MapFilterPills";
-import { tuyMarkers, TUY_CENTER, getMarkerCounts } from "../data/tuyLocations";
+import { TUY_CENTER, tuyMarkers, fetchMapPins, computeMarkerCounts } from "../data/tuyLocations";
 import type { MarkerCategory, MapMarker } from "../types/map.types";
 
 /**
@@ -15,13 +16,16 @@ import type { MarkerCategory, MapMarker } from "../types/map.types";
  * Interactive Google Maps component showing points of interest in Tuy, Batangas.
  * Features:
  * - Filter by category (Halls, Barangays, Offices)
- * - Custom markers with category-specific colors
+ * - AdvancedMarker with Pin for category-specific colors
  * - Info windows on marker click
- * - Muted map styling consistent with website theme
+ * - Fetches pins from API with hardcoded fallback
  */
 
 function TuyMap() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
+
+  // Markers from API (or fallback)
+  const [markers, setMarkers] = useState<MapMarker[]>(tuyMarkers);
 
   // Filter state - all categories active by default
   const [activeFilters, setActiveFilters] = useState<Set<MarkerCategory>>(
@@ -31,10 +35,18 @@ function TuyMap() {
   // Selected marker for info window
   const [selectedMarker, setSelectedMarker] = useState<MapMarker | null>(null);
 
+  // Fetch pins from API on mount
+  useEffect(() => {
+    fetchMapPins().then(setMarkers);
+  }, []);
+
   // Filter markers based on active filters
   const filteredMarkers = useMemo(() => {
-    return tuyMarkers.filter((marker) => activeFilters.has(marker.category));
-  }, [activeFilters]);
+    return markers.filter((marker) => activeFilters.has(marker.category));
+  }, [markers, activeFilters]);
+
+  // Compute counts dynamically from fetched data
+  const markerCounts = useMemo(() => computeMarkerCounts(markers), [markers]);
 
   // Handle filter toggle - exclusive selection (only one category shown at a time)
   const handleFilterToggle = (category: MarkerCategory) => {
@@ -48,34 +60,31 @@ function TuyMap() {
     });
   };
 
-  // Get marker counts for filter pills
-  const markerCounts = getMarkerCounts();
-
-  // Get category color for markers
-  const getCategoryColor = (category: MarkerCategory): string => {
+  // Get category colors for Pin component
+  const getCategoryColors = (category: MarkerCategory) => {
     switch (category) {
       case "halls":
-        return "#01377d"; // Primary blue
+        return { background: "#01377d", borderColor: "#00306e", glyphColor: "#ffffff" };
       case "barangays":
-        return "#2e7d32"; // Green
+        return { background: "#2e7d32", borderColor: "#1b5e20", glyphColor: "#ffffff" };
       case "offices":
-        return "#ed6c02"; // Orange
+        return { background: "#ed6c02", borderColor: "#e65100", glyphColor: "#ffffff" };
       default:
-        return "#01377d";
+        return { background: "#01377d", borderColor: "#00306e", glyphColor: "#ffffff" };
     }
   };
 
-  // Get category icon for markers
-  const getCategoryIcon = (category: MarkerCategory): string => {
+  // Get category label for info window
+  const getCategoryLabel = (category: MarkerCategory): string => {
     switch (category) {
       case "halls":
-        return "🏛"; // Landmark (single character)
+        return "Municipal Facility";
       case "barangays":
-        return "📍"; // Map marker (single character)
+        return "Barangay";
       case "offices":
-        return "🏢"; // Building (single character)
+        return "Government Office";
       default:
-        return "📍";
+        return "";
     }
   };
 
@@ -119,7 +128,7 @@ function TuyMap() {
     return (
       <div className="w-full h-[500px] md:h-[600px] bg-gray-100 rounded-lg flex items-center justify-center">
         <div className="text-center p-8">
-          <div className="text-4xl mb-4">🗺️</div>
+          <div className="text-4xl mb-4">&#x1F5FA;&#xFE0F;</div>
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
             Something went wrong.
           </h3>
@@ -141,30 +150,27 @@ function TuyMap() {
           fullscreenControl={true}
           zoomControl={true}
           styles={mapStyles}
+          mapId="DEMO_MAP_ID"
           className="w-full h-full"
         >
           {/* Render filtered markers */}
-          {filteredMarkers.map((marker) => (
-            <Marker
-              key={marker.id}
-              position={marker.position}
-              onClick={() => setSelectedMarker(marker)}
-              title={marker.title}
-              icon={{
-                path: "M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z",
-                fillColor: getCategoryColor(marker.category),
-                fillOpacity: 1,
-                strokeColor: "#ffffff",
-                strokeWeight: 2,
-                scale: 1,
-              }}
-              label={{
-                text: getCategoryIcon(marker.category),
-                color: "#ffffff",
-                fontSize: "14px",
-              }}
-            />
-          ))}
+          {filteredMarkers.map((marker) => {
+            const colors = getCategoryColors(marker.category);
+            return (
+              <AdvancedMarker
+                key={marker.id}
+                position={marker.position}
+                onClick={() => setSelectedMarker(marker)}
+                title={marker.title}
+              >
+                <Pin
+                  background={colors.background}
+                  borderColor={colors.borderColor}
+                  glyphColor={colors.glyphColor}
+                />
+              </AdvancedMarker>
+            );
+          })}
 
           {/* Info window for selected marker */}
           {selectedMarker && (
@@ -174,19 +180,22 @@ function TuyMap() {
               maxWidth={300}
             >
               <div className="p-2">
-                <h3 className="font-semibold text-gray-800 mb-1 flex items-center gap-2">
-                  <span>{getCategoryIcon(selectedMarker.category)}</span>
+                <h3 className="font-semibold text-gray-800 mb-1">
                   {selectedMarker.title}
                 </h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  {selectedMarker.description}
-                </p>
+                {selectedMarker.description && (
+                  <p className="text-sm text-gray-600 mb-2">
+                    {selectedMarker.description}
+                  </p>
+                )}
+                {selectedMarker.address && (
+                  <p className="text-xs text-gray-500 mb-1">
+                    <i className="fas fa-map-marker-alt mr-1"></i>
+                    {selectedMarker.address}
+                  </p>
+                )}
                 <div className="text-xs text-gray-500 capitalize">
-                  {selectedMarker.category === "barangays"
-                    ? "Barangay"
-                    : selectedMarker.category === "halls"
-                      ? "Municipal Facility"
-                      : "Government Office"}
+                  {getCategoryLabel(selectedMarker.category)}
                 </div>
               </div>
             </InfoWindow>

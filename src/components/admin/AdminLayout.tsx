@@ -12,6 +12,7 @@ const navItems = [
   { path: "/admin/gallery", label: "Gallery", icon: "fa-images" },
   { path: "/admin/files", label: "Files", icon: "fa-file-pdf" },
   { path: "/admin/events", label: "Events", icon: "fa-calendar-alt" },
+  { path: "/admin/map-pins", label: "Map Pins", icon: "fa-map-marker-alt" },
   { path: "/admin/settings", label: "Settings", icon: "fa-cog" },
 ];
 

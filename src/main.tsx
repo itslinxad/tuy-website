@@ -25,6 +25,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard.tsx"));
 const AdminGallery = lazy(() => import("./pages/admin/AdminGallery.tsx"));
 const AdminFiles = lazy(() => import("./pages/admin/AdminFiles.tsx"));
 const AdminEvents = lazy(() => import("./pages/admin/AdminEvents.tsx"));
+const AdminMapPins = lazy(() => import("./pages/admin/AdminMapPins.tsx"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings.tsx"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout.tsx"));
 const AdminProtectedRoute = lazy(() => import("./components/admin/AdminProtectedRoute.tsx"));
@@ -64,6 +65,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/admin/gallery" element={<AdminAuthProvider><AdminProtectedRoute><AdminLayout><AdminGallery /></AdminLayout></AdminProtectedRoute></AdminAuthProvider>} />
         <Route path="/admin/files" element={<AdminAuthProvider><AdminProtectedRoute><AdminLayout><AdminFiles /></AdminLayout></AdminProtectedRoute></AdminAuthProvider>} />
         <Route path="/admin/events" element={<AdminAuthProvider><AdminProtectedRoute><AdminLayout><AdminEvents /></AdminLayout></AdminProtectedRoute></AdminAuthProvider>} />
+        <Route path="/admin/map-pins" element={<AdminAuthProvider><AdminProtectedRoute><AdminLayout><AdminMapPins /></AdminLayout></AdminProtectedRoute></AdminAuthProvider>} />
         <Route path="/admin/settings" element={<AdminAuthProvider><AdminProtectedRoute><AdminLayout><AdminSettings /></AdminLayout></AdminProtectedRoute></AdminAuthProvider>} />
       </Routes>
       </Suspense>

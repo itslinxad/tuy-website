@@ -1,9 +1,12 @@
 /**
  * Location data for Tuy, Batangas
  * Contains markers for Municipal Halls, Barangays, and Government Offices
+ * Supports API-fetched pins with hardcoded fallback
  */
 
-import type { MapMarker, MapConfig } from '../types/map.types';
+import type { MapMarker, MapConfig, MarkerCounts } from '../types/map.types';
+import { apiGetPins } from '../services/api';
+import type { MapPin } from '../services/api';
 
 /**
  * Center coordinates for Tuy, Batangas (Municipal Hall)
@@ -363,3 +366,44 @@ export const getMarkerCounts = () => {
     offices: tuyMarkers.filter((m) => m.category === 'offices').length,
   };
 };
+
+/**
+ * Compute marker counts from any array of MapMarkers
+ */
+export const computeMarkerCounts = (markers: MapMarker[]): MarkerCounts => {
+  return {
+    halls: markers.filter((m) => m.category === 'halls').length,
+    barangays: markers.filter((m) => m.category === 'barangays').length,
+    offices: markers.filter((m) => m.category === 'offices').length,
+  };
+};
+
+/**
+ * Transform API MapPin (flat lat/lng) to frontend MapMarker (nested position)
+ */
+function pinToMarker(pin: MapPin): MapMarker {
+  return {
+    id: String(pin.id),
+    category: pin.category,
+    position: { lat: pin.lat, lng: pin.lng },
+    title: pin.title,
+    address: pin.address ?? undefined,
+    description: pin.description ?? undefined,
+  };
+}
+
+/**
+ * Fetch map pins from API, falling back to hardcoded data on failure.
+ * Used by TuyMap to load markers dynamically.
+ */
+export async function fetchMapPins(): Promise<MapMarker[]> {
+  try {
+    const res = await apiGetPins();
+    if (res.data && res.data.length > 0) {
+      return res.data.map(pinToMarker);
+    }
+  } catch {
+    // API unavailable (e.g. dev mode) — fall through to fallback
+  }
+  return tuyMarkers;
+}

@@ -7,6 +7,7 @@ interface Stats {
   formsCount: number;
   ordinancesCount: number;
   eventsCount: number;
+  pinsCount: number;
 }
 
 const statCards = [
@@ -14,12 +15,14 @@ const statCards = [
   { key: "formsCount" as const, label: "Downloadable Forms", icon: "fa-file-alt", color: "bg-green-500", link: "/admin/files" },
   { key: "ordinancesCount" as const, label: "Ordinances", icon: "fa-gavel", color: "bg-purple-500", link: "/admin/files" },
   { key: "eventsCount" as const, label: "Calendar Events", icon: "fa-calendar-alt", color: "bg-orange-500", link: "/admin/events" },
+  { key: "pinsCount" as const, label: "Map Pins", icon: "fa-map-marker-alt", color: "bg-teal-500", link: "/admin/map-pins" },
 ];
 
 const quickActions = [
   { label: "Upload Image", icon: "fa-cloud-upload-alt", link: "/admin/gallery", color: "text-blue-600" },
   { label: "Add Form", icon: "fa-file-upload", link: "/admin/files", color: "text-green-600" },
   { label: "Add Event", icon: "fa-calendar-plus", link: "/admin/events", color: "text-orange-600" },
+  { label: "Manage Pins", icon: "fa-map-pin", link: "/admin/map-pins", color: "text-teal-600" },
   { label: "Site Settings", icon: "fa-cog", link: "/admin/settings", color: "text-gray-600" },
 ];
 
@@ -46,7 +49,7 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {statCards.map((card) => (
           <Link
             key={card.key}
@@ -77,7 +80,7 @@ const AdminDashboard = () => {
       {/* Quick Actions */}
       <div className="bg-white rounded-xl shadow-sm p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {quickActions.map((action) => (
             <Link
               key={action.label}
