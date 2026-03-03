@@ -751,7 +751,7 @@ function Home() {
                 Municipal Hall, Tuy, Batangas
               </p>
               <p className="text-sm md:text-base text-white/90">
-                Philippines 4200
+                Philippines 4214
               </p>
             </div>
 
@@ -764,10 +764,10 @@ function Home() {
               </div>
               <h3 className="text-lg md:text-xl font-semibold mb-2">Contact</h3>
               <p className="text-sm md:text-base text-white/90">
-                Phone: (043) XXX-XXXX
+                Trunkline: (043) 276-0047
               </p>
               <p className="text-sm md:text-base text-white/90">
-                Email: info@tuybatangas.gov.ph
+                (043) 276-0100 / 276-0104
               </p>
             </div>
 

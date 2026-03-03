@@ -916,7 +916,7 @@ function ContactMap({
   lat = 14.019133820661795,
   lng = 120.73023066599163,
   title = "Tuy Municipal Hall",
-  address = "Municipal Hall, Tuy, Batangas 4200",
+  address = "Municipal Hall, Tuy, Batangas 4214",
 }: ContactMapProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
   const destination = { lat, lng };

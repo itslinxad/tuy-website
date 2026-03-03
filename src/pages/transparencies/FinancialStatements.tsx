@@ -426,11 +426,7 @@ const FinancialStatements = () => {
                   </p>
                   <p>
                     <i className="fas fa-phone mr-2 text-primary"></i>
-                    REPLACE: (043) XXX-XXXX
-                  </p>
-                  <p>
-                    <i className="fas fa-envelope mr-2 text-primary"></i>
-                    REPLACE: mbo@tuy.gov.ph
+                    Trunkline: (043) 276-0047 local 203
                   </p>
                   <p>
                     <i className="fas fa-clock mr-2 text-primary"></i>
@@ -454,11 +450,7 @@ const FinancialStatements = () => {
                   </p>
                   <p>
                     <i className="fas fa-phone mr-2 text-green-600"></i>
-                    REPLACE: (043) XXX-XXXX
-                  </p>
-                  <p>
-                    <i className="fas fa-envelope mr-2 text-green-600"></i>
-                    REPLACE: mto@tuy.gov.ph
+                    Trunkline: (043) 276-0047 local 223-224
                   </p>
                   <p>
                     <i className="fas fa-clock mr-2 text-green-600"></i>
@@ -544,22 +536,12 @@ const FinancialStatements = () => {
           </p>
           <div className="flex justify-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/MunicipalityOfTuy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
             >
               <i className="fab fa-facebook-f text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-twitter text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-instagram text-xl"></i>
             </a>
           </div>
         </section>

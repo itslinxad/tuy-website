@@ -515,6 +515,40 @@ const Demography = () => {
           </div>
         </section>
 
+        {/* Languages Section */}
+        <section
+          ref={languageRef.elementRef}
+          className={`bg-white rounded-lg shadow-xl p-8 scroll-animate ${
+            languageRef.isVisible ? "visible" : ""
+          }`}
+        >
+          <h2 className="text-4xl font-bold text-primary mb-4">
+            Languages Spoken
+          </h2>
+          <p className="text-gray-600 text-lg mb-8">
+            Languages widely used in the Municipality of Tuy.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {languages.map((lang, index) => (
+              <div
+                key={index}
+                className={`bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
+                  index + 1
+                } ${languageRef.isVisible ? "visible" : ""}`}
+              >
+                <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  <i className={`fas ${lang.icon} text-xl`}></i>
+                </div>
+                <h3 className="text-lg font-semibold text-primary mb-2">
+                  {lang.name}
+                </h3>
+                <p className="text-gray-600 text-sm">{lang.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Religious Demographics Section */}
         <section
           ref={religionRef.elementRef}

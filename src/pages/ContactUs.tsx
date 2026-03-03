@@ -139,97 +139,131 @@ const ContactUs = () => {
     {
       icon: "fa-user-tie",
       name: "Office of the Municipal Mayor",
-      head: "REPLACE: Hon. [Mayor Name]",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mayor@tuy.gov.ph",
+      head: "Hon. Jose Jecerell C. Cerrado",
+      phone: "Trunkline: (043) 276-0047 local 200-201",
       location: "2nd Floor, Municipal Hall",
     },
     {
       icon: "fa-user",
-      name: "Office of the Vice Mayor",
-      head: "REPLACE: Hon. [Vice Mayor Name]",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: vicemayor@tuy.gov.ph",
+      name: "Office of the Vice Mayor / Sangguniang Bayan",
+      head: "Hon. Armando P. Afable",
+      phone: "(043) 276-0121",
+      location: "2nd Floor, Municipal Hall",
+    },
+    {
+      icon: "fa-file-alt",
+      name: "Municipal Administrator's Office",
+      head: "Menandro V. De Castro, Admin Officer V",
+      phone: "Trunkline: (043) 276-0047",
+      location: "Municipal Hall",
+    },
+    {
+      icon: "fa-chart-line",
+      name: "Municipal Planning & Development Office",
+      head: "Guillerma D. Mayor, MPDC",
+      phone: "Trunkline: (043) 276-0047 local 206",
       location: "2nd Floor, Municipal Hall",
     },
     {
       icon: "fa-calculator",
       name: "Municipal Budget Office",
-      head: "REPLACE: [Name], Municipal Budget Officer",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mbo@tuy.gov.ph",
+      head: "Rita D. Macalindong, Municipal Budget Officer",
+      phone: "Trunkline: (043) 276-0047 local 203",
       location: "2nd Floor, Municipal Hall",
+    },
+    {
+      icon: "fa-book",
+      name: "Municipal Accounting Office",
+      head: "Almira Joy A. Rovillos, Municipal Accountant",
+      phone: "Trunkline: (043) 276-0047 local 214",
+      location: "Municipal Hall",
     },
     {
       icon: "fa-wallet",
       name: "Municipal Treasurer's Office",
-      head: "REPLACE: [Name], Municipal Treasurer",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mto@tuy.gov.ph",
+      head: "Miles M. Perez (OIC), Municipal Treasurer",
+      phone: "Trunkline: (043) 276-0047 local 223-224",
       location: "1st Floor, Municipal Hall",
     },
     {
-      icon: "fa-chart-line",
-      name: "Municipal Planning & Development Office",
-      head: "REPLACE: [Name], Municipal Planning & Development Coordinator",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mpdo@tuy.gov.ph",
-      location: "2nd Floor, Municipal Hall",
+      icon: "fa-landmark",
+      name: "Municipal Assessor's Office",
+      head: "Horesto D. Fernandez, Municipal Assessor",
+      phone: "Trunkline: (043) 276-0047 local 207",
+      location: "Municipal Hall",
     },
     {
-      icon: "fa-users",
-      name: "Municipal Social Welfare & Development Office",
-      head: "REPLACE: [Name], MSWDO Head",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mswdo@tuy.gov.ph",
-      location: "Ground Floor, Municipal Hall",
+      icon: "fa-id-card",
+      name: "Human Resource Management Office",
+      head: "Emmanuel A. Afable, HRMO",
+      phone: "Trunkline: (043) 276-0047 local 209",
+      location: "Municipal Hall",
+    },
+    {
+      icon: "fa-cogs",
+      name: "General Services Office",
+      head: "Katrine A. De Jesus, GSO",
+      phone: "Trunkline: (043) 276-0047",
+      location: "Municipal Hall",
+    },
+    {
+      icon: "fa-file-signature",
+      name: "Municipal Civil Registrar's Office",
+      head: "Peter C. Filler, Municipal Civil Registrar",
+      phone: "Trunkline: (043) 276-0047 local 220",
+      location: "Municipal Hall",
+    },
+    {
+      icon: "fa-hard-hat",
+      name: "Municipal Engineering Office",
+      head: "Engr. Isigani F. Residuo, Municipal Engineer",
+      phone: "(043) 206-0105",
+      location: "Municipal Hall",
     },
     {
       icon: "fa-clinic-medical",
       name: "Municipal Health Office",
-      head: "REPLACE: Dr. [Name], Municipal Health Officer",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mho@tuy.gov.ph",
+      head: "Dr. Liza Carmelli A. Chua, Municipal Health Officer",
+      phone: "(043) 276-0113",
       location: "Rural Health Unit Building",
+    },
+    {
+      icon: "fa-users",
+      name: "Municipal Social Welfare & Development Office",
+      head: "Zaira M. Abellera, MSWDO",
+      phone: "(043) 276-0117",
+      location: "Ground Floor, Municipal Hall",
+    },
+    {
+      icon: "fa-seedling",
+      name: "Municipal Agriculture Office",
+      head: "Liza C. Maranan, Municipal Agriculturist",
+      phone: "Trunkline: (043) 276-0047 local 219",
+      location: "Municipal Hall",
     },
     {
       icon: "fa-shield-alt",
       name: "Municipal Disaster Risk Reduction & Management Office",
-      head: "REPLACE: [Name], MDRRMO Head",
-      phone: "REPLACE: (043) XXX-XXXX",
-      email: "REPLACE: mdrrmo@tuy.gov.ph",
+      head: "Jacqueline S. De Taza, MDRRMO",
+      phone: "(043) 276-0120",
       location: "Ground Floor, Municipal Hall",
     },
   ];
 
   const emergencyContacts = [
     {
-      icon: "fa-ambulance",
-      service: "Emergency Medical Services",
-      number: "REPLACE: (043) XXX-XXXX",
-      description: "24/7 emergency medical response",
+      icon: "fa-shield-alt",
+      service: "MDRRMO Hotline",
+      number: "(043) 276-0120",
+      description: "Municipal Disaster Risk Reduction & Management Office — disaster and calamity assistance",
       color: "red",
     },
     {
-      icon: "fa-fire",
-      service: "Tuy Fire Station",
-      number: "REPLACE: (043) XXX-XXXX",
-      description: "Fire emergency and rescue operations",
-      color: "orange",
-    },
-    {
-      icon: "fa-shield-alt",
-      service: "Tuy Municipal Police Station",
-      number: "REPLACE: (043) XXX-XXXX",
-      description: "Police assistance and emergency response",
+      icon: "fa-phone-alt",
+      service: "National Emergency Hotline",
+      number: "911",
+      description: "Police, fire, and medical emergencies nationwide",
       color: "blue",
-    },
-    {
-      icon: "fa-exclamation-triangle",
-      service: "Disaster Response Hotline",
-      number: "REPLACE: (043) XXX-XXXX",
-      description: "Disaster and calamity assistance",
-      color: "yellow",
     },
   ];
 
@@ -310,11 +344,9 @@ const ContactUs = () => {
               <p className="text-gray-700">
                 <strong>Municipal Hall of Tuy</strong>
                 <br />
-                REPLACE: [Complete Address]
+                Poblacion, Tuy, Batangas
                 <br />
-                Tuy, Batangas
-                <br />
-                Philippines, 4200
+                Philippines 4214
               </p>
             </div>
 
@@ -325,32 +357,27 @@ const ContactUs = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Call Us</h3>
               <p className="text-gray-700">
-                <strong>Main Line:</strong>
+                <strong>Trunklines:</strong>
                 <br />
-                REPLACE: (043) XXX-XXXX
+                (043) 276-0047
                 <br />
+                (043) 276-0100
                 <br />
-                <strong>Fax:</strong>
+                (043) 276-0104
                 <br />
-                REPLACE: (043) XXX-XXXX
+                (043) 276-0102
               </p>
             </div>
 
-            {/* Email */}
+            {/* Social Media / Online */}
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 text-center">
               <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-envelope text-white text-2xl"></i>
+                <i className="fas fa-share-alt text-white text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Email Us</h3>
-              <p className="text-gray-700">
-                <strong>General Inquiries:</strong>
-                <br />
-                REPLACE: info@tuybatangas.gov.ph
-                <br />
-                <br />
-                <strong>Complaints/Feedback:</strong>
-                <br />
-                REPLACE: feedback@tuy.gov.ph
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Connect Online</h3>
+              <p className="text-gray-700 text-sm">
+                Follow us on social media for news and announcements. You can also send us a message
+                using the contact form below.
               </p>
             </div>
           </div>
@@ -426,7 +453,7 @@ const ContactUs = () => {
                   <p className="text-red-800 text-sm flex items-start gap-2">
                     <i className="fas fa-exclamation-circle mt-1"></i>
                     <span>
-                      <strong>Failed to send message.</strong> Please check your internet connection and try again. If the problem persists, please contact us using the phone numbers or email addresses above.
+                      <strong>Failed to send message.</strong> Please check your internet connection and try again. If the problem persists, please contact us using the phone numbers above.
                     </span>
                   </p>
                 </div>
@@ -633,10 +660,6 @@ const ContactUs = () => {
                         {dept.phone}
                       </p>
                       <p>
-                        <i className="fas fa-envelope text-primary mr-2"></i>
-                        {dept.email}
-                      </p>
-                      <p>
                         <i className="fas fa-map-marker-alt text-primary mr-2"></i>
                         {dept.location}
                       </p>
@@ -780,32 +803,13 @@ const ContactUs = () => {
           </p>
           <div className="flex justify-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/MunicipalityOfTuy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-14 h-14 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
               aria-label="Facebook"
             >
               <i className="fab fa-facebook-f text-2xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-14 h-14 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-              aria-label="Twitter"
-            >
-              <i className="fab fa-twitter text-2xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-14 h-14 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-              aria-label="Instagram"
-            >
-              <i className="fab fa-instagram text-2xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-14 h-14 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-              aria-label="YouTube"
-            >
-              <i className="fab fa-youtube text-2xl"></i>
             </a>
           </div>
         </section>

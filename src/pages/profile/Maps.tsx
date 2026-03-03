@@ -39,9 +39,6 @@ const Maps = () => {
   const mapRef = useScrollAnimation();
   const geographicRef = useScrollAnimation();
   const barangaysRef = useScrollAnimation();
-  const poiRef = useScrollAnimation();
-  const transportRef = useScrollAnimation();
-  const landUseRef = useScrollAnimation();
 
   // Barangay sort state
   type SortKey = "name" | "population" | "area";

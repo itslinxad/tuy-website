@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
@@ -7,225 +6,62 @@ import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 const Forms = () => {
   const { offset } = useParallax({ speed: 0.3 });
   const introRef = useScrollAnimation();
-  const formsRef = useScrollAnimation();
+  const whatToExpectRef = useScrollAnimation();
   const instructionsRef = useScrollAnimation();
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // ============================================
-  // CONTENT NEEDED: Downloadable Forms
-  // ============================================
-  // Add actual forms data here. For each form provide:
-  // - title: Form name
-  // - category: Category it belongs to
-  // - description: Brief description of the form
-  // - fileSize: File size (e.g., "125 KB")
-  // - lastUpdated: Date last updated
-  // - filePath: Path to PDF in /public/documents/forms/
-  
-  const formsData = [
-    // Business & Permits
+  const formCategories = [
     {
-      title: "Business Permit Application Form",
-      category: "Business & Permits",
-      description: "Application form for new business permit registration",
-      fileSize: "150 KB",
-      lastUpdated: "2024-01-15",
-      filePath: "/documents/forms/business-permit-application.pdf",
       icon: "fa-store",
+      title: "Business & Permits",
+      color: "blue",
+      description:
+        "Business permit applications, renewals, Mayor's permit, and other business-related forms.",
     },
     {
-      title: "Business Permit Renewal Form",
-      category: "Business & Permits",
-      description: "Renewal form for existing business permits",
-      fileSize: "145 KB",
-      lastUpdated: "2024-01-15",
-      filePath: "/documents/forms/business-permit-renewal.pdf",
-      icon: "fa-redo",
-    },
-    {
-      title: "Mayor's Permit Application",
-      category: "Business & Permits",
-      description: "Application for Mayor's permit for business operations",
-      fileSize: "140 KB",
-      lastUpdated: "2024-01-10",
-      filePath: "/documents/forms/mayors-permit-application.pdf",
-      icon: "fa-certificate",
-    },
-    
-    // Clearances & Certifications
-    {
-      title: "Barangay Clearance Application",
-      category: "Clearances & Certifications",
-      description: "Request form for barangay clearance certificate",
-      fileSize: "120 KB",
-      lastUpdated: "2024-01-20",
-      filePath: "/documents/forms/barangay-clearance.pdf",
       icon: "fa-file-contract",
+      title: "Clearances & Certifications",
+      color: "green",
+      description:
+        "Barangay clearance, municipal clearance, certificate of indigency, certificate of residency.",
     },
     {
-      title: "Municipal Clearance Application",
-      category: "Clearances & Certifications",
-      description: "Request form for municipal clearance certificate",
-      fileSize: "125 KB",
-      lastUpdated: "2024-01-20",
-      filePath: "/documents/forms/municipal-clearance.pdf",
-      icon: "fa-file-alt",
-    },
-    {
-      title: "Certificate of Indigency Request",
-      category: "Clearances & Certifications",
-      description: "Application for certificate of indigency",
-      fileSize: "115 KB",
-      lastUpdated: "2024-01-18",
-      filePath: "/documents/forms/certificate-indigency.pdf",
-      icon: "fa-hands-helping",
-    },
-    {
-      title: "Certificate of Residency Request",
-      category: "Clearances & Certifications",
-      description: "Application for certificate of residency",
-      fileSize: "115 KB",
-      lastUpdated: "2024-01-18",
-      filePath: "/documents/forms/certificate-residency.pdf",
-      icon: "fa-home",
-    },
-    
-    // Building & Construction
-    {
-      title: "Building Permit Application",
-      category: "Building & Construction",
-      description: "Application form for building permit and construction",
-      fileSize: "200 KB",
-      lastUpdated: "2024-01-12",
-      filePath: "/documents/forms/building-permit.pdf",
       icon: "fa-building",
+      title: "Building & Construction",
+      color: "teal",
+      description:
+        "Building permits, electrical permits, plumbing permits, and fencing permits.",
     },
     {
-      title: "Electrical Permit Application",
-      category: "Building & Construction",
-      description: "Permit application for electrical installations",
-      fileSize: "180 KB",
-      lastUpdated: "2024-01-12",
-      filePath: "/documents/forms/electrical-permit.pdf",
-      icon: "fa-bolt",
-    },
-    {
-      title: "Plumbing Permit Application",
-      category: "Building & Construction",
-      description: "Permit application for plumbing work",
-      fileSize: "175 KB",
-      lastUpdated: "2024-01-12",
-      filePath: "/documents/forms/plumbing-permit.pdf",
-      icon: "fa-wrench",
-    },
-    {
-      title: "Fencing Permit Application",
-      category: "Building & Construction",
-      description: "Application for fencing construction permit",
-      fileSize: "160 KB",
-      lastUpdated: "2024-01-10",
-      filePath: "/documents/forms/fencing-permit.pdf",
-      icon: "fa-border-style",
-    },
-    
-    // Tax & Financial
-    {
-      title: "Real Property Tax Declaration",
-      category: "Tax & Financial",
-      description: "Declaration form for real property tax assessment",
-      fileSize: "190 KB",
-      lastUpdated: "2024-01-08",
-      filePath: "/documents/forms/property-tax-declaration.pdf",
       icon: "fa-file-invoice",
+      title: "Tax & Financial",
+      color: "purple",
+      description:
+        "Real property tax declaration, community tax certificate (cedula), and tax clearance forms.",
     },
     {
-      title: "Community Tax Certificate Application (Cedula)",
-      category: "Tax & Financial",
-      description: "Application form for community tax certificate",
-      fileSize: "130 KB",
-      lastUpdated: "2024-01-08",
-      filePath: "/documents/forms/cedula-application.pdf",
-      icon: "fa-id-card",
-    },
-    {
-      title: "Tax Clearance Request",
-      category: "Tax & Financial",
-      description: "Request form for tax clearance certificate",
-      fileSize: "125 KB",
-      lastUpdated: "2024-01-05",
-      filePath: "/documents/forms/tax-clearance.pdf",
-      icon: "fa-coins",
-    },
-    
-    // Civil Registry
-    {
-      title: "Birth Certificate Request Form",
-      category: "Civil Registry",
-      description: "Request form for certified copy of birth certificate",
-      fileSize: "135 KB",
-      lastUpdated: "2024-01-22",
-      filePath: "/documents/forms/birth-certificate-request.pdf",
       icon: "fa-baby",
+      title: "Civil Registry",
+      color: "red",
+      description:
+        "Request forms for birth, marriage, and death certificates from the Municipal Civil Registrar.",
     },
     {
-      title: "Marriage Certificate Request Form",
-      category: "Civil Registry",
-      description: "Request form for certified copy of marriage certificate",
-      fileSize: "135 KB",
-      lastUpdated: "2024-01-22",
-      filePath: "/documents/forms/marriage-certificate-request.pdf",
-      icon: "fa-ring",
-    },
-    {
-      title: "Death Certificate Request Form",
-      category: "Civil Registry",
-      description: "Request form for certified copy of death certificate",
-      fileSize: "135 KB",
-      lastUpdated: "2024-01-22",
-      filePath: "/documents/forms/death-certificate-request.pdf",
-      icon: "fa-cross",
-    },
-    
-    // Complaints & Requests
-    {
-      title: "Complaint Form",
-      category: "Complaints & Requests",
-      description: "General complaint form for municipal concerns",
-      fileSize: "110 KB",
-      lastUpdated: "2024-01-25",
-      filePath: "/documents/forms/complaint-form.pdf",
-      icon: "fa-exclamation-triangle",
-    },
-    {
-      title: "Public Assistance Request",
-      category: "Complaints & Requests",
-      description: "Request form for public assistance and social services",
-      fileSize: "120 KB",
-      lastUpdated: "2024-01-20",
-      filePath: "/documents/forms/public-assistance-request.pdf",
-      icon: "fa-hand-holding-heart",
-    },
-    {
-      title: "Freedom of Information Request",
-      category: "Complaints & Requests",
-      description: "FOI request form for government information access",
-      fileSize: "115 KB",
-      lastUpdated: "2024-01-15",
-      filePath: "/documents/forms/foi-request.pdf",
-      icon: "fa-info-circle",
+      icon: "fa-hands-helping",
+      title: "Complaints & Requests",
+      color: "yellow",
+      description:
+        "General complaint forms, public assistance requests, and Freedom of Information (FOI) request forms.",
     },
   ];
 
-  const categories = ["All", ...Array.from(new Set(formsData.map(f => f.category)))];
-
-  const filteredForms = formsData.filter(form => {
-    const matchesCategory = selectedCategory === "All" || form.category === selectedCategory;
-    const matchesSearch = form.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          form.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const colorMap: Record<string, { bg: string; text: string; icon: string }> = {
+    blue: { bg: "bg-blue-50", text: "text-blue-700", icon: "text-blue-600" },
+    green: { bg: "bg-green-50", text: "text-green-700", icon: "text-green-600" },
+    teal: { bg: "bg-teal-50", text: "text-teal-700", icon: "text-teal-600" },
+    purple: { bg: "bg-purple-50", text: "text-purple-700", icon: "text-purple-600" },
+    red: { bg: "bg-red-50", text: "text-red-700", icon: "text-red-600" },
+    yellow: { bg: "bg-yellow-50", text: "text-yellow-700", icon: "text-yellow-600" },
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -290,137 +126,79 @@ const Forms = () => {
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
               The Municipal Government of Tuy provides various forms for different
-              transactions and services. These forms are available for download to
-              help expedite your transactions at our municipal offices.
+              transactions and services. These forms are designed to help expedite
+              your transactions at our municipal offices — from business permits
+              and clearances to civil registry requests and public assistance.
             </p>
             <p>
-              Please download the appropriate form, fill it out completely and
-              accurately, and submit it to the respective office along with the
-              required documents. For questions about specific forms or
-              requirements, please contact the relevant department.
+              To process a transaction, visit the appropriate office at the
+              Municipal Hall. Staff will provide the required forms and guide you
+              through the requirements.
+            </p>
+          </div>
+
+          {/* Coming Soon Banner */}
+          <div className="mt-8 bg-amber-50 border-2 border-amber-200 rounded-lg p-6 text-center">
+            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i className="fas fa-hard-hat text-amber-600 text-2xl"></i>
+            </div>
+            <h3 className="text-2xl font-bold text-amber-800 mb-2">
+              Online Downloads Coming Soon
+            </h3>
+            <p className="text-amber-700 max-w-2xl mx-auto">
+              We are working on making downloadable PDF forms available on this page.
+              In the meantime, please visit the relevant municipal office to obtain
+              the forms you need.
             </p>
           </div>
         </section>
 
-        {/* Search and Filter */}
+        {/* What to Expect */}
         <section
-          ref={formsRef.elementRef}
+          ref={whatToExpectRef.elementRef}
           className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            formsRef.isVisible ? "visible" : ""
+            whatToExpectRef.isVisible ? "visible" : ""
           }`}
         >
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">Browse Forms</h2>
+            <h2 className="text-4xl font-bold text-primary">
+              What to Expect
+            </h2>
           </div>
+          <p className="text-gray-700 text-lg mb-8">
+            Once available, you will be able to download forms from the following
+            categories:
+          </p>
 
-          {/* Search Bar */}
-          <div className="mb-6">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search forms..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full p-4 pl-12 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              />
-              <i className="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="mb-8 flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full font-semibold transition-all ${
-                  selectedCategory === category
-                    ? "bg-primary text-white shadow-md"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Forms Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredForms.map((form, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                <div className="p-6">
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <i className={`fas ${form.icon} text-primary text-2xl`}></i>
+            {formCategories.map((category, index) => {
+              const colors = colorMap[category.color];
+              return (
+                <div
+                  key={index}
+                  className={`${colors.bg} rounded-lg p-6 scroll-animate stagger-${
+                    (index % 3) + 1
+                  } ${whatToExpectRef.isVisible ? "visible" : ""}`}
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <i
+                      className={`fas ${category.icon} text-2xl ${colors.icon}`}
+                    ></i>
+                    <h3 className={`text-lg font-bold ${colors.text}`}>
+                      {category.title}
+                    </h3>
                   </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-primary mb-2">
-                    {form.title}
-                  </h3>
-
-                  {/* Category Badge */}
-                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full mb-3">
-                    {form.category}
-                  </span>
-
-                  {/* Description */}
-                  <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-                    {form.description}
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    {category.description}
                   </p>
-
-                  {/* Meta Info */}
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                    <span>
-                      <i className="fas fa-file-pdf mr-1"></i>
-                      {form.fileSize}
-                    </span>
-                    <span>
-                      <i className="fas fa-calendar mr-1"></i>
-                      Updated: {form.lastUpdated}
-                    </span>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex gap-2">
-                    <a
-                      href={form.filePath}
-                      download
-                      className="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors text-center"
-                    >
-                      <i className="fas fa-download mr-2"></i>
-                      Download
-                    </a>
-                    <a
-                      href={form.filePath}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors"
-                    >
-                      <i className="fas fa-eye"></i>
-                    </a>
-                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-
-          {/* No Results */}
-          {filteredForms.length === 0 && (
-            <div className="text-center py-12">
-              <i className="fas fa-search text-6xl text-gray-300 mb-4"></i>
-              <p className="text-gray-600 text-lg">
-                No forms found matching your search.
-              </p>
-            </div>
-          )}
         </section>
 
-        {/* Instructions */}
+        {/* How to Get Forms (in the meantime) */}
         <section
           ref={instructionsRef.elementRef}
           className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
@@ -430,24 +208,24 @@ const Forms = () => {
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
             <h2 className="text-4xl font-bold text-primary">
-              How to Use These Forms
+              How to Obtain Forms
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
               <h3 className="text-xl font-bold text-primary mb-4 flex items-center">
-                <i className="fas fa-download text-primary mr-3"></i>
-                Download & Fill Out
+                <i className="fas fa-building text-primary mr-3"></i>
+                Visit the Municipal Hall
               </h3>
               <ol className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-primary">1.</span>
-                  <span>Click the "Download" button to save the PDF form</span>
+                  <span>Go to the appropriate office at the Municipal Hall</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-primary">2.</span>
-                  <span>Print the form or fill it out digitally if possible</span>
+                  <span>Request the form you need from the staff</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-primary">3.</span>
@@ -455,66 +233,76 @@ const Forms = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="font-bold text-primary">4.</span>
-                  <span>Sign where indicated</span>
+                  <span>Submit with the required supporting documents</span>
                 </li>
               </ol>
             </div>
 
             <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6">
               <h3 className="text-xl font-bold text-primary mb-4 flex items-center">
-                <i className="fas fa-file-upload text-primary mr-3"></i>
-                Submit Your Form
+                <i className="fas fa-info-circle text-primary mr-3"></i>
+                General Requirements
               </h3>
-              <ol className="space-y-2 text-gray-700">
+              <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <span className="font-bold text-primary">1.</span>
-                  <span>Gather all required supporting documents</span>
+                  <i className="fas fa-check text-green-600 mt-1"></i>
+                  <span>Valid government-issued ID</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-bold text-primary">2.</span>
-                  <span>Visit the appropriate municipal office</span>
+                  <i className="fas fa-check text-green-600 mt-1"></i>
+                  <span>Completed application form</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-bold text-primary">3.</span>
-                  <span>Submit your completed form and documents</span>
+                  <i className="fas fa-check text-green-600 mt-1"></i>
+                  <span>Supporting documents as required per transaction</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="font-bold text-primary">4.</span>
-                  <span>Follow up according to processing time given</span>
+                  <i className="fas fa-check text-green-600 mt-1"></i>
+                  <span>Applicable fees (varies by transaction)</span>
                 </li>
-              </ol>
+              </ul>
             </div>
           </div>
 
           <div className="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded">
             <h4 className="font-bold text-yellow-800 mb-2 flex items-center">
-              <i className="fas fa-info-circle mr-2"></i>
-              Important Notes
+              <i className="fas fa-clock mr-2"></i>
+              Office Hours
             </h4>
-            <ul className="space-y-1 text-yellow-700 text-sm">
-              <li>• Ensure all forms are completely filled out before submission</li>
-              <li>• Bring valid identification and required documents</li>
-              <li>• Processing times vary depending on the type of transaction</li>
-              <li>• For questions, contact the relevant office directly</li>
-              <li>• Office hours: Monday to Friday, 8:00 AM - 5:00 PM</li>
-            </ul>
+            <p className="text-yellow-700 text-sm">
+              Monday to Friday, 8:00 AM - 5:00 PM (excluding holidays).
+              Processing times vary depending on the type of transaction.
+            </p>
           </div>
         </section>
 
-        {/* Note about adding forms */}
-        <section className="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-400">
-          <h3 className="text-lg font-bold text-blue-800 mb-2 flex items-center">
-            <i className="fas fa-info-circle mr-2"></i>
-            For Website Administrators
-          </h3>
-          <p className="text-blue-700 text-sm">
-            To add forms to this page: Place PDF files in{" "}
-            <code className="bg-blue-200 px-2 py-1 rounded">
-              public/documents/forms/
-            </code>{" "}
-            and update the formsData array in this component with the file details.
-            All forms should be in PDF format for easy downloading and printing.
+        {/* Need Assistance */}
+        <section className="bg-primary rounded-lg p-8 text-white text-center">
+          <div className="mb-4">
+            <i className="fas fa-phone-alt text-5xl text-white/80"></i>
+          </div>
+          <h3 className="text-3xl font-bold mb-4">Need Assistance?</h3>
+          <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto">
+            For questions about specific forms or requirements, contact the
+            relevant office or call our trunkline.
           </p>
+          <div className="flex flex-col items-center gap-2 mb-6">
+            <p className="text-white/90">
+              <i className="fas fa-phone mr-2"></i>
+              Trunkline: (043) 276-0047
+            </p>
+            <p className="text-white/90">
+              <i className="fas fa-map-marker-alt mr-2"></i>
+              Municipal Hall, Poblacion, Tuy, Batangas 4214
+            </p>
+          </div>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center px-6 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
+            <i className="fas fa-envelope mr-2"></i>
+            Contact Us
+          </Link>
         </section>
       </div>
     </div>

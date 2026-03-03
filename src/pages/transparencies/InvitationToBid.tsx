@@ -545,13 +545,7 @@ const InvitationToBid = () => {
                 <p className="flex items-start gap-3">
                   <i className="fas fa-phone text-primary mt-1"></i>
                   <span>
-                    <strong>Phone:</strong> REPLACE: (043) XXX-XXXX
-                  </span>
-                </p>
-                <p className="flex items-start gap-3">
-                  <i className="fas fa-envelope text-primary mt-1"></i>
-                  <span>
-                    <strong>Email:</strong> REPLACE: bac@tuy.gov.ph
+                    <strong>Phone:</strong> Trunkline: (043) 276-0047 local 206
                   </span>
                 </p>
                 <p className="flex items-start gap-3">
@@ -628,22 +622,12 @@ const InvitationToBid = () => {
           </p>
           <div className="flex justify-center gap-4 mb-6">
             <a
-              href="#"
+              href="https://www.facebook.com/MunicipalityOfTuy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
             >
               <i className="fab fa-facebook-f text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-twitter text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-instagram text-xl"></i>
             </a>
           </div>
           <p className="text-sm text-white/80">

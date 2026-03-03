@@ -478,19 +478,19 @@ const CitizensCharter = () => {
               <p className="text-gray-700 text-sm mb-3">
                 Call our dedicated service hotline for immediate assistance
               </p>
-              <p className="text-lg font-bold text-red-600">REPLACE: (043) XXX-XXXX</p>
+              <p className="text-lg font-bold text-red-600">(043) 276-0047</p>
             </div>
 
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-6 text-center">
               <div className="w-16 h-16 bg-orange-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i className="fas fa-envelope text-orange-600 text-2xl"></i>
+                <i className="fas fa-comments text-orange-600 text-2xl"></i>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Email</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Visit Us</h3>
               <p className="text-gray-700 text-sm mb-3">
-                Send detailed complaints or feedback via email
+                Visit the Public Assistance and Complaints Desk at the Municipal Hall
               </p>
-              <p className="text-sm font-bold text-orange-600 break-all">
-                REPLACE: feedback@tuy.gov.ph
+              <p className="text-sm font-bold text-orange-600">
+                Municipal Hall, Ground Floor
               </p>
             </div>
 
@@ -552,10 +552,10 @@ const CitizensCharter = () => {
                   <i className="fas fa-map-marker-alt mr-2 text-primary"></i>
                   Municipal Hall, Ground Floor
                 </p>
-                <p>
-                  <i className="fas fa-phone mr-2 text-primary"></i>
-                  REPLACE: (043) XXX-XXXX
-                </p>
+                 <p>
+                   <i className="fas fa-phone mr-2 text-primary"></i>
+                   (043) 276-0047
+                 </p>
                 <p>
                   <i className="fas fa-clock mr-2 text-primary"></i>
                   Monday to Friday, 8:00 AM - 5:00 PM
@@ -576,15 +576,11 @@ const CitizensCharter = () => {
                   <i className="fas fa-map-marker-alt mr-2 text-green-600"></i>
                   Municipal Hall, 2nd Floor
                 </p>
-                <p>
-                  <i className="fas fa-phone mr-2 text-green-600"></i>
-                  REPLACE: (043) XXX-XXXX
-                </p>
-                <p>
-                  <i className="fas fa-envelope mr-2 text-green-600"></i>
-                  REPLACE: action@tuy.gov.ph
-                </p>
-              </div>
+                 <p>
+                   <i className="fas fa-phone mr-2 text-green-600"></i>
+                   Trunkline: (043) 276-0047 local 200-201
+                 </p>
+               </div>
             </div>
           </div>
         </section>
@@ -601,22 +597,12 @@ const CitizensCharter = () => {
           </p>
           <div className="flex justify-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/MunicipalityOfTuy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
             >
               <i className="fab fa-facebook-f text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-twitter text-xl"></i>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-            >
-              <i className="fab fa-instagram text-xl"></i>
             </a>
           </div>
         </section>

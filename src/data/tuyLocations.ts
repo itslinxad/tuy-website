@@ -99,7 +99,7 @@ export const tuyMarkers: MapMarker[] = [
     category: 'halls',
     position: { lat: 14.019133820661795, lng: 120.73023066599163 },
     title: 'Tuy Municipal Hall',
-    address: 'Municipal Hall, Tuy, Batangas 4200',
+    address: 'Municipal Hall, Tuy, Batangas 4214',
     description: 'Main government center and administrative office of the Municipality of Tuy',
   },
   {
