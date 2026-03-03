@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import TuyMap from "../../components/TuyMap";

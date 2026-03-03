@@ -1,4 +1,3 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
@@ -11,367 +10,202 @@ const SocioEconomic = () => {
   // Scroll animation hooks for each section
   const overviewRef = useScrollAnimation();
   const indicatorsRef = useScrollAnimation();
+  const povertyRef = useScrollAnimation();
   const industriesRef = useScrollAnimation();
-  const employmentRef = useScrollAnimation();
+  const resourcesRef = useScrollAnimation();
   const infrastructureRef = useScrollAnimation();
   const educationRef = useScrollAnimation();
-  const healthRef = useScrollAnimation();
-  const businessRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Economic Indicators Dashboard
-  // ============================================
-  // Provide key economic statistics:
-  // - averageIncome: Monthly household income
-  // - employmentRate: Percentage of employed population
-  // - povertyIncidence: Poverty rate percentage
-  // - businessEstablishments: Number of registered businesses
+  // Economic Indicators — Source: PSA, DOF-BLGF
   const economicIndicators = [
     {
-      icon: "fa-coins",
-      value: "REPLACE: ₱25,000",
-      label: "Average Income",
-      description: "REPLACE: Monthly household income",
+      icon: "fa-chart-line",
+      value: "6.12",
+      suffix: "%",
+      label: "Poverty Incidence",
+      description: "Among population, 2021 (PSA)",
       color: "bg-green-100 text-green-600",
     },
     {
-      icon: "fa-briefcase",
-      value: "REPLACE: 92",
-      suffix: "%",
-      label: "Employment Rate",
-      description: "REPLACE: Employed working-age population",
+      icon: "fa-coins",
+      value: "\u20B1226.8M",
+      label: "Annual Revenue",
+      description: "Total LGU revenue, 2022 (BLGF)",
       color: "bg-blue-100 text-blue-600",
     },
     {
-      icon: "fa-chart-line",
-      value: "REPLACE: 12.5",
-      suffix: "%",
-      label: "Poverty Incidence",
-      description: "REPLACE: Households below poverty line",
+      icon: "fa-award",
+      value: "3rd",
+      label: "Income Class",
+      description: "Municipal income classification",
       color: "bg-yellow-100 text-yellow-600",
     },
     {
-      icon: "fa-store",
-      value: "REPLACE: 850",
-      label: "Business Est.",
-      description: "REPLACE: Registered establishments",
+      icon: "fa-map-marked-alt",
+      value: "22",
+      label: "Barangays",
+      description: "Administrative subdivisions",
       color: "bg-purple-100 text-purple-600",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Major Industries
-  // ============================================
-  // Provide detailed information about each major industry sector:
-  // - title: Industry name
-  // - percentage: Contribution to economy or employment
-  // - description: 2-3 sentences about the industry
-  // - keyActivities: Array of main activities
-  // - icon: FontAwesome icon class
+  // Poverty Incidence Trend — Source: PSA Small Area Estimates
+  const povertyTrend = [
+    { year: "2000", rate: 51.09 },
+    { year: "2003", rate: 37.36 },
+    { year: "2006", rate: 26.6 },
+    { year: "2009", rate: 18.03 },
+    { year: "2012", rate: 19.77 },
+    { year: "2015", rate: 12.44 },
+    { year: "2018", rate: 11.88 },
+    { year: "2021", rate: 6.12 },
+  ];
+
+  // Major Industries — Source: Wikipedia (Municipality of Tuy), local records
   const majorIndustries = [
     {
-      title: "REPLACE: Agriculture",
-      percentage: "REPLACE: 35",
+      title: "Sugarcane Farming",
       icon: "fa-seedling",
       color: "bg-green-100 text-green-600",
       description:
-        "REPLACE: Describe agricultural activities in Tuy (2-3 sentences). Include major crops, farming practices, scale of operations, and contribution to the local economy.",
+        "Sugarcane is the primary agricultural crop of Tuy, with production exceeding 30,000 metric tons per milling season. The harvested cane is transported to sugar centrals (mills) in the neighboring municipalities of Nasugbu and Balayan for processing. Sugarcane farming remains a major source of livelihood for farming households across the municipality.",
       keyActivities: [
-        "REPLACE: Rice farming",
-        "REPLACE: Coconut cultivation",
-        "REPLACE: Vegetable production",
-        "REPLACE: Fruit orchards",
+        "Sugarcane cultivation and harvesting",
+        "Transport to Nasugbu and Balayan mills",
+        "Seasonal farm labor employment",
+        "Muscovado and raw sugar production",
       ],
     },
     {
-      title: "REPLACE: Fishing & Aquaculture",
-      percentage: "REPLACE: 20",
-      icon: "fa-fish",
-      color: "bg-blue-100 text-blue-600",
+      title: "Mango & Fruit Cultivation",
+      icon: "fa-apple-alt",
+      color: "bg-yellow-100 text-yellow-600",
       description:
-        "REPLACE: Describe fishing and aquaculture activities (2-3 sentences). Include types of fishing, aquaculture operations, processing activities, and importance to coastal barangays.",
+        "Tuy is known for its mango orchards, particularly the Indian mango variety. Mangoes from Tuy are sold in local markets and traded regionally. In addition to mangoes, cassava is also a significant crop, used both for food and as raw material for local food products.",
       keyActivities: [
-        "REPLACE: Commercial fishing",
-        "REPLACE: Aquaculture/fish ponds",
-        "REPLACE: Fish processing",
-        "REPLACE: Seafood trading",
+        "Indian mango orchards",
+        "Cassava cultivation",
+        "Seasonal fruit trading",
+        "Local market distribution",
       ],
     },
     {
-      title: "REPLACE: Manufacturing",
-      percentage: "REPLACE: 15",
-      icon: "fa-industry",
-      color: "bg-gray-100 text-gray-600",
-      description:
-        "REPLACE: Describe manufacturing activities (2-3 sentences). Include types of manufacturing, products made, employment generated, and contribution to economic development.",
-      keyActivities: [
-        "REPLACE: Food processing",
-        "REPLACE: Handicrafts",
-        "REPLACE: Local products",
-        "REPLACE: Small-scale manufacturing",
-      ],
-    },
-    {
-      title: "REPLACE: Services & Trade",
-      percentage: "REPLACE: 25",
-      icon: "fa-shopping-cart",
-      color: "bg-purple-100 text-purple-600",
-      description:
-        "REPLACE: Describe services and trade sectors (2-3 sentences). Include retail, wholesale, professional services, tourism-related services, and commercial activities.",
-      keyActivities: [
-        "REPLACE: Retail trade",
-        "REPLACE: Professional services",
-        "REPLACE: Tourism services",
-        "REPLACE: Financial services",
-      ],
-    },
-    {
-      title: "REPLACE: Construction",
-      percentage: "REPLACE: 5",
-      icon: "fa-hard-hat",
+      title: "Bakery & Food Products",
+      icon: "fa-bread-slice",
       color: "bg-orange-100 text-orange-600",
       description:
-        "REPLACE: Describe construction activities (2-3 sentences). Include residential, commercial, infrastructure projects, and employment in this sector.",
+        "Tuy has a longstanding bakery tradition dating back to the 1960s. The municipality is known for its jacobina biscuits and biscocho, which are produced by local bakeries and sold throughout Batangas province and beyond. These products are considered local delicacies and are a source of community pride.",
       keyActivities: [
-        "REPLACE: Residential construction",
-        "REPLACE: Commercial buildings",
-        "REPLACE: Infrastructure projects",
-        "REPLACE: Renovation services",
+        "Jacobina biscuit production",
+        "Biscocho manufacturing",
+        "Local bakery operations",
+        "Regional distribution of baked goods",
+      ],
+    },
+    {
+      title: "Poultry & Livestock",
+      icon: "fa-drumstick-bite",
+      color: "bg-red-100 text-red-600",
+      description:
+        "Poultry and livestock raising supplements the agricultural economy of Tuy. Households and small-scale farms raise chickens, hogs, and cattle for both local consumption and commercial sale in nearby town markets.",
+      keyActivities: [
+        "Poultry raising (chickens, ducks)",
+        "Hog and cattle farming",
+        "Local meat supply",
+        "Small-scale commercial operations",
       ],
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Employment & Labor Statistics
-  // ============================================
-  // Provide workforce and employment information
-  const employmentStats = [
+  // Natural Resources — Source: Wikipedia (Municipality of Tuy)
+  const naturalResources = [
     {
-      title: "Labor Force",
-      value: "REPLACE: 22,000",
-      icon: "fa-users",
-      description: "REPLACE: Total working-age population in labor force",
+      title: "Quarrying & Construction Materials",
+      icon: "fa-mountain",
+      color: "bg-gray-100 text-gray-600",
+      description:
+        "Sand, gravel, earth fill, and other construction materials are extracted from rivers and hilly areas within the municipality. Quarrying activities provide employment and supply materials for local and regional construction projects.",
     },
     {
-      title: "Employed",
-      value: "REPLACE: 20,500",
-      icon: "fa-user-check",
-      description: "REPLACE: Number of employed individuals",
-    },
-    {
-      title: "Unemployment Rate",
-      value: "REPLACE: 6.8%",
-      icon: "fa-user-times",
-      description: "REPLACE: Percentage of unemployed in labor force",
-    },
-    {
-      title: "Underemployment",
-      value: "REPLACE: 15.2%",
-      icon: "fa-user-clock",
-      description: "REPLACE: Percentage wanting additional work hours",
+      title: "Timber & Forest Products",
+      icon: "fa-tree",
+      color: "bg-green-100 text-green-600",
+      description:
+        "Timber resources are found in the forested barangays of Dalima, Talon, Palincaro, Malibu, Toong, Magahis, and San Jose. These areas contain trees and forest products that support small-scale lumber and wood-related livelihoods.",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Infrastructure Development
-  // ============================================
-  // Provide information about infrastructure across categories
+  // Infrastructure — Source: Wikipedia (Municipality of Tuy)
   const infrastructure = {
-    transportation: {
-      title: "Transportation & Roads",
-      icon: "fa-road",
-      stats: [
-        { label: "REPLACE: National Roads", value: "REPLACE: 15 km" },
-        { label: "REPLACE: Municipal Roads", value: "REPLACE: 85 km" },
-        { label: "REPLACE: Barangay Roads", value: "REPLACE: 120 km" },
-        { label: "REPLACE: Paved Roads", value: "REPLACE: 65%" },
+    power: {
+      title: "Power & Electricity",
+      icon: "fa-bolt",
+      items: [
+        "Electricity supplied by BATELEC I (Batangas I Electric Cooperative)",
+        "Coverage extends to all 22 barangays",
       ],
-      description:
-        "REPLACE: Brief description of road network, transportation services, and ongoing/planned improvements.",
     },
-    utilities: {
-      title: "Utilities & Services",
-      icon: "fa-plug",
-      stats: [
-        {
-          label: "REPLACE: Electrification Rate",
-          value: "REPLACE: 98%",
-        },
-        {
-          label: "REPLACE: Water Service Coverage",
-          value: "REPLACE: 75%",
-        },
-        {
-          label: "REPLACE: Households with Piped Water",
-          value: "REPLACE: 60%",
-        },
-        {
-          label: "REPLACE: Sanitation Coverage",
-          value: "REPLACE: 85%",
-        },
+    bridges: {
+      title: "Bridges",
+      icon: "fa-archway",
+      items: [
+        "8 concrete bridges in the municipality",
+        "6 along national roads",
+        "2 along provincial roads",
       ],
-      description:
-        "REPLACE: Brief description of utility services, water sources, sanitation facilities, and service improvements.",
+    },
+    transportation: {
+      title: "Transportation",
+      icon: "fa-bus",
+      items: [
+        "Jeepney routes: Balayan\u2013Tuy\u2013Nasugbu and local routes",
+        "Tricycles for intra-municipal transport",
+        "Bus services to Manila (via Tagaytay) and Batangas City",
+        "Connected to national highway network",
+      ],
     },
     telecommunications: {
       title: "Telecommunications",
       icon: "fa-wifi",
-      stats: [
-        {
-          label: "REPLACE: Mobile Coverage",
-          value: "REPLACE: 95%",
-        },
-        {
-          label: "REPLACE: Internet Penetration",
-          value: "REPLACE: 65%",
-        },
-        {
-          label: "REPLACE: Broadband Availability",
-          value: "REPLACE: 50%",
-        },
-        {
-          label: "REPLACE: Cell Towers",
-          value: "REPLACE: 8",
-        },
+      items: [
+        "Globe Telecom coverage",
+        "PLDT landline and broadband services",
+        "Smart Communications mobile coverage",
+        "DITO Telecommunity services",
       ],
-      description:
-        "REPLACE: Brief description of telecommunications infrastructure, internet service providers, and digital connectivity.",
     },
   };
 
-  // ============================================
-  // CONTENT NEEDED: Education Facilities
-  // ============================================
-  // Provide information about educational institutions:
-  // - type: Level of education
-  // - count: Number of schools
-  // - enrollment: Total enrolled students (approximate)
-  // - description: Brief details about the facilities
-  const educationFacilities = [
-    {
-      type: "REPLACE: Elementary Schools",
-      count: "REPLACE: 25",
-      enrollment: "REPLACE: 8,500",
-      icon: "fa-school",
-      color: "bg-blue-100 text-blue-600",
-      description:
-        "REPLACE: Public and private elementary schools across all barangays",
-    },
-    {
-      type: "REPLACE: High Schools",
-      count: "REPLACE: 8",
-      enrollment: "REPLACE: 4,200",
-      icon: "fa-graduation-cap",
-      color: "bg-green-100 text-green-600",
-      description: "REPLACE: Junior and senior high schools in the municipality",
-    },
-    {
-      type: "REPLACE: Vocational/Technical",
-      count: "REPLACE: 3",
-      enrollment: "REPLACE: 600",
-      icon: "fa-tools",
-      color: "bg-orange-100 text-orange-600",
-      description:
-        "REPLACE: Technical-vocational institutions offering skills training",
-    },
-    {
-      type: "REPLACE: Day Care Centers",
-      count: "REPLACE: 22",
-      enrollment: "REPLACE: 1,200",
-      icon: "fa-child",
-      color: "bg-pink-100 text-pink-600",
-      description: "REPLACE: Early childhood care and development centers",
-    },
+  // Education Facilities — Source: Wikipedia (Municipality of Tuy), DepEd records
+  const elementarySchools = [
+    "Acle Elementary School",
+    "Bagong Silang Elementary School",
+    "Bolbok Elementary School",
+    "Burgos Elementary School",
+    "Dalima Elementary School",
+    "Dao Elementary School",
+    "Guinhawa Elementary School",
+    "Ipil Elementary School",
+    "Lumbangan Elementary School",
+    "Luntal Elementary School",
+    "Magahis Elementary School",
+    "Malibu Elementary School",
+    "Palincaro Elementary School",
+    "Putol Elementary School",
+    "Rillo Elementary School",
+    "Rizal Elementary School (Poblacion)",
+    "Sabang Elementary School",
+    "San Jose Elementary School",
+    "Talon Elementary School",
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Health Facilities
-  // ============================================
-  // Provide information about healthcare infrastructure
-  const healthFacilities = [
-    {
-      type: "REPLACE: Rural Health Unit",
-      count: "REPLACE: 1",
-      icon: "fa-hospital",
-      color: "bg-red-100 text-red-600",
-      description:
-        "REPLACE: Main RHU location, services offered, operating hours",
-      services: [
-        "REPLACE: Primary healthcare",
-        "REPLACE: Immunization",
-        "REPLACE: Maternal care",
-        "REPLACE: Pharmacy",
-      ],
-    },
-    {
-      type: "REPLACE: Barangay Health Stations",
-      count: "REPLACE: 22",
-      icon: "fa-clinic-medical",
-      color: "bg-blue-100 text-blue-600",
-      description:
-        "REPLACE: Health stations in each barangay providing basic health services",
-      services: [
-        "REPLACE: Basic consultation",
-        "REPLACE: First aid",
-        "REPLACE: Health monitoring",
-        "REPLACE: Medicine distribution",
-      ],
-    },
-    {
-      type: "REPLACE: Private Clinics",
-      count: "REPLACE: 12",
-      icon: "fa-stethoscope",
-      color: "bg-green-100 text-green-600",
-      description:
-        "REPLACE: Private medical and dental clinics operated by practitioners",
-      services: [
-        "REPLACE: General practice",
-        "REPLACE: Dental care",
-        "REPLACE: Specialty consultation",
-        "REPLACE: Laboratory services",
-      ],
-    },
-  ];
-
-  // ============================================
-  // CONTENT NEEDED: Health Personnel
-  // ============================================
-  const healthPersonnel = {
-    doctors: "REPLACE: 8",
-    nurses: "REPLACE: 15",
-    midwives: "REPLACE: 25",
-    bhws: "REPLACE: 50",
-    dentists: "REPLACE: 4",
-  };
-
-  // ============================================
-  // CONTENT NEEDED: Business & Investment Climate
-  // ============================================
-  const businessEnvironment = [
-    {
-      title: "REPLACE: Business Registration",
-      icon: "fa-file-signature",
-      description:
-        "REPLACE: Describe the business registration process, requirements, timeline, and support services available to new businesses.",
-    },
-    {
-      title: "REPLACE: Investment Opportunities",
-      icon: "fa-chart-line",
-      description:
-        "REPLACE: Describe key investment opportunities in Tuy including priority sectors, available land, incentives, and comparative advantages.",
-    },
-    {
-      title: "REPLACE: Banking & Finance",
-      icon: "fa-university",
-      description:
-        "REPLACE: List available banking institutions, microfinance services, and financial support programs for entrepreneurs and businesses.",
-    },
-    {
-      title: "REPLACE: Market Access",
-      icon: "fa-shopping-bag",
-      description:
-        "REPLACE: Describe market facilities, trading centers, distribution networks, and access to regional and national markets.",
-    },
+  const secondarySchools = [
+    "Tuy National High School (Poblacion)",
+    "Dalima National High School",
+    "Luntal National High School",
+    "Rillo National High School",
+    "Sabang National High School",
+    "Toong National High School",
   ];
 
   return (
@@ -443,29 +277,30 @@ const SocioEconomic = () => {
             </h2>
           </div>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
-            {/* ============================================
-                CONTENT NEEDED: Economic Overview
-                ============================================
-                Provide 2-3 paragraphs introducing Tuy's economy:
-                - Paragraph 1: Overall economic landscape and characteristics
-                - Paragraph 2: Major economic sectors and their relationships
-                - Paragraph 3: Recent economic trends and future outlook
-            */}
             <p>
-              REPLACE: First paragraph - Provide an overview of Tuy's economic
-              landscape. Discuss the municipality's economic classification,
-              main sources of income, and overall economic health.
+              Tuy is classified as a 3rd municipal income class municipality in
+              the province of Batangas. Its economy is predominantly
+              agricultural, anchored by sugarcane farming, mango cultivation,
+              cassava production, and livestock raising. The municipality also
+              has a notable local food products industry, particularly its
+              heritage bakery tradition producing jacobina biscuits and biscocho
+              since the 1960s.
             </p>
             <p>
-              REPLACE: Second paragraph - Describe the major economic sectors
-              and how they interact. Explain the balance between agriculture,
-              fishing, manufacturing, and services, and their contributions to
-              employment and income.
+              With a total annual LGU revenue of approximately {"\u20B1"}226.8
+              million (2022, Bureau of Local Government Finance), Tuy has shown
+              steady fiscal growth in recent years. The municipality's poverty
+              incidence has declined significantly over two decades, dropping
+              from 51.09% in 2000 to 6.12% in 2021 according to PSA Small Area
+              Estimates, reflecting sustained improvements in the local standard
+              of living.
             </p>
             <p>
-              REPLACE: Third paragraph - Discuss recent economic developments,
-              growth trends, challenges faced, and the municipality's vision for
-              economic development and poverty reduction.
+              Natural resources including sand, gravel, and timber from forested
+              barangays complement the agricultural economy. The municipality is
+              well-connected through the national highway network, with
+              transportation links to Nasugbu, Balayan, Batangas City, and
+              Manila, supporting trade and commerce.
             </p>
           </div>
         </section>
@@ -511,6 +346,60 @@ const SocioEconomic = () => {
           </div>
         </section>
 
+        {/* Poverty Incidence Trend Section */}
+        <section
+          ref={povertyRef.elementRef}
+          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
+            povertyRef.isVisible ? "visible" : ""
+          }`}
+        >
+          <div className="flex items-center mb-6">
+            <div className="w-2 h-12 bg-primary mr-4"></div>
+            <h2 className="text-4xl font-bold text-primary">
+              Poverty Incidence Trend
+            </h2>
+          </div>
+          <p className="text-gray-700 text-lg mb-8">
+            Poverty incidence among population based on PSA Small Area Estimates,
+            showing a significant decline from 51.09% (2000) to 6.12% (2021).
+          </p>
+
+          {/* Bar Chart */}
+          <div className="space-y-4">
+            {povertyTrend.map((entry, index) => {
+              const maxRate = 55; // scale max for visual
+              const barWidth = (entry.rate / maxRate) * 100;
+              return (
+                <div
+                  key={index}
+                  className={`flex items-center gap-4 scroll-animate stagger-${
+                    (index % 4) + 1
+                  } ${povertyRef.isVisible ? "visible" : ""}`}
+                >
+                  <div className="w-16 text-right font-semibold text-gray-700">
+                    {entry.year}
+                  </div>
+                  <div className="flex-1 bg-gray-200 rounded-full h-8 relative overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-primary to-primary-hover flex items-center justify-end pr-3 transition-all duration-1000"
+                      style={{ width: `${barWidth}%` }}
+                    >
+                      <span className="text-white text-sm font-bold">
+                        {entry.rate}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <p className="text-gray-500 text-sm mt-6 italic">
+            Source: Philippine Statistics Authority (PSA) Small Area Estimates of
+            Poverty Incidence
+          </p>
+        </section>
+
         {/* Major Industries Section */}
         <section
           ref={industriesRef.elementRef}
@@ -521,11 +410,12 @@ const SocioEconomic = () => {
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
             <h2 className="text-4xl font-bold text-primary">
-              Major Industries
+              Major Industries & Agriculture
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Key economic sectors driving Tuy's economy and providing employment.
+            Key economic activities driving Tuy's predominantly agricultural
+            economy.
           </p>
 
           <div className="space-y-6">
@@ -543,14 +433,9 @@ const SocioEconomic = () => {
                     <i className={`fas ${industry.icon} text-3xl`}></i>
                   </div>
                   <div className="flex-1 min-w-[250px]">
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-2xl font-bold text-primary">
-                        {industry.title}
-                      </h3>
-                      <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">
-                        {industry.percentage}%
-                      </span>
-                    </div>
+                    <h3 className="text-2xl font-bold text-primary mb-3">
+                      {industry.title}
+                    </h3>
                     <p className="text-gray-700 leading-relaxed mb-4">
                       {industry.description}
                     </p>
@@ -577,42 +462,45 @@ const SocioEconomic = () => {
           </div>
         </section>
 
-        {/* Employment & Labor Section */}
+        {/* Natural Resources Section */}
         <section
-          ref={employmentRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            employmentRef.isVisible ? "visible" : ""
+          ref={resourcesRef.elementRef}
+          className={`bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow-lg p-8 scroll-animate ${
+            resourcesRef.isVisible ? "visible" : ""
           }`}
         >
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
             <h2 className="text-4xl font-bold text-primary">
-              Employment & Labor
+              Natural Resources
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Workforce statistics and employment situation in Tuy.
+            Natural resources found within the municipality of Tuy.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {employmentStats.map((stat, index) => (
+          <div className="grid md:grid-cols-2 gap-6">
+            {naturalResources.map((resource, index) => (
               <div
                 key={index}
-                className={`bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-6 hover:shadow-md transition-all scroll-animate stagger-${
+                className={`bg-white rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
                   index + 1
-                } ${employmentRef.isVisible ? "visible" : ""}`}
+                } ${resourcesRef.isVisible ? "visible" : ""}`}
               >
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                  <i className={`fas ${stat.icon} text-primary text-xl`}></i>
-                </div>
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold text-primary mb-2">
-                    {stat.title}
-                  </h3>
-                  <div className="text-3xl font-bold text-primary mb-2">
-                    {stat.value}
+                <div className="flex items-start gap-4">
+                  <div
+                    className={`w-14 h-14 rounded-full ${resource.color} flex items-center justify-center flex-shrink-0`}
+                  >
+                    <i className={`fas ${resource.icon} text-2xl`}></i>
                   </div>
-                  <p className="text-gray-600 text-sm">{stat.description}</p>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-primary mb-2">
+                      {resource.title}
+                    </h3>
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {resource.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -629,11 +517,11 @@ const SocioEconomic = () => {
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
             <h2 className="text-4xl font-bold text-primary">
-              Infrastructure Development
+              Infrastructure
             </h2>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {Object.entries(infrastructure).map(
               ([key, category], catIndex) => (
                 <div
@@ -653,25 +541,17 @@ const SocioEconomic = () => {
                     </h3>
                   </div>
 
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    {category.stats.map((stat, statIndex) => (
-                      <div
-                        key={statIndex}
-                        className="bg-white rounded-lg p-4 text-center"
+                  <ul className="space-y-2 ml-4">
+                    {category.items.map((item, itemIndex) => (
+                      <li
+                        key={itemIndex}
+                        className="flex items-start gap-2 text-gray-700"
                       >
-                        <div className="text-2xl font-bold text-primary mb-1">
-                          {stat.value}
-                        </div>
-                        <div className="text-gray-600 text-sm">
-                          {stat.label}
-                        </div>
-                      </div>
+                        <i className="fas fa-check-circle text-primary text-sm mt-1 flex-shrink-0"></i>
+                        <span>{item}</span>
+                      </li>
                     ))}
-                  </div>
-
-                  <p className="text-gray-700 leading-relaxed">
-                    {category.description}
-                  </p>
+                  </ul>
                 </div>
               ),
             )}
@@ -692,190 +572,129 @@ const SocioEconomic = () => {
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Educational institutions serving Tuy's learning needs.
+            Educational institutions serving the municipality of Tuy, Batangas.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {educationFacilities.map((facility, index) => (
-              <div
-                key={index}
-                className={`bg-white rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
-                  (index % 2) + 1
-                } ${educationRef.isVisible ? "visible" : ""}`}
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className={`w-14 h-14 rounded-full ${facility.color} flex items-center justify-center flex-shrink-0`}
-                  >
-                    <i className={`fas ${facility.icon} text-2xl`}></i>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-primary mb-2">
-                      {facility.type}
-                    </h3>
-                    <div className="flex items-center gap-4 mb-2">
-                      <span className="text-primary font-bold">
-                        {facility.count} Schools
-                      </span>
-                      <span className="text-gray-600">
-                        {facility.enrollment} Students
-                      </span>
-                    </div>
-                    <p className="text-gray-700 text-sm">
-                      {facility.description}
-                    </p>
-                  </div>
-                </div>
+          {/* Summary Cards */}
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white rounded-lg p-4 text-center">
+              <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-2">
+                <i className="fas fa-school text-lg"></i>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Health Facilities Section */}
-        <section
-          ref={healthRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            healthRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">
-              Health Facilities
-            </h2>
-          </div>
-
-          {/* Health Personnel Stats */}
-          <div className="bg-gradient-to-r from-red-50 to-red-100 rounded-lg p-6 mb-8">
-            <h3 className="text-2xl font-bold text-primary mb-4 flex items-center">
-              <i className="fas fa-user-md text-primary mr-3"></i>
-              Health Personnel
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {healthPersonnel.doctors}
-                </div>
-                <div className="text-gray-700 text-sm">Doctors</div>
+              <div className="text-2xl font-bold text-primary">19</div>
+              <div className="text-gray-600 text-sm">Elementary Schools</div>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center">
+              <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-2">
+                <i className="fas fa-graduation-cap text-lg"></i>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {healthPersonnel.nurses}
-                </div>
-                <div className="text-gray-700 text-sm">Nurses</div>
+              <div className="text-2xl font-bold text-primary">6</div>
+              <div className="text-gray-600 text-sm">Secondary Schools</div>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center">
+              <div className="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mx-auto mb-2">
+                <i className="fas fa-tools text-lg"></i>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {healthPersonnel.midwives}
-                </div>
-                <div className="text-gray-700 text-sm">Midwives</div>
+              <div className="text-2xl font-bold text-primary">1</div>
+              <div className="text-gray-600 text-sm">Vocational School</div>
+            </div>
+            <div className="bg-white rounded-lg p-4 text-center">
+              <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mx-auto mb-2">
+                <i className="fas fa-university text-lg"></i>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {healthPersonnel.bhws}
-                </div>
-                <div className="text-gray-700 text-sm">BHWs</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {healthPersonnel.dentists}
-                </div>
-                <div className="text-gray-700 text-sm">Dentists</div>
-              </div>
+              <div className="text-2xl font-bold text-primary">1</div>
+              <div className="text-gray-600 text-sm">Higher Education</div>
             </div>
           </div>
 
-          {/* Health Facilities */}
-          <div className="space-y-6">
-            {healthFacilities.map((facility, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg p-6 hover:shadow-lg transition-all scroll-animate-left stagger-${
-                  index + 1
-                } ${healthRef.isVisible ? "visible" : ""}`}
-              >
-                <div className="flex items-start gap-6 flex-wrap">
-                  <div
-                    className={`w-16 h-16 rounded-lg ${facility.color} flex items-center justify-center flex-shrink-0`}
-                  >
-                    <i className={`fas ${facility.icon} text-3xl`}></i>
-                  </div>
-                  <div className="flex-1 min-w-[250px]">
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-2xl font-bold text-primary">
-                        {facility.type}
-                      </h3>
-                      <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">
-                        {facility.count}
-                      </span>
-                    </div>
-                    <p className="text-gray-700 leading-relaxed mb-4">
-                      {facility.description}
-                    </p>
-                    <div className="border-t border-gray-200 pt-4">
-                      <h4 className="text-sm font-semibold text-gray-600 uppercase mb-3">
-                        Services Offered:
-                      </h4>
-                      <div className="grid md:grid-cols-2 gap-2">
-                        {facility.services.map((service, serviceIndex) => (
-                          <div
-                            key={serviceIndex}
-                            className="flex items-center gap-2"
-                          >
-                            <i className="fas fa-check-circle text-primary text-sm"></i>
-                            <span className="text-gray-700">{service}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Business & Investment Section */}
-        <section
-          ref={businessRef.elementRef}
-          className={`bg-gradient-to-br from-primary to-primary-hover py-12 rounded-lg shadow-xl scroll-animate ${
-            businessRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="px-8">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Business & Investment Climate
-            </h2>
-            <p className="text-white/90 text-lg mb-10">
-              Opportunities and support for businesses and investors in Tuy.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {businessEnvironment.map((item, index) => (
-                <div
-                  key={index}
-                  className={`bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all scroll-animate stagger-${
-                    (index % 2) + 1
-                  } ${businessRef.isVisible ? "visible" : ""}`}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                      <i className={`fas ${item.icon} text-white text-2xl`}></i>
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-3">
-                        {item.title}
-                      </h3>
-                      <p className="text-white/90 leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
+          {/* Elementary Schools List */}
+          <div
+            className={`bg-white rounded-lg p-6 mb-6 scroll-animate stagger-1 ${
+              educationRef.isVisible ? "visible" : ""
+            }`}
+          >
+            <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+              <i className="fas fa-school text-blue-600"></i>
+              Elementary Schools (19)
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+              {elementarySchools.map((school, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <i className="fas fa-check-circle text-primary text-xs"></i>
+                  <span className="text-gray-700 text-sm">{school}</span>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Secondary Schools List */}
+          <div
+            className={`bg-white rounded-lg p-6 mb-6 scroll-animate stagger-2 ${
+              educationRef.isVisible ? "visible" : ""
+            }`}
+          >
+            <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+              <i className="fas fa-graduation-cap text-green-600"></i>
+              Secondary Schools (6)
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
+              {secondarySchools.map((school, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <i className="fas fa-check-circle text-primary text-xs"></i>
+                  <span className="text-gray-700 text-sm">{school}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Higher Education */}
+          <div
+            className={`bg-white rounded-lg p-6 scroll-animate stagger-3 ${
+              educationRef.isVisible ? "visible" : ""
+            }`}
+          >
+            <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+              <i className="fas fa-university text-purple-600"></i>
+              Higher Education & Vocational
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <i className="fas fa-check-circle text-primary text-xs mt-1"></i>
+                <div>
+                  <span className="text-gray-700 text-sm font-semibold">
+                    Dr. Francisco L. Calingasan Memorial Colleges Foundation
+                  </span>
+                  <p className="text-gray-500 text-xs">
+                    Higher education institution serving Tuy and neighboring
+                    municipalities
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <i className="fas fa-check-circle text-primary text-xs mt-1"></i>
+                <div>
+                  <span className="text-gray-700 text-sm font-semibold">
+                    Vocational/Technical Training
+                  </span>
+                  <p className="text-gray-500 text-xs">
+                    Skills training and TESDA-accredited programs available in
+                    the municipality
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
+
+        {/* Data Sources Note */}
+        <div className="bg-gray-50 rounded-lg p-6 text-center text-gray-500 text-sm">
+          <p>
+            <strong>Data Sources:</strong> Philippine Statistics Authority (PSA)
+            Census of Population, PSA Small Area Estimates of Poverty Incidence,
+            Bureau of Local Government Finance (BLGF), Department of Education
+            (DepEd), Wikipedia — Municipality of Tuy.
+          </p>
+        </div>
       </div>
     </div>
   );

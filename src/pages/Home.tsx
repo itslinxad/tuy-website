@@ -1,4 +1,3 @@
-import "../assets/css/index.css";
 import { useState, useRef, useEffect } from "react";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useParallax } from "../hooks/useParallax";

@@ -1,4 +1,3 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
@@ -16,324 +15,214 @@ const Demography = () => {
   const householdRef = useScrollAnimation();
   const languageRef = useScrollAnimation();
   const religionRef = useScrollAnimation();
-  const educationRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Population Statistics Dashboard
-  // ============================================
-  // Provide current demographic statistics:
-  // - totalPopulation: Current total population
-  // - populationDensity: People per square kilometer
-  // - growthRate: Annual growth rate percentage
-  // - households: Total number of households
+  // Population Statistics — Source: PSA 2024 Census
   const populationStats = [
     {
       icon: "fa-users",
-      number: "REPLACE: 45,000",
+      number: "47,199",
       label: "Total Population",
       suffix: "",
-      description: "REPLACE: As of 2024 Census",
+      description: "2024 Census (PSA)",
     },
     {
       icon: "fa-chart-area",
-      number: "REPLACE: 607",
+      number: "499",
       label: "Population Density",
-      suffix: "/km²",
-      description: "REPLACE: People per square kilometer",
+      suffix: "/km\u00B2",
+      description: "Inhabitants per square kilometer",
     },
     {
       icon: "fa-chart-line",
-      number: "REPLACE: 1.5",
+      number: "1.07",
       label: "Growth Rate",
       suffix: "%",
-      description: "REPLACE: Annual population growth",
+      description: "Annual growth rate (2010\u20132024)",
     },
     {
       icon: "fa-home",
-      number: "REPLACE: 11,000",
+      number: "11,448",
       label: "Households",
       suffix: "",
-      description: "REPLACE: Total number of households",
+      description: "Total number of households (2024)",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Age Distribution
-  // ============================================
-  // Provide population breakdown by age groups:
-  // - ageGroup: Age range (e.g., "0-14 years")
-  // - population: Number of people in this age group
-  // - percentage: Percentage of total population
-  // - icon: FontAwesome icon class
-  // - color: Tailwind color classes
+  // Age Distribution — Source: PSA 2015 Census via PhilAtlas
+  // (most recent census with detailed age breakdown available)
   const ageDistribution = [
     {
-      ageGroup: "REPLACE: 0-14 years",
-      population: "REPLACE: 15,000",
-      percentage: "REPLACE: 33.3",
+      ageGroup: "0\u201314 years",
+      population: "13,348",
+      percentage: "30.5",
       icon: "fa-child",
       color: "bg-blue-100 text-blue-600",
       description: "Children and young adolescents",
     },
     {
-      ageGroup: "REPLACE: 15-24 years",
-      population: "REPLACE: 8,500",
-      percentage: "REPLACE: 18.9",
+      ageGroup: "15\u201324 years",
+      population: "7,667",
+      percentage: "17.5",
       icon: "fa-user-graduate",
       color: "bg-green-100 text-green-600",
       description: "Youth and young adults",
     },
     {
-      ageGroup: "REPLACE: 25-54 years",
-      population: "REPLACE: 16,000",
-      percentage: "REPLACE: 35.6",
+      ageGroup: "25\u201354 years",
+      population: "16,693",
+      percentage: "38.2",
       icon: "fa-user-tie",
       color: "bg-purple-100 text-purple-600",
       description: "Working-age adults",
     },
     {
-      ageGroup: "REPLACE: 55-64 years",
-      population: "REPLACE: 3,500",
-      percentage: "REPLACE: 7.8",
+      ageGroup: "55\u201364 years",
+      population: "3,204",
+      percentage: "7.3",
       icon: "fa-user",
       color: "bg-yellow-100 text-yellow-600",
       description: "Mature adults",
     },
     {
-      ageGroup: "REPLACE: 65+ years",
-      population: "REPLACE: 2,000",
-      percentage: "REPLACE: 4.4",
+      ageGroup: "65+ years",
+      population: "2,831",
+      percentage: "6.5",
       icon: "fa-user-clock",
       color: "bg-red-100 text-red-600",
       description: "Senior citizens",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Population Trends
-  // ============================================
-  // Provide historical population data showing growth over time:
-  // - year: Census year
-  // - population: Population count
-  // - growthRate: Percentage growth from previous census
+  // Population Trends — Source: PSA Historical Census Data
   const populationTrends = [
     {
-      year: "REPLACE: 1990",
-      population: "REPLACE: 30,000",
-      growthRate: "REPLACE: -",
+      year: "1990",
+      population: "30,409",
+      growthRate: "-",
     },
     {
-      year: "REPLACE: 2000",
-      population: "REPLACE: 35,000",
-      growthRate: "REPLACE: 16.7%",
+      year: "1995",
+      population: "32,447",
+      growthRate: "1.22%",
     },
     {
-      year: "REPLACE: 2010",
-      population: "REPLACE: 40,000",
-      growthRate: "REPLACE: 14.3%",
+      year: "2000",
+      population: "35,672",
+      growthRate: "2.05%",
     },
     {
-      year: "REPLACE: 2015",
-      population: "REPLACE: 42,500",
-      growthRate: "REPLACE: 6.3%",
+      year: "2007",
+      population: "40,290",
+      growthRate: "1.69%",
     },
     {
-      year: "REPLACE: 2020",
-      population: "REPLACE: 44,000",
-      growthRate: "REPLACE: 3.5%",
+      year: "2010",
+      population: "40,734",
+      growthRate: "0.40%",
     },
     {
-      year: "REPLACE: 2024",
-      population: "REPLACE: 45,000",
-      growthRate: "REPLACE: 2.3%",
+      year: "2015",
+      population: "43,743",
+      growthRate: "1.37%",
+    },
+    {
+      year: "2020",
+      population: "46,519",
+      growthRate: "1.30%",
+    },
+    {
+      year: "2024",
+      population: "47,199",
+      growthRate: "0.35%",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Household Statistics
-  // ============================================
-  // Provide household demographic information
+  // Household Statistics — Source: PSA 2015 Census via PhilAtlas, 2024 Census
   const householdStats = [
     {
       title: "Average Household Size",
-      value: "REPLACE: 4.1",
-      suffix: "persons",
+      value: "4.34",
+      suffix: " persons",
       icon: "fa-users",
       color: "bg-blue-100 text-blue-600",
-      description: "REPLACE: Average number of people per household",
+      description: "Average number of members per household (2015 Census)",
     },
     {
-      title: "Male Population",
-      value: "REPLACE: 51",
-      suffix: "%",
-      icon: "fa-male",
+      title: "Total Households",
+      value: "11,448",
+      suffix: "",
+      icon: "fa-home",
       color: "bg-indigo-100 text-indigo-600",
-      description: "REPLACE: Percentage of male population",
-    },
-    {
-      title: "Female Population",
-      value: "REPLACE: 49",
-      suffix: "%",
-      icon: "fa-female",
-      color: "bg-pink-100 text-pink-600",
-      description: "REPLACE: Percentage of female population",
+      description: "Total households as of 2024 Census",
     },
     {
       title: "Dependency Ratio",
-      value: "REPLACE: 65",
+      value: "58.7",
       suffix: "%",
       icon: "fa-balance-scale",
       color: "bg-green-100 text-green-600",
-      description:
-        "REPLACE: Ratio of dependents to working-age population",
+      description: "Ratio of dependents to working-age population (2015)",
+    },
+    {
+      title: "Median Age",
+      value: "26.4",
+      suffix: " years",
+      icon: "fa-calendar",
+      color: "bg-pink-100 text-pink-600",
+      description: "Median age of the population (2015 Census)",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Language & Ethnicity
-  // ============================================
-  // Provide information about languages spoken and ethnic composition:
-  // - language/ethnicity: Name
-  // - percentage: Percentage of population
-  // - icon: FontAwesome icon class
-  const languageEthnicity = [
+  // Language — Source: Wikipedia (Tuy, Batangas)
+  // Note: exact percentages for language use are described qualitatively;
+  // the descriptions below reflect verified information.
+  const languages = [
     {
-      category: "Primary Language",
-      items: [
-        {
-          name: "REPLACE: Tagalog",
-          percentage: "REPLACE: 98",
-          icon: "fa-comment",
-        },
-        {
-          name: "REPLACE: English",
-          percentage: "REPLACE: 85",
-          icon: "fa-language",
-        },
-        {
-          name: "REPLACE: Other Languages",
-          percentage: "REPLACE: 5",
-          icon: "fa-comments",
-        },
-      ],
+      name: "Tagalog (Batangue\u00F1o)",
+      description: "Primary local language spoken in all households",
+      icon: "fa-comment",
     },
     {
-      category: "Ethnic Groups",
-      items: [
-        {
-          name: "REPLACE: Tagalog",
-          percentage: "REPLACE: 95",
-          icon: "fa-flag",
-        },
-        {
-          name: "REPLACE: Bisaya",
-          percentage: "REPLACE: 3",
-          icon: "fa-flag",
-        },
-        {
-          name: "REPLACE: Others",
-          percentage: "REPLACE: 2",
-          icon: "fa-flag",
-        },
-      ],
+      name: "English",
+      description: "Widely spoken; used in education, business, and government",
+      icon: "fa-language",
+    },
+    {
+      name: "Filipino",
+      description: "National language used in media and official communication",
+      icon: "fa-comments",
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Religious Demographics
-  // ============================================
-  // Provide breakdown of religious affiliations:
-  // - religion: Name of religion
-  // - percentage: Percentage of population
-  // - icon: FontAwesome icon class
-  // - color: Tailwind color classes
-  const religiousDemographics = [
+  // Religious Demographics — Source: Wikipedia (Tuy, Batangas)
+  // Wikipedia states "vast majority" Roman Catholic with INC (5 chapels)
+  // and other Christian denominations present.
+  const religiousDenominations = [
     {
-      religion: "REPLACE: Roman Catholic",
-      percentage: "REPLACE: 85",
+      religion: "Roman Catholic",
+      description: "Vast majority of the population; parish church dedicated to Saint Vincent Ferrer",
       icon: "fa-cross",
       color: "bg-blue-100 text-blue-600",
     },
     {
-      religion: "REPLACE: Iglesia ni Cristo",
-      percentage: "REPLACE: 7",
+      religion: "Iglesia ni Cristo",
+      description: "Five chapels across the municipality: Guinhawa, Tuy, Sabang, Acle, and Silangan",
       icon: "fa-church",
       color: "bg-green-100 text-green-600",
     },
     {
-      religion: "REPLACE: Protestant",
-      percentage: "REPLACE: 4",
+      religion: "Evangelicals & Baptists",
+      description: "Protestant Christian communities present in the municipality",
       icon: "fa-bible",
       color: "bg-purple-100 text-purple-600",
     },
     {
-      religion: "REPLACE: Islam",
-      percentage: "REPLACE: 1",
-      icon: "fa-mosque",
-      color: "bg-teal-100 text-teal-600",
-    },
-    {
-      religion: "REPLACE: Others",
-      percentage: "REPLACE: 3",
+      religion: "Other Denominations",
+      description: "Including Jehovah's Witnesses, Adventists, and Church of Christ movements",
       icon: "fa-praying-hands",
       color: "bg-gray-100 text-gray-600",
     },
   ];
-
-  // ============================================
-  // CONTENT NEEDED: Educational Attainment
-  // ============================================
-  // Provide education level statistics:
-  // - level: Educational level achieved
-  // - percentage: Percentage of population 25 years and over
-  // - icon: FontAwesome icon class
-  // - color: Tailwind color classes
-  const educationalAttainment = [
-    {
-      level: "REPLACE: College Graduate",
-      percentage: "REPLACE: 15",
-      icon: "fa-graduation-cap",
-      color: "bg-blue-100 text-blue-600",
-      description: "Completed bachelor's degree or higher",
-    },
-    {
-      level: "REPLACE: Some College",
-      percentage: "REPLACE: 20",
-      icon: "fa-user-graduate",
-      color: "bg-indigo-100 text-indigo-600",
-      description: "Attended college but did not complete",
-    },
-    {
-      level: "REPLACE: High School Graduate",
-      percentage: "REPLACE: 35",
-      icon: "fa-school",
-      color: "bg-green-100 text-green-600",
-      description: "Completed secondary education",
-    },
-    {
-      level: "REPLACE: Elementary Graduate",
-      percentage: "REPLACE: 20",
-      icon: "fa-book-reader",
-      color: "bg-yellow-100 text-yellow-600",
-      description: "Completed primary education",
-    },
-    {
-      level: "REPLACE: No Formal Education",
-      percentage: "REPLACE: 10",
-      icon: "fa-book",
-      color: "bg-red-100 text-red-600",
-      description: "Did not complete elementary education",
-    },
-  ];
-
-  // ============================================
-  // CONTENT NEEDED: Literacy Rate
-  // ============================================
-  const literacyRate = {
-    overall: "REPLACE: 96.5",
-    male: "REPLACE: 97.0",
-    female: "REPLACE: 96.0",
-  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -404,31 +293,34 @@ const Demography = () => {
             </h2>
           </div>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
-            {/* ============================================
-                CONTENT NEEDED: Demographic Overview
-                ============================================
-                Provide 2-3 paragraphs introducing Tuy's demographic profile:
-                - Paragraph 1: General overview of population composition
-                - Paragraph 2: Key demographic characteristics and trends
-                - Paragraph 3: Significance of demographic data for planning
-            */}
             <p>
-              REPLACE: First paragraph - Provide an overview of Tuy's
-              demographic composition. Discuss the general characteristics of
-              the population, including size, distribution across barangays, and
-              overall demographic profile.
+              The Municipality of Tuy, located in the province of Batangas
+              within the CALABARZON region, is home to 47,199 people as of the
+              2024 Census conducted by the Philippine Statistics Authority. The
+              population is distributed across 22 barangays, with the largest
+              concentrations in Magahis, Luntal, Sabang, and Putol. The
+              municipality covers a land area of 94.65 square kilometers,
+              resulting in a population density of approximately 499 inhabitants
+              per square kilometer.
             </p>
             <p>
-              REPLACE: Second paragraph - Highlight key demographic trends and
-              characteristics. Mention age structure, gender distribution,
-              growth patterns, and any notable demographic features that define
-              the municipality.
+              Tuy has experienced steady population growth over the past
+              century, rising from just 2,340 people in 1903 to over 47,000
+              today. The annualized growth rate has moderated in recent years,
+              from 1.95% during the 1980s-1990s period to 1.30% between 2015
+              and 2020, and further slowing to 0.35% between 2020 and 2024. The
+              population is relatively young, with a median age of 26.4 years
+              as of the 2015 Census, and a significant proportion of residents
+              falling within the working-age bracket of 25 to 54 years.
             </p>
             <p>
-              REPLACE: Third paragraph - Explain the importance of demographic
-              data for municipal planning, service delivery, and development
-              programs. Discuss how this information guides policy-making and
-              resource allocation.
+              Tagalog, in its Batangue&ntilde;o dialect, is the primary language
+              spoken across all households. The municipality is predominantly
+              Roman Catholic, with the Saint Vincent Ferrer Parish Church
+              serving as the main religious institution. Understanding these
+              demographic characteristics is essential for effective municipal
+              planning, resource allocation, and the delivery of public
+              services to the communities of Tuy.
             </p>
           </div>
         </section>
@@ -482,8 +374,8 @@ const Demography = () => {
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Population breakdown by age groups showing the demographic structure
-            of Tuy.
+            Population breakdown by age groups based on the 2015 Census
+            (PSA), the most recent census with detailed age data available.
           </p>
 
           <div className="space-y-4">
@@ -547,15 +439,16 @@ const Demography = () => {
             </h2>
           </div>
           <p className="text-gray-700 text-lg mb-8">
-            Historical population data showing growth patterns over the decades.
+            Historical population data from PSA censuses showing growth
+            patterns over the decades.
           </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {populationTrends.map((trend, index) => (
               <div
                 key={index}
                 className={`bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
-                  (index % 3) + 1
+                  (index % 4) + 1
                 } ${trendsRef.isVisible ? "visible" : ""}`}
               >
                 <div className="text-center">
@@ -622,67 +515,6 @@ const Demography = () => {
           </div>
         </section>
 
-        {/* Language & Ethnicity Section */}
-        <section
-          ref={languageRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            languageRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">
-              Language & Ethnicity
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {languageEthnicity.map((category, catIndex) => (
-              <div
-                key={catIndex}
-                className={`bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 scroll-animate stagger-${
-                  catIndex + 1
-                } ${languageRef.isVisible ? "visible" : ""}`}
-              >
-                <h3 className="text-2xl font-bold text-primary mb-6">
-                  {category.category}
-                </h3>
-                <div className="space-y-4">
-                  {category.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <i
-                          className={`fas ${item.icon} text-primary text-lg`}
-                        ></i>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-semibold text-gray-800">
-                            {item.name}
-                          </span>
-                          <span className="text-primary font-bold">
-                            {item.percentage}%
-                          </span>
-                        </div>
-                        <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
-                          <div
-                            className="bg-primary h-full rounded-full transition-all duration-1000"
-                            style={{
-                              width: languageRef.isVisible
-                                ? `${item.percentage}%`
-                                : "0%",
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Religious Demographics Section */}
         <section
           ref={religionRef.elementRef}
@@ -695,15 +527,15 @@ const Demography = () => {
               Religious Demographics
             </h2>
             <p className="text-white/90 text-lg mb-10">
-              Distribution of religious affiliations in Tuy.
+              Religious affiliations in the Municipality of Tuy.
             </p>
 
-            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-              {religiousDemographics.map((religion, index) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {religiousDenominations.map((religion, index) => (
                 <div
                   key={index}
                   className={`bg-white rounded-lg p-6 hover:shadow-lg transition-all scroll-animate stagger-${
-                    (index % 5) + 1
+                    (index % 4) + 1
                   } ${religionRef.isVisible ? "visible" : ""}`}
                 >
                   <div
@@ -712,12 +544,12 @@ const Demography = () => {
                     <i className={`fas ${religion.icon} text-2xl`}></i>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary mb-2">
-                      {religion.percentage}%
-                    </div>
-                    <div className="text-gray-700 font-semibold">
+                    <h3 className="text-lg font-bold text-primary mb-2">
                       {religion.religion}
-                    </div>
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      {religion.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -725,95 +557,20 @@ const Demography = () => {
           </div>
         </section>
 
-        {/* Educational Attainment Section */}
-        <section
-          ref={educationRef.elementRef}
-          className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
-            educationRef.isVisible ? "visible" : ""
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">
-              Educational Attainment
-            </h2>
-          </div>
-
-          {/* Literacy Rate Highlight */}
-          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6 mb-8">
-            <h3 className="text-2xl font-bold text-primary mb-4 flex items-center">
-              <i className="fas fa-book-reader text-primary mr-3"></i>
-              Literacy Rate
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-1">
-                  {literacyRate.overall}%
-                </div>
-                <div className="text-gray-700 font-semibold">Overall</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-1">
-                  {literacyRate.male}%
-                </div>
-                <div className="text-gray-700 font-semibold">Male</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-1">
-                  {literacyRate.female}%
-                </div>
-                <div className="text-gray-700 font-semibold">Female</div>
-              </div>
+        {/* Data Sources Note */}
+        <section className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+          <div className="flex items-start gap-3">
+            <i className="fas fa-info-circle text-blue-600 mt-1"></i>
+            <div className="text-sm text-blue-800">
+              <p className="font-semibold mb-1">Data Sources</p>
+              <p>
+                Population figures are from the Philippine Statistics Authority
+                (PSA) censuses. Age distribution and household data are from the
+                2015 Census, the most recent with detailed breakdowns available.
+                Language and religious information is based on publicly available
+                records.
+              </p>
             </div>
-          </div>
-
-          {/* Education Levels */}
-          <p className="text-gray-700 text-lg mb-6">
-            Educational attainment levels of the population (25 years and over).
-          </p>
-
-          <div className="space-y-4">
-            {educationalAttainment.map((education, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg p-6 hover:shadow-md transition-all scroll-animate-left stagger-${
-                  index + 1
-                } ${educationRef.isVisible ? "visible" : ""}`}
-              >
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <div className="flex items-center gap-4 flex-1">
-                    <div
-                      className={`w-14 h-14 rounded-full ${education.color} flex items-center justify-center flex-shrink-0`}
-                    >
-                      <i className={`fas ${education.icon} text-2xl`}></i>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-primary">
-                        {education.level}
-                      </h3>
-                      <p className="text-gray-600 text-sm">
-                        {education.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-bold text-primary">
-                      {education.percentage}%
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 bg-gray-200 rounded-full h-2 overflow-hidden">
-                  <div
-                    className="bg-primary h-full rounded-full transition-all duration-1000"
-                    style={{
-                      width: educationRef.isVisible
-                        ? `${education.percentage}%`
-                        : "0%",
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
           </div>
         </section>
       </div>

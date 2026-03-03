@@ -1,4 +1,3 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import Navbar from "../../components/Navbar.tsx";

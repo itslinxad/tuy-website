@@ -1,4 +1,3 @@
-import "../assets/css/index.css";
 import { Link } from "react-router-dom";
 import { useState, useCallback } from "react";
 import emailjs from "@emailjs/browser";

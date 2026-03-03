@@ -1,4 +1,3 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
@@ -15,139 +14,131 @@ const Officials = () => {
   const councilorsRef = useScrollAnimation();
   const exOfficioRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Mayor Information
-  // ============================================
+  const basePath = import.meta.env.VITE_BASE_PATH || "";
+
+  // Mayor Information — Source: TUY_WEBSITE_DETAILS.xlsx
   const mayorInfo = {
-    name: "REPLACE: Hon. [Mayor Name]",
+    name: "Hon. Jose Jecerell C. Cerrado",
     position: "Municipal Mayor",
-    term: "REPLACE: 2022-2025",
-    photoPath: "/officials/mayor.jpg", // Add photo to public/officials/
-    email: "REPLACE: mayor@tuy.gov.ph",
-    phone: "REPLACE: (043) XXX-XXXX",
-    vision:
-      "REPLACE: Brief statement about the mayor's vision for Tuy (2-3 sentences). Include key priorities, development goals, and commitment to serving the people.",
-    platforms: [
-      "REPLACE: Platform/Priority 1",
-      "REPLACE: Platform/Priority 2",
-      "REPLACE: Platform/Priority 3",
-      "REPLACE: Platform/Priority 4",
-    ],
+    photoPath: `${basePath}/OfficialS_PIC/Jose Jecerell C. Cerrado.jpg`,
+    phone: "(043) 276-0047 local 200-201",
   };
 
-  // ============================================
-  // CONTENT NEEDED: Vice Mayor Information
-  // ============================================
+  // Vice Mayor Information
   const viceMayorInfo = {
-    name: "REPLACE: Hon. [Vice Mayor Name]",
+    name: "Hon. Armando P. Afable",
     position: "Municipal Vice Mayor",
-    term: "REPLACE: 2022-2025",
-    photoPath: "/officials/vice-mayor.jpg",
-    email: "REPLACE: vicemayor@tuy.gov.ph",
-    phone: "REPLACE: (043) XXX-XXXX",
-    responsibilities:
-      "REPLACE: Brief description of the Vice Mayor's role and responsibilities in the municipal government (2-3 sentences).",
+    photoPath: `${basePath}/OfficialS_PIC/Armando P. Afable.jpg`,
+    phone: "(043) 276-0121",
   };
 
-  // ============================================
-  // CONTENT NEEDED: Sangguniang Bayan Members
-  // ============================================
-  // Note: Assuming 8 councilors (typical for 1st class municipality)
-  // Adjust number of entries as needed for Tuy
+  // Sangguniang Bayan Members with Committee Assignments
   const sanggunianMembers = [
     {
-      name: "REPLACE: Hon. [Councilor Name 1]",
+      name: "Hon. Roselio F. Balbacal",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-1.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Roselio F. Balbacal.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Laws and Ordinances",
+        "Committee on Ways and Means",
+        "Committee on Market and Slaughterhouse",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 2]",
+      name: "Hon. Randoll I. Catapang",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-2.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Randoll I. Catapang.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Energy",
+        "Committee on Peace, Order and Public Safety",
+        "Committee on Transportation",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 3]",
+      name: "Hon. Rafael C. Bautista",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-3.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Rafael C. Bautista.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Internal Rules and Procedure",
+        "Committee on Social Welfare",
+        "Committee on Cooperatives and Non-Government Organizations",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 4]",
+      name: "Hon. Jerome B. Patulot",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-4.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Jerome B. Patulot.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Work, Labor and Employment",
+        "Committee on Trade, Commerce, and Industry",
+        "Committee on Public Information and Communication",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 5]",
+      name: "Hon. Eduardo P. Afable Jr.",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-5.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Eduardo P. Afable Jr. .jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Budget and Appropriation",
+        "Committee on Education and Culture",
+        "Committee on Housing and Land Use",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 6]",
+      name: "Hon. Adrian C. Perez",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-6.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Adrian C. Perez.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Health",
+        "Committee on Climate Change Adaptation and Disaster Risk Reduction",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 7]",
+      name: "Hon. Modesto P. Barangas",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-7.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Modesto P. Barangas.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Agriculture",
+        "Committee on Barangay Works and Community Development",
+        "Committee on Public Works and Public Use",
       ],
     },
     {
-      name: "REPLACE: Hon. [Councilor Name 8]",
+      name: "Hon. Kim Ysabelle C. Mercado",
       position: "Sangguniang Bayan Member",
-      photoPath: "/officials/councilor-8.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Kim Ysabelle C. Mercado.jpg`,
       committees: [
-        "REPLACE: Committee on [Topic] - Chairperson",
-        "REPLACE: Committee on [Topic] - Member",
+        "Committee on Women and Family",
+        "Committee on Food Governance, Public Ethics, and Accountability",
+        "Committee on Tourism",
       ],
     },
   ];
 
-  // ============================================
-  // CONTENT NEEDED: Ex-Officio Members
-  // ============================================
+  // Ex-Officio Members
   const exOfficioMembers = [
     {
-      name: "REPLACE: [ABC President Name]",
+      name: "Hon. Roberto A. Mendoza",
       position: "ABC President",
       organization: "Association of Barangay Captains",
-      photoPath: "/officials/abc-president.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Roberto A. Mendoza.jpg`,
       description:
-        "REPLACE: Represents the 22 Barangay Captains in the Sangguniang Bayan.",
+        "Represents the barangay captains of Tuy's 22 barangays as an ex-officio member of the Sangguniang Bayan.",
+      committees: [
+        "Committee on Justice and Human Rights",
+        "Committee on Illegal Drugs",
+        "Committee on Games and Amusement",
+        "Committee on Environmental Protection and Natural Resources",
+      ],
     },
     {
-      name: "REPLACE: [SK Federation President Name]",
+      name: "Hon. Ly-anne Angeline D. Avena",
       position: "SK Federation President",
       organization: "Sangguniang Kabataan Federation",
-      photoPath: "/officials/sk-president.jpg",
+      photoPath: `${basePath}/OfficialS_PIC/Ly-anne Angeline D. Avena.jpg`,
       description:
-        "REPLACE: Represents the youth sector in the Sangguniang Bayan.",
+        "Represents the youth sector as an ex-officio member of the Sangguniang Bayan.",
+      committees: ["Committee on Youth Development and Sports"],
     },
   ];
 
@@ -162,7 +153,7 @@ const Officials = () => {
           className="parallax-bg"
           style={{
             transform: `translateY(${offset}px)`,
-            backgroundImage: `url('${import.meta.env.VITE_BASE_PATH}/hero-image.jpg')`,
+            backgroundImage: `url('${basePath}/hero-image.jpg')`,
           }}
         ></div>
 
@@ -220,29 +211,19 @@ const Officials = () => {
             </h2>
           </div>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
-            {/* ============================================
-                CONTENT NEEDED: Introduction Text
-                ============================================
-                Provide 2-3 paragraphs about the current administration:
-                - Overview of the elected officials
-                - Their commitment to serve
-                - How they work together for the municipality
-            */}
             <p>
-              REPLACE: First paragraph - Introduce the current administration of
-              Tuy. Mention the elected term, the leadership team, and their
-              collective commitment to serving the municipality and its people.
+              The Municipal Government of Tuy, Batangas is led by elected
+              officials who serve the municipality's 22 barangays and over
+              47,000 residents. The current administration is committed to
+              transparent governance, efficient delivery of public services, and
+              inclusive development for all sectors of the community.
             </p>
             <p>
-              REPLACE: Second paragraph - Describe how the municipal officials
-              work together to deliver services, implement programs, and promote
-              development. Highlight the democratic governance and participatory
-              approach.
-            </p>
-            <p>
-              REPLACE: Third paragraph - Emphasize the officials' dedication to
-              transparency, accountability, and responsive governance. Mention
-              how residents can engage with their elected representatives.
+              The Sangguniang Bayan (Municipal Council) is composed of eight
+              elected councilors, together with ex-officio members representing
+              the barangay captains and the youth sector. They enact ordinances,
+              approve the municipal budget, and oversee the implementation of
+              local policies and programs.
             </p>
           </div>
         </section>
@@ -264,22 +245,16 @@ const Officials = () => {
               {/* Photo */}
               <div className="md:col-span-1">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="aspect-[3/4] bg-gray-200 flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <i className="fas fa-user text-6xl text-gray-400 mb-4"></i>
-                      <p className="text-sm text-gray-500">
-                        Add photo to:
-                        <br />
-                        <code className="text-xs">
-                          public{mayorInfo.photoPath}
-                        </code>
-                      </p>
-                    </div>
+                  <div className="aspect-[3/4] bg-gray-200 overflow-hidden">
+                    <img
+                      src={mayorInfo.photoPath}
+                      alt={mayorInfo.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="p-4 bg-primary text-white text-center">
                     <h3 className="text-xl font-bold">{mayorInfo.name}</h3>
                     <p className="text-white/90">{mayorInfo.position}</p>
-                    <p className="text-white/80 text-sm">{mayorInfo.term}</p>
                   </div>
                 </div>
               </div>
@@ -287,34 +262,20 @@ const Officials = () => {
               {/* Information */}
               <div className="md:col-span-2">
                 <div className="space-y-6">
-                  {/* Vision Statement */}
+                  {/* Role */}
                   <div className="bg-white rounded-lg p-6 shadow-md">
                     <h4 className="text-xl font-bold text-primary mb-3 flex items-center">
-                      <i className="fas fa-eye text-primary mr-3"></i>
-                      Vision for Tuy
+                      <i className="fas fa-user-tie text-primary mr-3"></i>
+                      Role & Responsibilities
                     </h4>
                     <p className="text-gray-700 leading-relaxed">
-                      {mayorInfo.vision}
+                      As the chief executive of the municipality, the Municipal
+                      Mayor is responsible for overall governance, policy
+                      implementation, and the delivery of basic services to all
+                      constituents of Tuy. The Mayor exercises general
+                      supervision over all programs, projects, and activities of
+                      the municipal government.
                     </p>
-                  </div>
-
-                  {/* Key Priorities */}
-                  <div className="bg-white rounded-lg p-6 shadow-md">
-                    <h4 className="text-xl font-bold text-primary mb-4 flex items-center">
-                      <i className="fas fa-bullseye text-primary mr-3"></i>
-                      Key Priorities & Platforms
-                    </h4>
-                    <div className="grid md:grid-cols-2 gap-3">
-                      {mayorInfo.platforms.map((platform, index) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-2 p-3 bg-primary/5 rounded"
-                        >
-                          <i className="fas fa-check-circle text-primary mt-1"></i>
-                          <span className="text-gray-700">{platform}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
                   {/* Contact Information */}
@@ -325,16 +286,14 @@ const Officials = () => {
                     </h4>
                     <div className="space-y-2 text-gray-700">
                       <p className="flex items-center gap-3">
-                        <i className="fas fa-envelope text-primary w-5"></i>
-                        <span>{mayorInfo.email}</span>
-                      </p>
-                      <p className="flex items-center gap-3">
                         <i className="fas fa-phone text-primary w-5"></i>
                         <span>{mayorInfo.phone}</span>
                       </p>
                       <p className="flex items-center gap-3">
                         <i className="fas fa-map-marker-alt text-primary w-5"></i>
-                        <span>Office of the Municipal Mayor, Tuy Municipal Hall</span>
+                        <span>
+                          Office of the Municipal Mayor, Tuy Municipal Hall
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -363,22 +322,16 @@ const Officials = () => {
               {/* Photo */}
               <div className="md:col-span-1">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="aspect-[3/4] bg-gray-200 flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <i className="fas fa-user text-6xl text-gray-400 mb-4"></i>
-                      <p className="text-sm text-gray-500">
-                        Add photo to:
-                        <br />
-                        <code className="text-xs">
-                          public{viceMayorInfo.photoPath}
-                        </code>
-                      </p>
-                    </div>
+                  <div className="aspect-[3/4] bg-gray-200 overflow-hidden">
+                    <img
+                      src={viceMayorInfo.photoPath}
+                      alt={viceMayorInfo.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="p-4 bg-primary text-white text-center">
                     <h3 className="text-xl font-bold">{viceMayorInfo.name}</h3>
                     <p className="text-white/90">{viceMayorInfo.position}</p>
-                    <p className="text-white/80 text-sm">{viceMayorInfo.term}</p>
                   </div>
                 </div>
               </div>
@@ -393,7 +346,10 @@ const Officials = () => {
                       Role & Responsibilities
                     </h4>
                     <p className="text-gray-700 leading-relaxed mb-4">
-                      {viceMayorInfo.responsibilities}
+                      The Municipal Vice Mayor serves as the presiding officer
+                      of the Sangguniang Bayan and performs the duties of the
+                      Municipal Mayor in case of temporary absence or
+                      incapacity.
                     </p>
                     <div className="space-y-2">
                       <p className="flex items-start gap-2 text-gray-700">
@@ -424,10 +380,6 @@ const Officials = () => {
                       Contact Information
                     </h4>
                     <div className="space-y-2 text-gray-700">
-                      <p className="flex items-center gap-3">
-                        <i className="fas fa-envelope text-primary w-5"></i>
-                        <span>{viceMayorInfo.email}</span>
-                      </p>
                       <p className="flex items-center gap-3">
                         <i className="fas fa-phone text-primary w-5"></i>
                         <span>{viceMayorInfo.phone}</span>
@@ -475,15 +427,12 @@ const Officials = () => {
                 } ${councilorsRef.isVisible ? "visible" : ""}`}
               >
                 {/* Photo */}
-                <div className="aspect-[3/4] bg-gray-200 flex items-center justify-center">
-                  <div className="text-center p-4">
-                    <i className="fas fa-user text-4xl text-gray-400 mb-2"></i>
-                    <p className="text-xs text-gray-500">
-                      Add photo to:
-                      <br />
-                      <code className="text-xs">public{member.photoPath}</code>
-                    </p>
-                  </div>
+                <div className="aspect-[3/4] bg-gray-200 overflow-hidden">
+                  <img
+                    src={member.photoPath}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
                 {/* Info */}
@@ -496,12 +445,12 @@ const Officials = () => {
                   {/* Committees */}
                   <div className="border-t border-gray-200 pt-3">
                     <p className="text-xs font-semibold text-gray-600 uppercase mb-2">
-                      Committee Assignments:
+                      Committee Chairmanship:
                     </p>
                     <div className="space-y-1">
                       {member.committees.map((committee, cIndex) => (
                         <p key={cIndex} className="text-xs text-gray-700">
-                          • {committee}
+                          {"\u2022"} {committee}
                         </p>
                       ))}
                     </div>
@@ -539,16 +488,13 @@ const Officials = () => {
                   <div className="flex items-start gap-6">
                     {/* Photo */}
                     <div className="flex-shrink-0">
-                      <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                        <div className="text-center">
-                          <i className="fas fa-user text-3xl text-gray-400"></i>
-                        </div>
+                      <div className="w-24 h-24 bg-gray-200 rounded-full overflow-hidden">
+                        <img
+                          src={member.photoPath}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <p className="text-xs text-gray-500 text-center mt-2">
-                        Add to:
-                        <br />
-                        <code className="text-xs">public{member.photoPath}</code>
-                      </p>
                     </div>
 
                     {/* Info */}
@@ -562,9 +508,22 @@ const Officials = () => {
                       <p className="text-gray-600 text-sm mb-3">
                         {member.organization}
                       </p>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-gray-700 leading-relaxed mb-3">
                         {member.description}
                       </p>
+                      {/* Committees */}
+                      <div className="border-t border-gray-200 pt-3">
+                        <p className="text-xs font-semibold text-gray-600 uppercase mb-2">
+                          Committee Chairmanship:
+                        </p>
+                        <div className="space-y-1">
+                          {member.committees.map((committee, cIndex) => (
+                            <p key={cIndex} className="text-xs text-gray-700">
+                              {"\u2022"} {committee}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -588,8 +547,15 @@ const Officials = () => {
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>
                 <span>
-                  <strong>Office Hours:</strong> Monday to Friday, 8:00 AM - 5:00
-                  PM
+                  <strong>Trunkline:</strong> (043) 276-0047 / (043) 276-0100 /
+                  (043) 276-0104 / (043) 276-0102
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <i className="fas fa-chevron-right text-primary mt-1"></i>
+                <span>
+                  <strong>Office Hours:</strong> Monday to Friday, 8:00 AM -
+                  5:00 PM
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -602,15 +568,7 @@ const Officials = () => {
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>
                 <span>
-                  <strong>Written Communication:</strong> Send letters or
-                  correspondence to the Municipal Hall
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <i className="fas fa-chevron-right text-primary mt-1"></i>
-                <span>
-                  <strong>Contact Page:</strong> Use the Contact Us page to send
-                  inquiries
+                  <strong>Sangguniang Bayan:</strong> (043) 276-0121
                 </span>
               </li>
             </ul>

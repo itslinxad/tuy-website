@@ -1,4 +1,3 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
@@ -14,30 +13,21 @@ const DepartmentHeads = () => {
   const supportRef = useScrollAnimation();
   const operationalRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Department Heads Information
-  // ============================================
-  // For each department, provide:
-  // - departmentName: Official name of the department/office
-  // - head: Name of the department head (e.g., "REPLACE: [Name]")
-  // - position: Official title
-  // - photoPath: Path to photo in public folder
-  // - email: Department email
-  // - phone: Contact number
-  // - office: Office location in municipal hall
-  // - description: Brief description of department functions
-  // - icon: FontAwesome icon class
+  const basePath = import.meta.env.VITE_BASE_PATH || "";
 
-  // Executive Offices
+  // Trunkline for departments using local extensions
+  const trunkline = "(043) 276-0047";
+
+  // Executive Offices — Source: TUY_WEBSITE_DETAILS.xlsx
   const executiveOffices = [
     {
       departmentName: "Office of the Municipal Mayor",
-      head: "REPLACE: Hon. [Mayor Name]",
+      head: "Hon. Jose Jecerell C. Cerrado",
       position: "Municipal Mayor",
-      photoPath: "/officials/mayor.jpg",
-      email: "REPLACE: mayor@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "2nd Floor, Municipal Hall",
+      photoPath: `${basePath}/OfficialS_PIC/Jose Jecerell C. Cerrado.jpg`,
+      hasPhoto: true,
+      phone: `${trunkline} local 200-201`,
+      office: "Municipal Hall",
       icon: "fa-user-tie",
       color: "bg-blue-100 text-blue-600",
       description:
@@ -45,12 +35,12 @@ const DepartmentHeads = () => {
     },
     {
       departmentName: "Office of the Municipal Vice Mayor",
-      head: "REPLACE: Hon. [Vice Mayor Name]",
+      head: "Hon. Armando P. Afable",
       position: "Municipal Vice Mayor",
-      photoPath: "/officials/vice-mayor.jpg",
-      email: "REPLACE: vicemayor@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "2nd Floor, Municipal Hall",
+      photoPath: `${basePath}/OfficialS_PIC/Armando P. Afable.jpg`,
+      hasPhoto: true,
+      phone: "(043) 276-0121",
+      office: "Municipal Hall",
       icon: "fa-user-shield",
       color: "bg-indigo-100 text-indigo-600",
       description:
@@ -58,12 +48,11 @@ const DepartmentHeads = () => {
     },
     {
       departmentName: "Office of the Municipal Administrator",
-      head: "REPLACE: [Administrator Name]",
-      position: "Municipal Administrator",
-      photoPath: "/officials/administrator.jpg",
-      email: "REPLACE: admin@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "2nd Floor, Municipal Hall",
+      head: "Menandro V. De Castro",
+      position: "Administrative Officer V",
+      hasPhoto: false,
+      phone: trunkline,
+      office: "Municipal Hall",
       icon: "fa-user-cog",
       color: "bg-purple-100 text-purple-600",
       description:
@@ -71,17 +60,16 @@ const DepartmentHeads = () => {
     },
   ];
 
-  // Support Services
+  // Support Services — Source: TUY_WEBSITE_DETAILS.xlsx
   const supportServices = [
     {
       departmentName: "Municipal Planning and Development Office",
       acronym: "MPDO",
-      head: "REPLACE: [MPDO Head Name]",
+      head: "Guillerma D. Mayor",
       position: "Municipal Planning and Development Coordinator",
-      photoPath: "/officials/mpdo-head.jpg",
-      email: "REPLACE: mpdo@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "1st Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 206`,
+      office: "Municipal Hall",
       icon: "fa-clipboard-list",
       color: "bg-green-100 text-green-600",
       description:
@@ -90,12 +78,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Budget Office",
       acronym: "MBO",
-      head: "REPLACE: [Budget Officer Name]",
+      head: "Rita D. Macalindong",
       position: "Municipal Budget Officer",
-      photoPath: "/officials/budget-officer.jpg",
-      email: "REPLACE: budget@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "2nd Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 203`,
+      office: "Municipal Hall",
       icon: "fa-calculator",
       color: "bg-yellow-100 text-yellow-600",
       description:
@@ -104,12 +91,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Accountant's Office",
       acronym: "MACCO",
-      head: "REPLACE: [Municipal Accountant Name]",
+      head: "Almira Joy A. Rovillos",
       position: "Municipal Accountant",
-      photoPath: "/officials/accountant.jpg",
-      email: "REPLACE: accounting@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "1st Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 214`,
+      office: "Municipal Hall",
       icon: "fa-file-invoice-dollar",
       color: "bg-teal-100 text-teal-600",
       description:
@@ -118,12 +104,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Treasurer's Office",
       acronym: "MTO",
-      head: "REPLACE: [Municipal Treasurer Name]",
+      head: "OIC Miles M. Perez",
       position: "Municipal Treasurer",
-      photoPath: "/officials/treasurer.jpg",
-      email: "REPLACE: treasury@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "1st Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 223-224`,
+      office: "Municipal Hall",
       icon: "fa-coins",
       color: "bg-amber-100 text-amber-600",
       description:
@@ -132,12 +117,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Assessor's Office",
       acronym: "MAO",
-      head: "REPLACE: [Municipal Assessor Name]",
+      head: "Horesto D. Fernandez",
       position: "Municipal Assessor",
-      photoPath: "/officials/assessor.jpg",
-      email: "REPLACE: assessor@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "1st Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 207`,
+      office: "Municipal Hall",
       icon: "fa-home",
       color: "bg-orange-100 text-orange-600",
       description:
@@ -146,12 +130,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Human Resource Management Office",
       acronym: "HRMO",
-      head: "REPLACE: [HRMO Head Name]",
+      head: "Emmanuel A. Afable",
       position: "Human Resource Management Officer",
-      photoPath: "/officials/hrmo-head.jpg",
-      email: "REPLACE: hrmo@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "2nd Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: `${trunkline} local 209`,
+      office: "Municipal Hall",
       icon: "fa-users-cog",
       color: "bg-pink-100 text-pink-600",
       description:
@@ -160,30 +143,41 @@ const DepartmentHeads = () => {
     {
       departmentName: "General Services Office",
       acronym: "GSO",
-      head: "REPLACE: [GSO Head Name]",
+      head: "Katrine A. De Jesus",
       position: "General Services Officer",
-      photoPath: "/officials/gso-head.jpg",
-      email: "REPLACE: gso@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "Ground Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: trunkline,
+      office: "Municipal Hall",
       icon: "fa-tools",
       color: "bg-gray-100 text-gray-600",
       description:
         "Manages municipal properties, facilities, equipment, and provides general administrative support services to all departments.",
     },
+    {
+      departmentName: "Municipal Civil Registrar's Office",
+      acronym: "MCRO",
+      head: "Peter C. Filler",
+      position: "Municipal Civil Registrar",
+      hasPhoto: false,
+      phone: `${trunkline} local 220`,
+      office: "Municipal Hall",
+      icon: "fa-id-card",
+      color: "bg-cyan-100 text-cyan-600",
+      description:
+        "Processes civil registry documents including birth, marriage, and death certificates, and maintains vital statistics records.",
+    },
   ];
 
-  // Operational Departments
+  // Operational Departments — Source: TUY_WEBSITE_DETAILS.xlsx
   const operationalDepartments = [
     {
       departmentName: "Municipal Engineer's Office",
       acronym: "MEO",
-      head: "REPLACE: Engr. [Municipal Engineer Name]",
+      head: "Engr. Isigani F. Residuo",
       position: "Municipal Engineer",
-      photoPath: "/officials/engineer.jpg",
-      email: "REPLACE: engineering@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "Engineering Office Building",
+      hasPhoto: false,
+      phone: "(043) 206-0105",
+      office: "Municipal Hall",
       icon: "fa-hard-hat",
       color: "bg-slate-100 text-slate-600",
       description:
@@ -192,11 +186,10 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Health Office",
       acronym: "MHO",
-      head: "REPLACE: Dr. [Municipal Health Officer Name]",
+      head: "Dr. Liza Carmelli A. Chua",
       position: "Municipal Health Officer",
-      photoPath: "/officials/health-officer.jpg",
-      email: "REPLACE: health@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
+      hasPhoto: false,
+      phone: "(043) 276-0113",
       office: "Rural Health Unit",
       icon: "fa-heartbeat",
       color: "bg-red-100 text-red-600",
@@ -206,12 +199,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Social Welfare and Development Office",
       acronym: "MSWDO",
-      head: "REPLACE: [MSWDO Head Name]",
+      head: "Zaira M. Abellera",
       position: "Municipal Social Welfare and Development Officer",
-      photoPath: "/officials/mswdo-head.jpg",
-      email: "REPLACE: socialwelfare@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "1st Floor, Municipal Hall",
+      hasPhoto: false,
+      phone: "(043) 276-0117",
+      office: "Municipal Hall",
       icon: "fa-hands-helping",
       color: "bg-rose-100 text-rose-600",
       description:
@@ -220,12 +212,11 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Agriculture Office",
       acronym: "MAgrO",
-      head: "REPLACE: [Agricultural Officer Name]",
+      head: "Liza C. Maranan",
       position: "Municipal Agriculturist",
-      photoPath: "/officials/agriculture-officer.jpg",
-      email: "REPLACE: agriculture@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "Agriculture Office",
+      hasPhoto: false,
+      phone: `${trunkline} local 219`,
+      office: "Municipal Hall",
       icon: "fa-seedling",
       color: "bg-lime-100 text-lime-600",
       description:
@@ -234,11 +225,10 @@ const DepartmentHeads = () => {
     {
       departmentName: "Municipal Disaster Risk Reduction and Management Office",
       acronym: "MDRRMO",
-      head: "REPLACE: [MDRRMO Officer Name]",
-      position: "MDRRMO Officer",
-      photoPath: "/officials/mdrrmo-officer.jpg",
-      email: "REPLACE: mdrrmo@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
+      head: "Jacqueline S. De Taza",
+      position: "LDRRMO",
+      hasPhoto: false,
+      phone: "(043) 276-0120",
       office: "MDRRMO Office",
       icon: "fa-exclamation-triangle",
       color: "bg-red-100 text-red-600",
@@ -246,20 +236,89 @@ const DepartmentHeads = () => {
         "Coordinates disaster preparedness, response, and recovery operations; implements risk reduction measures and emergency management.",
     },
     {
-      departmentName: "Municipal Environment and Natural Resources Office",
-      acronym: "MENRO",
-      head: "REPLACE: [MENRO Officer Name]",
-      position: "MENRO Officer",
-      photoPath: "/officials/menro-officer.jpg",
-      email: "REPLACE: environment@tuy.gov.ph",
-      phone: "REPLACE: (043) XXX-XXXX",
-      office: "MENRO Office",
-      icon: "fa-leaf",
+      departmentName: "Municipal Library",
+      acronym: "",
+      head: "",
+      position: "",
+      hasPhoto: false,
+      phone: "(043) 276-0082",
+      office: "Municipal Library Building",
+      icon: "fa-book",
       color: "bg-emerald-100 text-emerald-600",
       description:
-        "Implements environmental programs, monitors environmental compliance, and promotes sustainable use of natural resources.",
+        "Provides library services, reading materials, and information resources to the residents and students of Tuy.",
     },
   ];
+
+  // Render a department card
+  const renderDeptCard = (
+    dept: (typeof executiveOffices)[0] & { acronym?: string },
+    index: number,
+    parentRef: ReturnType<typeof useScrollAnimation>,
+  ) => (
+    <div
+      key={index}
+      className={`bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden scroll-animate stagger-${
+        (index % 3) + 1
+      } ${parentRef.isVisible ? "visible" : ""}`}
+    >
+      {/* Department Header */}
+      <div className="bg-gradient-to-r from-primary to-primary-hover p-4 text-white">
+        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-3">
+          <i className={`fas ${dept.icon} text-2xl text-white`}></i>
+        </div>
+        <h3 className="text-lg font-bold mb-1">{dept.departmentName}</h3>
+        {dept.acronym && (
+          <span className="text-sm font-semibold bg-white/20 px-2 py-1 rounded">
+            {dept.acronym}
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-4">
+        {/* Photo or Icon */}
+        {dept.hasPhoto ? (
+          <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+            <img
+              src={dept.photoPath}
+              alt={dept.head}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
+            <i className="fas fa-user text-3xl text-gray-400"></i>
+          </div>
+        )}
+
+        {/* Info */}
+        {dept.head && (
+          <div className="text-center mb-4">
+            <h4 className="text-lg font-bold text-primary">{dept.head}</h4>
+            <p className="text-sm text-gray-600 mb-2">{dept.position}</p>
+          </div>
+        )}
+
+        {/* Description */}
+        <p className="text-sm text-gray-700 leading-relaxed mb-4">
+          {dept.description}
+        </p>
+
+        {/* Contact Info */}
+        <div className="border-t border-gray-200 pt-3 space-y-2 text-xs text-gray-600">
+          <p className="flex items-center gap-2">
+            <i className="fas fa-phone text-primary w-4"></i>
+            <span>{dept.phone}</span>
+          </p>
+          <p className="flex items-center gap-2">
+            <i className="fas fa-map-marker-alt text-primary w-4"></i>
+            <span>{dept.office}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -271,7 +330,7 @@ const DepartmentHeads = () => {
           className="parallax-bg"
           style={{
             transform: `translateY(${offset}px)`,
-            backgroundImage: `url('${import.meta.env.VITE_BASE_PATH}/hero-image.jpg')`,
+            backgroundImage: `url('${basePath}/hero-image.jpg')`,
           }}
         ></div>
         <div className="absolute inset-0 bg-black/40"></div>
@@ -328,18 +387,25 @@ const DepartmentHeads = () => {
           </div>
           <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
             <p>
-              The Municipal Government of Tuy operates through various departments
-              and offices, each headed by qualified professionals dedicated to
-              serving the community. These departments work collaboratively to
-              deliver efficient and effective public services to all residents.
+              The Municipal Government of Tuy operates through various
+              departments and offices, each headed by qualified professionals
+              dedicated to serving the community. These departments work
+              collaboratively to deliver efficient and effective public services
+              to all residents.
             </p>
             <p>
               From infrastructure development to social welfare, from revenue
-              collection to health services, each department plays a vital role in
-              the municipality's governance and development. The department heads
-              ensure proper implementation of programs, projects, and policies in
-              their respective areas of responsibility.
+              collection to health services, each department plays a vital role
+              in the municipality's governance and development. The department
+              heads ensure proper implementation of programs, projects, and
+              policies in their respective areas of responsibility.
             </p>
+            <div className="bg-blue-50 rounded-lg p-4 mt-4">
+              <p className="text-sm text-gray-600">
+                <strong>Trunkline:</strong> {trunkline} / (043) 276-0100 /
+                (043) 276-0104 / (043) 276-0102
+              </p>
+            </div>
           </div>
         </section>
 
@@ -352,65 +418,15 @@ const DepartmentHeads = () => {
         >
           <div className="flex items-center mb-8">
             <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">Executive Offices</h2>
+            <h2 className="text-4xl font-bold text-primary">
+              Executive Offices
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {executiveOffices.map((dept, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden scroll-animate stagger-${
-                  (index % 3) + 1
-                } ${executiveRef.isVisible ? "visible" : ""}`}
-              >
-                {/* Department Header */}
-                <div className="bg-gradient-to-r from-primary to-primary-hover p-4 text-white">
-                  <div
-                    className={`w-12 h-12 rounded-full ${dept.color} bg-white/20 flex items-center justify-center mb-3`}
-                  >
-                    <i className={`fas ${dept.icon} text-2xl text-white`}></i>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">
-                    {dept.departmentName}
-                  </h3>
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  {/* Photo Placeholder */}
-                  <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                    <i className="fas fa-user text-3xl text-gray-400"></i>
-                  </div>
-
-                  {/* Info */}
-                  <div className="text-center mb-4">
-                    <h4 className="text-lg font-bold text-primary">{dept.head}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{dept.position}</p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                    {dept.description}
-                  </p>
-
-                  {/* Contact Info */}
-                  <div className="border-t border-gray-200 pt-3 space-y-2 text-xs text-gray-600">
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-envelope text-primary w-4"></i>
-                      <span className="truncate">{dept.email}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-phone text-primary w-4"></i>
-                      <span>{dept.phone}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-map-marker-alt text-primary w-4"></i>
-                      <span>{dept.office}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {executiveOffices.map((dept, index) =>
+              renderDeptCard(dept, index, executiveRef),
+            )}
           </div>
         </section>
 
@@ -423,70 +439,15 @@ const DepartmentHeads = () => {
         >
           <div className="flex items-center mb-8">
             <div className="w-2 h-12 bg-primary mr-4"></div>
-            <h2 className="text-4xl font-bold text-primary">Support Services</h2>
+            <h2 className="text-4xl font-bold text-primary">
+              Support Services
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {supportServices.map((dept, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden scroll-animate stagger-${
-                  (index % 3) + 1
-                } ${supportRef.isVisible ? "visible" : ""}`}
-              >
-                {/* Department Header */}
-                <div className="bg-gradient-to-r from-primary to-primary-hover p-4 text-white">
-                  <div
-                    className={`w-12 h-12 rounded-full ${dept.color} bg-white/20 flex items-center justify-center mb-3`}
-                  >
-                    <i className={`fas ${dept.icon} text-2xl text-white`}></i>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">
-                    {dept.departmentName}
-                  </h3>
-                  {dept.acronym && (
-                    <span className="text-sm font-semibold bg-white/20 px-2 py-1 rounded">
-                      {dept.acronym}
-                    </span>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  {/* Photo Placeholder */}
-                  <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                    <i className="fas fa-user text-3xl text-gray-400"></i>
-                  </div>
-
-                  {/* Info */}
-                  <div className="text-center mb-4">
-                    <h4 className="text-lg font-bold text-primary">{dept.head}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{dept.position}</p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                    {dept.description}
-                  </p>
-
-                  {/* Contact Info */}
-                  <div className="border-t border-gray-200 pt-3 space-y-2 text-xs text-gray-600">
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-envelope text-primary w-4"></i>
-                      <span className="truncate">{dept.email}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-phone text-primary w-4"></i>
-                      <span>{dept.phone}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-map-marker-alt text-primary w-4"></i>
-                      <span>{dept.office}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {supportServices.map((dept, index) =>
+              renderDeptCard(dept, index, supportRef),
+            )}
           </div>
         </section>
 
@@ -505,84 +466,10 @@ const DepartmentHeads = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {operationalDepartments.map((dept, index) => (
-              <div
-                key={index}
-                className={`bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden scroll-animate stagger-${
-                  (index % 3) + 1
-                } ${operationalRef.isVisible ? "visible" : ""}`}
-              >
-                {/* Department Header */}
-                <div className="bg-gradient-to-r from-primary to-primary-hover p-4 text-white">
-                  <div
-                    className={`w-12 h-12 rounded-full ${dept.color} bg-white/20 flex items-center justify-center mb-3`}
-                  >
-                    <i className={`fas ${dept.icon} text-2xl text-white`}></i>
-                  </div>
-                  <h3 className="text-lg font-bold mb-1">
-                    {dept.departmentName}
-                  </h3>
-                  {dept.acronym && (
-                    <span className="text-sm font-semibold bg-white/20 px-2 py-1 rounded">
-                      {dept.acronym}
-                    </span>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  {/* Photo Placeholder */}
-                  <div className="w-24 h-24 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                    <i className="fas fa-user text-3xl text-gray-400"></i>
-                  </div>
-
-                  {/* Info */}
-                  <div className="text-center mb-4">
-                    <h4 className="text-lg font-bold text-primary">{dept.head}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{dept.position}</p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                    {dept.description}
-                  </p>
-
-                  {/* Contact Info */}
-                  <div className="border-t border-gray-200 pt-3 space-y-2 text-xs text-gray-600">
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-envelope text-primary w-4"></i>
-                      <span className="truncate">{dept.email}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-phone text-primary w-4"></i>
-                      <span>{dept.phone}</span>
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <i className="fas fa-map-marker-alt text-primary w-4"></i>
-                      <span>{dept.office}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {operationalDepartments.map((dept, index) =>
+              renderDeptCard(dept, index, operationalRef),
+            )}
           </div>
-        </section>
-
-        {/* Note about Photos */}
-        <section className="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-400">
-          <h3 className="text-lg font-bold text-yellow-800 mb-2 flex items-center">
-            <i className="fas fa-info-circle mr-2"></i>
-            Photo Placeholder Instructions
-          </h3>
-          <p className="text-yellow-700 text-sm">
-            Add official photos of department heads to the{" "}
-            <code className="bg-yellow-200 px-2 py-1 rounded">
-              public/officials/
-            </code>{" "}
-            folder. Use filenames as specified in the code (e.g., mayor.jpg,
-            treasurer.jpg, etc.). Recommended image size: 800x800px minimum, square
-            aspect ratio.
-          </p>
         </section>
       </div>
     </div>

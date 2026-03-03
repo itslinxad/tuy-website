@@ -1,6 +1,4 @@
-import "../../assets/css/index.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
@@ -10,375 +8,33 @@ const BarangayOfficials = () => {
   const introRef = useScrollAnimation();
   const officialsRef = useScrollAnimation();
 
-  // ============================================
-  // CONTENT NEEDED: Barangay Officials Data
-  // ============================================
-  // For each of the 22 barangays, provide:
-  // - captain: Punong Barangay name
-  // - kagawads: Array of 7 Sangguniang Barangay members
-  // - sk: SK Chairperson name
-  // - secretary: Barangay Secretary name
-  // - treasurer: Barangay Treasurer name
-  // - term: Current term (e.g., "2023-2025")
-  
-  const barangayData: Record<string, any> = {
-    Acle: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Bayudbud: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Bolboc: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Dalima: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Dao: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Guinhawa: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Lumbangan: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Luntal: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Magahis: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Mataywanac: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    "Malibu Este": {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    "Malibu Oeste": {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Oitawen: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Palincaro: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Putol: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Rillo: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Sabang: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    "San Jose": {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    "San Pablo": {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    "Santa Clara": {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Talon: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-    Toong: {
-      captain: "REPLACE: Hon. [Captain Name]",
-      term: "REPLACE: 2023-2025",
-      kagawads: [
-        { name: "REPLACE: Hon. [Kagawad 1]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 2]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 3]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 4]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 5]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 6]", committee: "REPLACE: Committee" },
-        { name: "REPLACE: Hon. [Kagawad 7]", committee: "REPLACE: Committee" },
-      ],
-      sk: "REPLACE: [SK Chairperson]",
-      secretary: "REPLACE: [Secretary Name]",
-      treasurer: "REPLACE: [Treasurer Name]",
-    },
-  };
+  const basePath = import.meta.env.VITE_BASE_PATH || "";
 
-  const barangayNames = Object.keys(barangayData).sort();
-  const [selectedBarangay, setSelectedBarangay] = useState(barangayNames[0]);
-  const currentData = barangayData[selectedBarangay];
+  // Barangay Captains — Source: TUY_WEBSITE_DETAILS.xlsx ("Brgy Officials" sheet)
+  const barangayCaptains = [
+    { barangay: "Acle", captain: "Ariel R. Macalindong" },
+    { barangay: "Bayudbud", captain: "Roberto P. Carandang" },
+    { barangay: "Bolbok", captain: "Juanito U. Del Mundo" },
+    { barangay: "Burgos", captain: "Caltos Medina" },
+    { barangay: "Dalima", captain: "Virgilio Delos Reyes" },
+    { barangay: "Dao", captain: "Melvin M. Manalo" },
+    { barangay: "Guinhawa", captain: "Salvador F. De Guzman" },
+    { barangay: "Lumbangan", captain: "Edralin Magno E. Camilon" },
+    { barangay: "Luna", captain: "Arnel S. Hernandez" },
+    { barangay: "Luntal", captain: "Jerome Basit" },
+    { barangay: "Magahis", captain: "Narciso Villanueva" },
+    { barangay: "Malibu", captain: "Nepomoceno A. Comia" },
+    { barangay: "Mataywanac", captain: "Nelson Abiad" },
+    { barangay: "Palincaro", captain: "Moises Ramirez" },
+    { barangay: "Putol", captain: "Silvano C. Alajar" },
+    { barangay: "Rillo", captain: "Vicente B. Bagui" },
+    { barangay: "Rizal", captain: "Elmer C. Ikan" },
+    { barangay: "Sabang", captain: "Alex Desacola" },
+    { barangay: "San Jose", captain: "Roberto A. Mendoza" },
+    { barangay: "Talon", captain: "Neil B. Bayaborda" },
+    { barangay: "Toong", captain: "Adel S. Rodriguez" },
+    { barangay: "Tuyon-Tuyon", captain: "Gerardo Bendicio" },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -390,7 +46,7 @@ const BarangayOfficials = () => {
           className="parallax-bg"
           style={{
             transform: `translateY(${offset}px)`,
-            backgroundImage: `url('${import.meta.env.VITE_BASE_PATH}/hero-image.jpg')`,
+            backgroundImage: `url('${basePath}/hero-image.jpg')`,
           }}
         ></div>
         <div className="absolute inset-0 bg-black/40"></div>
@@ -458,7 +114,7 @@ const BarangayOfficials = () => {
           </div>
         </section>
 
-        {/* Barangay Selector */}
+        {/* Barangay Captains Grid */}
         <section
           ref={officialsRef.elementRef}
           className={`bg-white shadow-lg rounded-lg p-8 scroll-animate ${
@@ -468,126 +124,42 @@ const BarangayOfficials = () => {
           <div className="flex items-center mb-6">
             <div className="w-2 h-12 bg-primary mr-4"></div>
             <h2 className="text-4xl font-bold text-primary">
-              Select a Barangay
+              Punong Barangay (Barangay Captains)
             </h2>
           </div>
+          <p className="text-gray-700 text-lg mb-8">
+            The elected barangay captains leading each of Tuy's 22 barangays.
+          </p>
 
-          {/* Dropdown */}
-          <div className="mb-8">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Choose a barangay to view its officials:
-            </label>
-            <select
-              value={selectedBarangay}
-              onChange={(e) => setSelectedBarangay(e.target.value)}
-              className="w-full md:w-96 p-3 border-2 border-primary rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              {barangayNames.map((name) => (
-                <option key={name} value={name}>
-                  Barangay {name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Officials Display */}
-          <div className="space-y-8">
-            {/* Barangay Captain */}
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-6">
-              <h3 className="text-2xl font-bold text-primary mb-4 flex items-center">
-                <i className="fas fa-user-tie text-primary mr-3"></i>
-                Punong Barangay (Barangay Captain)
-              </h3>
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <div className="flex items-center gap-6">
-                  <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                    <i className="fas fa-user text-3xl text-gray-400"></i>
-                  </div>
-                  <div>
-                    <h4 className="text-2xl font-bold text-primary">
-                      {currentData.captain}
-                    </h4>
-                    <p className="text-gray-600">Term: {currentData.term}</p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Add photo to: public/barangay/{selectedBarangay.toLowerCase()}/captain.jpg
-                    </p>
-                  </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {barangayCaptains.map((entry, index) => (
+              <div
+                key={index}
+                className={`bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden scroll-animate stagger-${
+                  (index % 4) + 1
+                } ${officialsRef.isVisible ? "visible" : ""}`}
+              >
+                <div className="bg-gradient-to-r from-primary to-primary-hover p-3 text-white">
+                  <h3 className="text-sm font-bold flex items-center gap-2">
+                    <i className="fas fa-map-marker-alt"></i>
+                    Barangay {entry.barangay}
+                  </h3>
                 </div>
-              </div>
-            </div>
-
-            {/* Sangguniang Barangay Members */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
-              <h3 className="text-2xl font-bold text-primary mb-4 flex items-center">
-                <i className="fas fa-users text-primary mr-3"></i>
-                Sangguniang Barangay Members (Kagawads)
-              </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {currentData.kagawads.map((kagawad: any, index: number) => (
-                  <div key={index} className="bg-white rounded-lg p-4 shadow-md">
-                    <div className="flex items-start gap-3">
-                      <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i className="fas fa-user text-xl text-gray-400"></i>
-                      </div>
-                      <div className="flex-1">
-                        <h5 className="font-bold text-primary">{kagawad.name}</h5>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {kagawad.committee}
-                        </p>
-                      </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i className="fas fa-user-tie text-primary text-lg"></i>
+                    </div>
+                    <div>
+                      <p className="font-bold text-primary text-sm">
+                        Hon. {entry.captain}
+                      </p>
+                      <p className="text-xs text-gray-500">Punong Barangay</p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Other Officials */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* SK Chairperson */}
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6">
-                <h4 className="text-lg font-bold text-primary mb-4 flex items-center">
-                  <i className="fas fa-user-graduate text-primary mr-2"></i>
-                  SK Chairperson
-                </h4>
-                <div className="bg-white rounded-lg p-4 text-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i className="fas fa-user text-2xl text-gray-400"></i>
-                  </div>
-                  <p className="font-semibold text-primary">{currentData.sk}</p>
-                  <p className="text-xs text-gray-500 mt-2">Youth Representative</p>
                 </div>
               </div>
-
-              {/* Secretary */}
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-6">
-                <h4 className="text-lg font-bold text-primary mb-4 flex items-center">
-                  <i className="fas fa-file-alt text-primary mr-2"></i>
-                  Barangay Secretary
-                </h4>
-                <div className="bg-white rounded-lg p-4 text-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i className="fas fa-user text-2xl text-gray-400"></i>
-                  </div>
-                  <p className="font-semibold text-primary">{currentData.secretary}</p>
-                  <p className="text-xs text-gray-500 mt-2">Records & Documentation</p>
-                </div>
-              </div>
-
-              {/* Treasurer */}
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6">
-                <h4 className="text-lg font-bold text-primary mb-4 flex items-center">
-                  <i className="fas fa-coins text-primary mr-2"></i>
-                  Barangay Treasurer
-                </h4>
-                <div className="bg-white rounded-lg p-4 text-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i className="fas fa-user text-2xl text-gray-400"></i>
-                  </div>
-                  <p className="font-semibold text-primary">{currentData.treasurer}</p>
-                  <p className="text-xs text-gray-500 mt-2">Financial Management</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -598,7 +170,9 @@ const BarangayOfficials = () => {
             Barangay Services & Functions
           </h3>
           <div className="space-y-3 text-gray-700">
-            <p className="font-semibold">Barangay officials are responsible for:</p>
+            <p className="font-semibold">
+              Barangay officials are responsible for:
+            </p>
             <ul className="space-y-2 ml-6">
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>
@@ -608,11 +182,15 @@ const BarangayOfficials = () => {
               </li>
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>
-                <span>Settlement of disputes through Lupong Tagapamayapa</span>
+                <span>
+                  Settlement of disputes through Lupong Tagapamayapa
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>
-                <span>Implementation of barangay ordinances and resolutions</span>
+                <span>
+                  Implementation of barangay ordinances and resolutions
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <i className="fas fa-chevron-right text-primary mt-1"></i>

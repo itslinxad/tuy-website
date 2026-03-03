@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import "./assets/css/index.css";
 
 // Lazy-loaded page components
 const Login = lazy(() => import("./pages/Login.tsx"));
