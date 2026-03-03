@@ -1,11 +1,11 @@
 # ============================================
-# DEV SUBFOLDER .HTACCESS FILE
-# Location: public_html/dev/.htaccess
-# Domain: https://www.tuybatangas.gov.ph/dev/
+# .HTACCESS FILE
+# Location: public_html/.htaccess
+# Domain: https://www.tuybatangas.gov.ph/
 # ============================================
 # This file handles:
 # - React Router SPA routing
-# - All /dev/* routes point to index.html
+# - All routes point to index.html
 # - Proper handling of assets
 # - MIME type configuration
 # ============================================
@@ -14,7 +14,7 @@
 RewriteEngine On
 
 # Set the base path for rewrites
-RewriteBase /dev/
+RewriteBase /
 
 # ============================================
 # 1. HANDLE EXISTING FILES AND DIRECTORIES
@@ -32,9 +32,9 @@ RewriteRule ^ - [L]
 # ============================================
 # All other requests should be routed to index.html
 # This enables React Router to handle routes like:
-# - /dev/login
-# - /dev/about
-# - /dev/profile/history
+# - /login
+# - /profile/history
+# - /government/officials
 # - etc.
 RewriteRule ^ index.html [L]
 
@@ -45,23 +45,23 @@ RewriteRule ^ index.html [L]
     # JavaScript
     AddType application/javascript .js
     AddType application/javascript .mjs
-    
+
     # CSS
     AddType text/css .css
-    
+
     # Images
     AddType image/jpeg .jpg .jpeg
     AddType image/png .png
     AddType image/gif .gif
     AddType image/svg+xml .svg
     AddType image/webp .webp
-    
+
     # Fonts
     AddType font/woff .woff
     AddType font/woff2 .woff2
     AddType font/ttf .ttf
     AddType font/otf .otf
-    
+
     # JSON
     AddType application/json .json
 </IfModule>
@@ -87,23 +87,23 @@ RewriteRule ^ index.html [L]
 # ============================================
 <IfModule mod_expires.c>
     ExpiresActive On
-    
+
     # Images - cache for 1 year
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
     ExpiresByType image/webp "access plus 1 year"
-    
+
     # CSS and JavaScript - cache for 1 month
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
-    
+
     # Fonts - cache for 1 year
     ExpiresByType font/woff "access plus 1 year"
     ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/ttf "access plus 1 year"
-    
+
     # HTML - cache for 1 hour (React SPA, may update frequently)
     ExpiresByType text/html "access plus 1 hour"
 </IfModule>
@@ -114,24 +114,17 @@ RewriteRule ^ index.html [L]
 <IfModule mod_headers.c>
     # Prevent clickjacking
     Header set X-Frame-Options "SAMEORIGIN"
-    
+
     # Prevent MIME type sniffing
     Header set X-Content-Type-Options "nosniff"
-    
+
     # Enable XSS protection
     Header set X-XSS-Protection "1; mode=block"
-    
+
     # Referrer policy
     Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
 # ============================================
-# 7. ERROR DOCUMENTS (Optional)
-# ============================================
-# Uncomment if you want custom error pages
-# ErrorDocument 404 /dev/index.html
-# ErrorDocument 403 /dev/index.html
-
-# ============================================
-# END OF DEV .HTACCESS
+# END OF .HTACCESS
 # ============================================

@@ -72,44 +72,12 @@ export const searchableContent: SearchItem[] = [
     keywords: ['barangay', 'officials', 'captains', 'village', 'government'] 
   },
   
-  // Transparencies Submenu (4 items)
-  { 
-    type: 'document', 
-    title: 'Accomplishment Reports', 
-    path: '/transparencies/accomplishment-reports', 
-    keywords: ['accomplishment', 'reports', 'achievements', 'progress', 'transparency'] 
-  },
-  { 
-    type: 'document', 
-    title: 'Citizens Charter', 
-    path: '/transparencies/citizens-charter', 
-    keywords: ['citizens', 'charter', 'services', 'rights', 'transparency'] 
-  },
-  { 
-    type: 'document', 
-    title: 'Financial Statements', 
-    path: '/transparencies/financial-statements', 
-    keywords: ['financial', 'statements', 'budget', 'finance', 'money', 'transparency'] 
-  },
-  { 
-    type: 'document', 
-    title: 'Invitation to Bid', 
-    path: '/transparencies/invitation-to-bid', 
-    keywords: ['invitation', 'bid', 'procurement', 'tender', 'transparency'] 
-  },
-  
-  // Downloadables Submenu (3 items)
+  // Downloadables Submenu
   { 
     type: 'document', 
     title: 'Forms', 
     path: '/downloadables/forms', 
     keywords: ['forms', 'applications', 'documents', 'download'] 
-  },
-  { 
-    type: 'document', 
-    title: 'Resolutions', 
-    path: '/downloadables/resolutions', 
-    keywords: ['resolutions', 'decisions', 'council', 'download'] 
   },
   { 
     type: 'document', 
@@ -122,7 +90,7 @@ export const searchableContent: SearchItem[] = [
   { 
     type: 'content', 
     title: 'About Tuy', 
-    path: '/about', 
+    path: '/profile/about', 
     keywords: ['about', 'pearl', 'balayan bay', 'municipality', 'info'] 
   },
   { 

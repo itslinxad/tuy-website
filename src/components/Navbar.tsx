@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import { searchableContent } from "../data/searchData";
 import type { SearchItem } from "../data/searchData";
 
@@ -21,10 +20,6 @@ const Navbar = () => {
   const debounceTimerRef = useRef<number | null>(null);
 
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth();
-
-  // Check if in dev mode
-  const isDevMode = isAuthenticated;
 
   // Search function
   const performSearch = (query: string): SearchItem[] => {
@@ -271,41 +266,6 @@ const Navbar = () => {
                 </div>
               </li>
 
-              {/* Transparencies Dropdown */}
-              <li className="group relative flex items-center h-full hover:bg-primary-hover transition-all duration-150">
-                <span className="px-3 lg:px-4 xl:px-6 h-full flex items-center cursor-pointer">
-                  Transparencies{" "}
-                  <i className="fas fa-chevron-down ml-2 text-xs transition-transform duration-150 group-hover:rotate-180"></i>
-                </span>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-8 bg-white/10"></div>
-                <div className="hidden group-hover:block absolute top-full left-0 bg-white min-w-[250px] shadow-2xl z-[100] animate-fadeIn rounded-b-lg">
-                  <Link
-                    className="block px-6 py-3 text-black hover:bg-gray-100 transition-all duration-150"
-                    to="/transparencies/accomplishment-reports"
-                  >
-                    Accomplishment Reports
-                  </Link>
-                  <Link
-                    className="block px-6 py-3 text-black hover:bg-gray-100 transition-all duration-150"
-                    to="/transparencies/citizens-charter"
-                  >
-                    Citizens Charter
-                  </Link>
-                  <Link
-                    className="block px-6 py-3 text-black hover:bg-gray-100 transition-all duration-150"
-                    to="/transparencies/financial-statements"
-                  >
-                    Financial Statements
-                  </Link>
-                  <Link
-                    className="block px-6 py-3 text-black rounded-b-lg hover:bg-gray-100 transition-all duration-150"
-                    to="/transparencies/invitation-to-bid"
-                  >
-                    Invitation to Bid
-                  </Link>
-                </div>
-              </li>
-
               {/* Downloadables Dropdown */}
               <li className="group relative flex items-center h-full hover:bg-primary-hover transition-all duration-150">
                 <span className="px-3 lg:px-4 xl:px-6 h-full flex items-center cursor-pointer">
@@ -319,12 +279,6 @@ const Navbar = () => {
                     to="/downloadables/forms"
                   >
                     Forms
-                  </Link>
-                  <Link
-                    className="block px-6 py-3 text-black hover:bg-gray-100 transition-all duration-150"
-                    to="/downloadables/resolutions"
-                  >
-                    Resolutions
                   </Link>
                   <Link
                     className="block px-6 py-3 text-black rounded-b-lg hover:bg-gray-100 transition-all duration-150"
@@ -361,27 +315,6 @@ const Navbar = () => {
 
           {/* Right: Dev Mode Indicator + Search + Mobile Toggle */}
           <div className="flex items-center h-full">
-            {/* Dev Mode Indicator & Logout (only show if in dev mode) */}
-            {isDevMode && (
-              <>
-                {/* Logout Button - React Auth */}
-                <button
-                  onClick={() => {
-                    logout();
-                    navigate("/login");
-                  }}
-                  className="px-4 xl:px-6 h-full flex items-center gap-2 bg-red-600/80 hover:bg-red-600 transition-all duration-150 cursor-pointer border-0"
-                  aria-label="Logout from developer mode"
-                  type="button"
-                >
-                  <i className="fas fa-sign-out-alt text-sm"></i>
-                  <span className="hidden lg:inline text-sm font-medium">
-                    Logout
-                  </span>
-                </button>
-              </>
-            )}
-
             {/* Search Component */}
             <div className="relative h-full" ref={searchRef}>
               {!isSearchOpen ? (
@@ -599,55 +532,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Transparencies */}
-          <div className="border-b border-white/10">
-            <button
-              onClick={() => toggleMobileDropdown("transparencies")}
-              className="w-full px-8 py-4 text-white hover:bg-primary transition-all duration-150 flex justify-between items-center"
-            >
-              <i
-                className={`fas fa-chevron-down text-xs transition-transform duration-150 ${
-                  openMobileDropdown === "transparencies" ? "rotate-180" : ""
-                }`}
-              ></i>
-              <span>
-                <i className="fas fa-file-lines mr-3"></i>Transparencies
-              </span>
-            </button>
-            {openMobileDropdown === "transparencies" && (
-              <div className="bg-primary">
-                <Link
-                  to="/transparencies/accomplishment-reports"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
-                >
-                  Accomplishment Reports
-                </Link>
-                <Link
-                  to="/transparencies/citizens-charter"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
-                >
-                  Citizens Charter
-                </Link>
-                <Link
-                  to="/transparencies/financial-statements"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
-                >
-                  Financial Statements
-                </Link>
-                <Link
-                  to="/transparencies/invitation-to-bid"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
-                >
-                  Invitation to Bid
-                </Link>
-              </div>
-            )}
-          </div>
-
           {/* Downloadables */}
           <div className="border-b border-white/10">
             <button
@@ -671,13 +555,6 @@ const Navbar = () => {
                   className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
                 >
                   Forms
-                </Link>
-                <Link
-                  to="/downloadables/resolutions"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block px-12 py-3 text-white hover:bg-primary-hover transition-all duration-150"
-                >
-                  Resolutions
                 </Link>
                 <Link
                   to="/downloadables/ordinances"
