@@ -114,8 +114,8 @@ const InvitationToBid = () => {
           </p>
           <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
             <p className="text-lg">
-              <i className="fas fa-calendar-alt mr-2"></i>
-              Expected Launch: Q3 2024
+              <i className="fas fa-clock mr-2"></i>
+              The procurement portal is being prepared and will be available soon
             </p>
           </div>
         </section>

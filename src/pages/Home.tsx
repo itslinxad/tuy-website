@@ -230,9 +230,6 @@ function Home() {
                   <p className="text-gray-600 italic text-sm">
                     Municipal Mayor
                   </p>
-                  <p className="text-gray-500 text-xs sm:text-sm mt-2">
-                    January 2026
-                  </p>
                 </div>
               </div>
               <div className="flex-1 relative">

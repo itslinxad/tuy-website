@@ -150,8 +150,8 @@ const FinancialStatements = () => {
           </p>
           <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
             <p className="text-lg">
-              <i className="fas fa-calendar-alt mr-2"></i>
-              Financial statements will be available starting Q3 2024
+              <i className="fas fa-clock mr-2"></i>
+              Content is being prepared and will be available soon
             </p>
           </div>
         </section>
@@ -451,6 +451,14 @@ const FinancialStatements = () => {
                   <p>
                     <i className="fas fa-phone mr-2 text-green-600"></i>
                     Trunkline: (043) 276-0047 local 223-224
+                  </p>
+                  <p>
+                    <i className="fas fa-envelope mr-2 text-green-600"></i>
+                    tuytreasurer@gmail.com
+                  </p>
+                  <p>
+                    <i className="fas fa-mobile-alt mr-2 text-green-600"></i>
+                    0962-953-8957 (Smart) / 0945-501-2167 (Globe)
                   </p>
                   <p>
                     <i className="fas fa-clock mr-2 text-green-600"></i>

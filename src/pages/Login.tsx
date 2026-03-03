@@ -126,7 +126,7 @@ export default function Login() {
 
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>&copy; 2026 Municipality of Tuy, Batangas</p>
+          <p>&copy; {new Date().getFullYear()} Municipality of Tuy, Batangas</p>
         </div>
       </div>
 

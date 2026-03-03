@@ -184,6 +184,8 @@ const ContactUs = () => {
       head: "Miles M. Perez (OIC), Municipal Treasurer",
       phone: "Trunkline: (043) 276-0047 local 223-224",
       location: "1st Floor, Municipal Hall",
+      email: "tuytreasurer@gmail.com",
+      mobile: "0962-953-8957 (Smart) / 0945-501-2167 (Globe)",
     },
     {
       icon: "fa-landmark",
@@ -659,6 +661,18 @@ const ContactUs = () => {
                         <i className="fas fa-phone text-primary mr-2"></i>
                         {dept.phone}
                       </p>
+                      {"email" in dept && dept.email && (
+                        <p>
+                          <i className="fas fa-envelope text-primary mr-2"></i>
+                          {dept.email}
+                        </p>
+                      )}
+                      {"mobile" in dept && dept.mobile && (
+                        <p>
+                          <i className="fas fa-mobile-alt text-primary mr-2"></i>
+                          {dept.mobile}
+                        </p>
+                      )}
                       <p>
                         <i className="fas fa-map-marker-alt text-primary mr-2"></i>
                         {dept.location}

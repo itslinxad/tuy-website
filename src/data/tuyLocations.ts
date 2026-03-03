@@ -137,10 +137,10 @@ export const tuyMarkers: MapMarker[] = [
     description: 'Coastal barangay along Balayan Bay',
   },
   {
-    id: 'brgy-bolboc',
+    id: 'brgy-bolbok',
     category: 'barangays',
     position: { lat: 13.9850, lng: 120.7150 },
-    title: 'Barangay Bolboc',
+    title: 'Barangay Bolbok',
     description: 'Agricultural barangay in Tuy',
   },
   {
@@ -200,32 +200,32 @@ export const tuyMarkers: MapMarker[] = [
     description: 'Western barangay of Tuy',
   },
   {
-    id: 'brgy-munlawin',
+    id: 'brgy-burgos',
     category: 'barangays',
     position: { lat: 13.9850, lng: 120.7450 },
-    title: 'Barangay Munlawin',
+    title: 'Barangay Burgos',
     description: 'Eastern barangay with rural character',
   },
   {
-    id: 'brgy-obong',
+    id: 'brgy-luna',
     category: 'barangays',
     position: { lat: 13.9920, lng: 120.7180 },
-    title: 'Barangay Obong',
+    title: 'Barangay Luna',
     description: 'Central barangay near municipal center',
   },
   {
-    id: 'brgy-palsahingin',
+    id: 'brgy-palincaro',
     category: 'barangays',
     position: { lat: 14.0080, lng: 120.7320 },
-    title: 'Barangay Palsahingin',
+    title: 'Barangay Palincaro',
     description: 'Barangay with commercial establishments',
   },
   {
-    id: 'brgy-pansipit',
+    id: 'brgy-rillo',
     category: 'barangays',
     position: { lat: 14.0200, lng: 120.7280 },
-    title: 'Barangay Pansipit',
-    description: 'Northernmost barangay of Tuy',
+    title: 'Barangay Rillo',
+    description: 'Northern barangay of Tuy',
   },
   {
     id: 'brgy-putol',
@@ -242,10 +242,10 @@ export const tuyMarkers: MapMarker[] = [
     description: 'Coastal barangay along Balayan Bay',
   },
   {
-    id: 'brgy-san-felipe',
+    id: 'brgy-rizal',
     category: 'barangays',
     position: { lat: 13.9880, lng: 120.7220 },
-    title: 'Barangay San Felipe',
+    title: 'Barangay Rizal',
     description: 'Barangay near town proper',
   },
   {
@@ -266,15 +266,15 @@ export const tuyMarkers: MapMarker[] = [
     id: 'brgy-tuyon-tuyon',
     category: 'barangays',
     position: { lat: 14.0030, lng: 120.7200 },
-    title: 'Barangay Tuyon-tuyon',
+    title: 'Barangay Tuyon-Tuyon',
     description: 'Central barangay in Tuy municipality',
   },
   {
-    id: 'brgy-verde-island',
+    id: 'brgy-san-jose',
     category: 'barangays',
     position: { lat: 13.9550, lng: 120.7500 },
-    title: 'Verde Island',
-    description: 'Island barangay in Balayan Bay - renowned diving destination',
+    title: 'Barangay San Jose',
+    description: 'Southern barangay of Tuy municipality',
   },
 
   // ==========================================
@@ -342,7 +342,7 @@ export const tuyMarkers: MapMarker[] = [
     position: { lat: 13.9985, lng: 120.7252 },
     title: 'Tuy Parish Church',
     address: 'Town Center, Tuy, Batangas',
-    description: 'Historic Catholic church - San Bartolome Parish',
+    description: 'Historic Catholic church - Saint Vincent Ferrer Parish Church',
   },
 ];
 

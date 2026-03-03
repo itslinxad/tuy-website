@@ -81,7 +81,7 @@ const About = () => {
       label: "Land Area",
       suffix: " km²",
     },
-    { icon: "fa-users", number: "72,894", label: "Population (2020)" },
+    { icon: "fa-users", number: "47,199", label: "Population (2024)" },
   ];
 
   const culturalTimeline = [
@@ -203,8 +203,8 @@ const About = () => {
               <span className="text-primary font-medium">Tuy</span> (Tagalog
               pronunciation: [tu'i]), officially the Municipality of Tuy
               (Tagalog: Bayan ng Tuy), is a municipality in the province of
-              Batangas, Philippines. According to the 2020 census, it has a
-              population of 72,894.
+              Batangas, Philippines.               According to the 2024 census, it has a
+              population of 47,199.
             </p>
             <p>
               The patron of Tuy is{" "}
