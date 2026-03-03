@@ -83,16 +83,16 @@ function MapPicker({
   }
 
   return (
-    <div className="w-full h-56 rounded-lg overflow-hidden border border-gray-300">
+    <div className="w-full rounded-lg overflow-hidden border border-gray-300" style={{ height: 500 }}>
       <APIProvider apiKey={apiKey}>
-        <Map
+          <Map
           defaultCenter={center}
           defaultZoom={lat !== null ? 16 : 14}
           gestureHandling="greedy"
           disableDefaultUI={true}
           zoomControl={true}
           mapId="DEMO_MAP_ID"
-          className="w-full h-full"
+          style={{ width: "100%", height: 500 }}
           onClick={(e) => {
             const pos = e.detail.latLng;
             if (pos) onPick(pos.lat, pos.lng);
