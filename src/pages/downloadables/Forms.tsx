@@ -1,138 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
-
-const basePath = import.meta.env.VITE_BASE_PATH || "";
-
-interface FormEntry {
-  title: string;
-  category: string;
-  description: string;
-  icon: string;
-  path: string;
-}
-
-const formsData: FormEntry[] = [
-  // ===== Engineering / Building Permits =====
-  {
-    title: "Unified Application Form for Building Permit",
-    category: "Engineering",
-    description:
-      "Standard unified application form required for all building permit applications in the municipality.",
-    icon: "fa-building",
-    path: `${basePath}/Tuy_Data/engineering/unified_application_form_for_building_permit/unified_application_form_for_building_permit.pdf`,
-  },
-  {
-    title: "Building Permit Application Procedures & Requirements",
-    category: "Engineering",
-    description:
-      "Complete list of procedures, requirements, and supporting documents needed for a building permit application.",
-    icon: "fa-clipboard-list",
-    path: `${basePath}/Tuy_Data/engineering/building_permit_application_procedures_and_requirments.pdf`,
-  },
-  {
-    title: "Architectural Permit",
-    category: "Engineering",
-    description:
-      "Application form for architectural permit, required for building design and architectural plans.",
-    icon: "fa-drafting-compass",
-    path: `${basePath}/Tuy_Data/engineering/architectural_permit/architectural_permit.pdf`,
-  },
-  {
-    title: "Civil / Structural Permit",
-    category: "Engineering",
-    description:
-      "Application form for civil and structural permit, required for structural engineering plans.",
-    icon: "fa-hard-hat",
-    path: `${basePath}/Tuy_Data/engineering/civil_structural_permit/civil_structural_permit.pdf`,
-  },
-  {
-    title: "Electrical Permit",
-    category: "Engineering",
-    description:
-      "Permit application for electrical installations, wiring, and electrical system plans.",
-    icon: "fa-bolt",
-    path: `${basePath}/Tuy_Data/engineering/electrical_permit/electrical_permit.pdf`,
-  },
-  {
-    title: "Plumbing Permit",
-    category: "Engineering",
-    description:
-      "Permit application for plumbing work, water supply systems, and sanitary drainage.",
-    icon: "fa-wrench",
-    path: `${basePath}/Tuy_Data/engineering/plumbing_permit/plumbing_permit.pdf`,
-  },
-  {
-    title: "Sanitary Permit",
-    category: "Engineering",
-    description:
-      "Permit application for sanitary and sewerage systems, including waste disposal facilities.",
-    icon: "fa-pump-soap",
-    path: `${basePath}/Tuy_Data/engineering/sanitary_permit/sanitary_permit.pdf`,
-  },
-  {
-    title: "Certificate of Completion",
-    category: "Engineering",
-    description:
-      "Application form for certificate of completion, issued upon finishing a construction project.",
-    icon: "fa-check-circle",
-    path: `${basePath}/Tuy_Data/engineering/certificate_of_completion/certificate_of_completion.pdf`,
-  },
-  {
-    title: "Certificate of Occupancy",
-    category: "Engineering",
-    description:
-      "Unified application form for certificate of occupancy, required before a building can be occupied.",
-    icon: "fa-home",
-    path: `${basePath}/Tuy_Data/engineering/unified_application_form_for_certicate_of_occupancy20250811_13112102.pdf`,
-  },
-  {
-    title: "Certificate of Final Electrical Inspection",
-    category: "Engineering",
-    description:
-      "Application for final electrical inspection certificate, required for energization of a building.",
-    icon: "fa-plug",
-    path: `${basePath}/Tuy_Data/engineering/certificate_of_final_electrical_inspection.pdf`,
-  },
-
-  // ===== Civil Registry (LCR) =====
-  {
-    title: "Requirements for Delayed Registration of Birth",
-    category: "Civil Registry",
-    description:
-      "List of requirements for delayed registration of birth at the Local Civil Registrar's Office.",
-    icon: "fa-baby",
-    path: `${basePath}/Tuy_Data/LCR/requirements_for_delay_registration_of_Birth20250811_12264691.pdf`,
-  },
-  {
-    title: "Mandatory Requirements for Delayed Registration",
-    category: "Civil Registry",
-    description:
-      "Mandatory documentary requirements for all types of delayed civil registration.",
-    icon: "fa-file-contract",
-    path: `${basePath}/Tuy_Data/LCR/mandatory_requirments_for_delay_registration20250811_12341438.pdf`,
-  },
-  {
-    title: "Requirements for Marriage License",
-    category: "Civil Registry",
-    description:
-      "Complete list of requirements for obtaining a marriage license from the Municipal Civil Registrar.",
-    icon: "fa-ring",
-    path: `${basePath}/Tuy_Data/LCR/requirments_for_marriage_license20250811_12370786.pdf`,
-  },
-  {
-    title: "Requirements for Correction of Clerical / Typographical Error",
-    category: "Civil Registry",
-    description:
-      "Requirements for filing a petition to correct clerical or typographical errors in civil registry documents (RA 9048).",
-    icon: "fa-pen",
-    path: `${basePath}/Tuy_Data/LCR/requirments_for_correction_of_clerical_or_typographical_error20250811_12394373.pdf`,
-  },
-];
-
-const categoryList = ["All", "Engineering", "Civil Registry"];
+import { apiGetFiles, type DownloadableFile } from "../../services/api";
 
 const Forms = () => {
   const { offset } = useParallax({ speed: 0.3 });
@@ -140,11 +11,37 @@ const Forms = () => {
   const formsRef = useScrollAnimation();
   const instructionsRef = useScrollAnimation();
 
+  const [forms, setForms] = useState<DownloadableFile[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    apiGetFiles("form")
+      .then((res) => {
+        setForms(res.data ?? []);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch forms:", err);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const categoryList = useMemo(() => {
+    const cats = Array.from(new Set(forms.map((f) => f.category)));
+    return ["All", ...cats];
+  }, [forms]);
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const f of forms) {
+      counts[f.category] = (counts[f.category] || 0) + 1;
+    }
+    return counts;
+  }, [forms]);
+
   const filteredForms = useMemo(() => {
-    return formsData.filter((form) => {
+    return forms.filter((form) => {
       const matchesCategory =
         selectedCategory === "All" || form.category === selectedCategory;
       const matchesSearch =
@@ -152,14 +49,18 @@ const Forms = () => {
         form.description.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchTerm]);
+  }, [forms, selectedCategory, searchTerm]);
 
-  const engineeringCount = formsData.filter(
-    (f) => f.category === "Engineering"
-  ).length;
-  const lcrCount = formsData.filter(
-    (f) => f.category === "Civil Registry"
-  ).length;
+  const getFilePath = (file: DownloadableFile) => `/${file.filename}`;
+
+  // Category badge colors
+  const getCategoryColors = (category: string) => {
+    const colorMap: Record<string, string> = {
+      Engineering: "bg-blue-100 text-blue-700",
+      "Civil Registry": "bg-green-100 text-green-700",
+    };
+    return colorMap[category] || "bg-gray-100 text-gray-700";
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -231,24 +132,24 @@ const Forms = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            <div className="bg-primary/5 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-primary">
-                {formsData.length}
-              </p>
-              <p className="text-sm text-gray-600">Total Forms</p>
+          {!loading && (
+            <div className="mt-8 grid grid-cols-3 gap-4">
+              <div className="bg-primary/5 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-primary">
+                  {forms.length}
+                </p>
+                <p className="text-sm text-gray-600">Total Forms</p>
+              </div>
+              {categoryList.filter((c) => c !== "All").map((cat) => (
+                <div key={cat} className="bg-blue-50 rounded-lg p-4 text-center">
+                  <p className="text-3xl font-bold text-blue-700">
+                    {categoryCounts[cat] || 0}
+                  </p>
+                  <p className="text-sm text-gray-600">{cat}</p>
+                </div>
+              ))}
             </div>
-            <div className="bg-blue-50 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-blue-700">
-                {engineeringCount}
-              </p>
-              <p className="text-sm text-gray-600">Engineering / Building</p>
-            </div>
-            <div className="bg-green-50 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-green-700">{lcrCount}</p>
-              <p className="text-sm text-gray-600">Civil Registry</p>
-            </div>
-          </div>
+          )}
         </section>
 
         {/* Browse Forms */}
@@ -292,11 +193,7 @@ const Forms = () => {
                 {category}
                 {category !== "All" && (
                   <span className="ml-1.5 text-xs opacity-75">
-                    (
-                    {category === "Engineering"
-                      ? engineeringCount
-                      : lcrCount}
-                    )
+                    ({categoryCounts[category] || 0})
                   </span>
                 )}
               </button>
@@ -305,80 +202,101 @@ const Forms = () => {
 
           {/* Results Count */}
           <p className="text-sm text-gray-500 mb-4">
-            Showing {filteredForms.length} of {formsData.length} forms
+            Showing {filteredForms.length} of {forms.length} forms
           </p>
 
+          {/* Loading State */}
+          {loading && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <div
+                  key={n}
+                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden animate-pulse"
+                >
+                  <div className="p-6">
+                    <div className="w-14 h-14 rounded-full bg-gray-200 mb-4"></div>
+                    <div className="h-5 bg-gray-200 rounded mb-2 w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-3 w-1/3"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-1 w-full"></div>
+                    <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                  </div>
+                  <div className="p-4 pt-0">
+                    <div className="h-10 bg-gray-200 rounded-lg"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Forms Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredForms.map((form, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
-              >
-                <div className="p-6 flex-1">
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <i
-                      className={`fas ${form.icon} text-primary text-2xl`}
-                    ></i>
+          {!loading && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredForms.map((form) => (
+                <div
+                  key={form.id}
+                  className="bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                >
+                  <div className="p-6 flex-1">
+                    {/* Icon */}
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                      <i
+                        className={`fas ${form.icon} text-primary text-2xl`}
+                      ></i>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-primary mb-2 leading-snug">
+                      {form.title}
+                    </h3>
+
+                    {/* Category Badge */}
+                    <span
+                      className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mb-3 ${getCategoryColors(form.category)}`}
+                    >
+                      {form.category}
+                    </span>
+
+                    {/* Description */}
+                    <p className="text-gray-700 text-sm mb-4 leading-relaxed">
+                      {form.description}
+                    </p>
+
+                    {/* File info */}
+                    <p className="text-xs text-gray-500">
+                      <i className="fas fa-file-pdf mr-1"></i>
+                      PDF Document
+                    </p>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-primary mb-2 leading-snug">
-                    {form.title}
-                  </h3>
-
-                  {/* Category Badge */}
-                  <span
-                    className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mb-3 ${
-                      form.category === "Engineering"
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-green-100 text-green-700"
-                    }`}
-                  >
-                    {form.category}
-                  </span>
-
-                  {/* Description */}
-                  <p className="text-gray-700 text-sm mb-4 leading-relaxed">
-                    {form.description}
-                  </p>
-
-                  {/* File info */}
-                  <p className="text-xs text-gray-500">
-                    <i className="fas fa-file-pdf mr-1"></i>
-                    PDF Document
-                  </p>
-                </div>
-
-                {/* Actions */}
-                <div className="p-4 pt-0">
-                  <div className="flex gap-2">
-                    <a
-                      href={form.path}
-                      download
-                      className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors text-center text-sm"
-                    >
-                      <i className="fas fa-download mr-2"></i>
-                      Download
-                    </a>
-                    <a
-                      href={form.path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
-                      title="Preview in new tab"
-                    >
-                      <i className="fas fa-eye"></i>
-                    </a>
+                  {/* Actions */}
+                  <div className="p-4 pt-0">
+                    <div className="flex gap-2">
+                      <a
+                        href={getFilePath(form)}
+                        download
+                        className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors text-center text-sm"
+                      >
+                        <i className="fas fa-download mr-2"></i>
+                        Download
+                      </a>
+                      <a
+                        href={getFilePath(form)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+                        title="Preview in new tab"
+                      >
+                        <i className="fas fa-eye"></i>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* No Results */}
-          {filteredForms.length === 0 && (
+          {!loading && filteredForms.length === 0 && (
             <div className="text-center py-12">
               <i className="fas fa-search text-6xl text-gray-300 mb-4"></i>
               <p className="text-gray-600 text-lg">

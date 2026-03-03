@@ -26,7 +26,17 @@ RewriteCond %{HTTP_HOST} ^tuybatangas\.gov\.ph$ [NC]
 RewriteRule ^(.*)$ https://www.tuybatangas.gov.ph/$1 [L,R=301]
 
 # ============================================
-# 3. HANDLE EXISTING FILES AND DIRECTORIES
+# 3. PROTECT SENSITIVE API FILES
+# ============================================
+# Block direct browser access to api/config.php (contains DB credentials)
+<FilesMatch "^config\.php$">
+    <If "%{REQUEST_URI} =~ m#/api/config\.php#">
+        Require all denied
+    </If>
+</FilesMatch>
+
+# ============================================
+# 4. HANDLE EXISTING FILES AND DIRECTORIES
 # ============================================
 # If the requested file exists, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f
@@ -37,13 +47,13 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # ============================================
-# 4. REACT ROUTER SPA ROUTING
+# 5. REACT ROUTER SPA ROUTING
 # ============================================
 # All other requests should be routed to index.html
 RewriteRule ^ index.html [L]
 
 # ============================================
-# 5. MIME TYPES FOR ASSETS
+# 6. MIME TYPES FOR ASSETS
 # ============================================
 <IfModule mod_mime.c>
     # JavaScript
@@ -71,7 +81,7 @@ RewriteRule ^ index.html [L]
 </IfModule>
 
 # ============================================
-# 6. ENABLE COMPRESSION
+# 7. ENABLE COMPRESSION
 # ============================================
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html
@@ -86,7 +96,7 @@ RewriteRule ^ index.html [L]
 </IfModule>
 
 # ============================================
-# 7. BROWSER CACHING
+# 8. BROWSER CACHING
 # ============================================
 <IfModule mod_expires.c>
     ExpiresActive On
@@ -112,7 +122,7 @@ RewriteRule ^ index.html [L]
 </IfModule>
 
 # ============================================
-# 8. SECURITY HEADERS
+# 9. SECURITY HEADERS
 # ============================================
 <IfModule mod_headers.c>
     # Prevent clickjacking
@@ -129,12 +139,12 @@ RewriteRule ^ index.html [L]
 </IfModule>
 
 # ============================================
-# 9. DISABLE DIRECTORY LISTING
+# 10. DISABLE DIRECTORY LISTING
 # ============================================
 Options -Indexes
 
 # ============================================
-# 10. DEFAULT DOCUMENT ORDER
+# 11. DEFAULT DOCUMENT ORDER
 # ============================================
 DirectoryIndex index.html index.php
 

@@ -76,11 +76,49 @@ function normalizeUnicodeText(text: string): string {
     .join('');
 }
 
-// Environment configuration
-const PAGE_ID = import.meta.env.VITE_FACEBOOK_PAGE_ID;
-const ACCESS_TOKEN = import.meta.env.VITE_FACEBOOK_ACCESS_TOKEN;
-const POST_LIMIT = Number(import.meta.env.VITE_FACEBOOK_POST_LIMIT) || 4;
-const CACHE_DURATION = Number(import.meta.env.VITE_FACEBOOK_CACHE_DURATION) || 900000; // 15 minutes
+// Environment configuration (defaults from env vars, overridden by API settings)
+let PAGE_ID = import.meta.env.VITE_FACEBOOK_PAGE_ID || '';
+let ACCESS_TOKEN = import.meta.env.VITE_FACEBOOK_ACCESS_TOKEN || '';
+let POST_LIMIT = Number(import.meta.env.VITE_FACEBOOK_POST_LIMIT) || 4;
+let CACHE_DURATION = Number(import.meta.env.VITE_FACEBOOK_CACHE_DURATION) || 900000; // 15 minutes
+
+// Track whether settings have been loaded from API
+let settingsLoaded = false;
+let settingsLoadPromise: Promise<void> | null = null;
+
+/**
+ * Load Facebook settings from PHP backend API, falling back to env vars
+ */
+async function loadSettingsFromAPI(): Promise<void> {
+  try {
+    const res = await fetch('/api/settings.php', { credentials: 'include' });
+    if (!res.ok) return; // Silently fall back to env vars
+
+    const data = await res.json();
+    const settings = data.data;
+    if (!settings) return;
+
+    if (settings.facebook_page_id) PAGE_ID = settings.facebook_page_id;
+    if (settings.facebook_access_token) ACCESS_TOKEN = settings.facebook_access_token;
+    if (settings.facebook_post_limit) POST_LIMIT = Number(settings.facebook_post_limit) || POST_LIMIT;
+    if (settings.facebook_cache_duration) CACHE_DURATION = Number(settings.facebook_cache_duration) || CACHE_DURATION;
+  } catch {
+    // API unavailable — continue with env vars
+  } finally {
+    settingsLoaded = true;
+  }
+}
+
+/**
+ * Ensure settings are loaded (called once, cached)
+ */
+async function ensureSettingsLoaded(): Promise<void> {
+  if (settingsLoaded) return;
+  if (!settingsLoadPromise) {
+    settingsLoadPromise = loadSettingsFromAPI();
+  }
+  await settingsLoadPromise;
+}
 
 // Cache keys
 const CACHE_KEY = 'tuy_facebook_posts_cache';
@@ -231,6 +269,9 @@ function isUnavailableSharedPost(post: FacebookAPIPost): boolean {
  * Fetch posts from Facebook Graph API
  */
 async function fetchFacebookPosts(): Promise<FacebookPostData[]> {
+  // Ensure settings are loaded from API before making requests
+  await ensureSettingsLoaded();
+
   if (!PAGE_ID || !ACCESS_TOKEN) {
     throw new Error('Facebook API credentials not configured. Please check your .env file.');
   }

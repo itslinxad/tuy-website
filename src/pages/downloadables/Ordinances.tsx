@@ -1,228 +1,25 @@
 import { Link } from "react-router-dom";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Navbar from "../../components/Navbar.tsx";
 import { useParallax } from "../../hooks/useParallax";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+import { apiGetFiles, type DownloadableFile } from "../../services/api";
 
 const basePath = import.meta.env.VITE_BASE_PATH || "";
 
-interface Ordinance {
-  resolutionNo: string;
-  ordinanceNo: string;
-  title: string;
-  year: number;
-  category: string;
-  fileName: string;
-  icon: string;
-}
-
-const ordinancesData: Ordinance[] = [
-  // Public Safety
-  {
-    resolutionNo: "2023-025",
-    ordinanceNo: "Blg. 005",
-    title: "Batas Trapiko (Traffic Law)",
-    year: 2023,
-    category: "Public Safety",
-    fileName: "2023-025 Ord. Blg. 005 Batas Trapiko.pdf",
-    icon: "fa-car",
-  },
-  {
-    resolutionNo: "2024-068",
-    ordinanceNo: "No. 008",
-    title: "Fire Hydrant Ordinance",
-    year: 2024,
-    category: "Public Safety",
-    fileName: "2024-068 Ord. No. 008 Fire Hydrant Ordinance.pdf",
-    icon: "fa-fire-extinguisher",
-  },
-  {
-    resolutionNo: "2024-093",
-    ordinanceNo: "Blg. 013",
-    title: "Ilegal na Sugal (Illegal Gambling)",
-    year: 2024,
-    category: "Public Safety",
-    fileName: "2024-093 Ord. Blg. 013 Ilegal na Sugal.pdf",
-    icon: "fa-ban",
-  },
-  {
-    resolutionNo: "2024-134",
-    ordinanceNo: "Blg. 020",
-    title: "Helmet Ordinance (Motorcycle Helmet)",
-    year: 2024,
-    category: "Public Safety",
-    fileName: "2024-134 Ord. Blg. 020 - Helmet.pdf",
-    icon: "fa-hard-hat",
-  },
-  {
-    resolutionNo: "2025-016",
-    ordinanceNo: "Blg. 039",
-    title: "Preemptive and Forced Evacuation",
-    year: 2025,
-    category: "Public Safety",
-    fileName: "2025-016 Ord. Blg. 039 Preemptive and Forced Evacuation.pdf",
-    icon: "fa-people-arrows",
-  },
-
-  // Social Welfare
-  {
-    resolutionNo: "2023-074",
-    ordinanceNo: "Blg. 018",
-    title: "Prohibiting Child Marriage",
-    year: 2023,
-    category: "Social Welfare",
-    fileName: "2023-074 Ord. Blg. 018 Prohibiting Child Marriage.pdf",
-    icon: "fa-child",
-  },
-  {
-    resolutionNo: "2023-075",
-    ordinanceNo: "Blg. 019",
-    title: "4Ps Anti-Pawning Ordinance",
-    year: 2023,
-    category: "Social Welfare",
-    fileName: "2023-075 Ord. Blg. 019 4Ps Anti-Pawning Ordinance.pdf",
-    icon: "fa-hand-holding-heart",
-  },
-  {
-    resolutionNo: "2023-130",
-    ordinanceNo: "No. 028",
-    title: "Adopting GAD Resolution, Anti-Human Trafficking",
-    year: 2023,
-    category: "Social Welfare",
-    fileName: "2023-130 Ord. No. 028 - Adopting GAD Resolution, Anti-Human Trafficking.pdf",
-    icon: "fa-shield-alt",
-  },
-  {
-    resolutionNo: "2025-045",
-    ordinanceNo: "No. 042",
-    title: "Aftercare - 4Ps",
-    year: 2025,
-    category: "Social Welfare",
-    fileName: "2025-045 Ord. No. 042 Aftercare - 4Ps.pdf",
-    icon: "fa-hands-helping",
-  },
-
-  // Health & Sanitation
-  {
-    resolutionNo: "2024-109",
-    ordinanceNo: "Blg. 017",
-    title: "Tuy Health and Sanitation Ordinance",
-    year: 2024,
-    category: "Health & Sanitation",
-    fileName: "2024-109 Ord. Blg. 017 - Tuy Health and Sanitation Ordinance.pdf",
-    icon: "fa-clinic-medical",
-  },
-  {
-    resolutionNo: "2024-092",
-    ordinanceNo: "Blg. 012",
-    title: "Magkakarne - Hot Meat",
-    year: 2024,
-    category: "Health & Sanitation",
-    fileName: "2024-092 Ord. Blg. 012 Magkakarne - Hot Meat.pdf",
-    icon: "fa-drumstick-bite",
-  },
-
-  // Environment
-  {
-    resolutionNo: "2022-139",
-    ordinanceNo: "Blg. 032",
-    title: "Magtatabas o MSWs (Municipal Solid Waste Workers)",
-    year: 2022,
-    category: "Environment",
-    fileName: "2022-139 Ord. Blg. 032 - Magtatabas o MSWs (Fil).pdf",
-    icon: "fa-recycle",
-  },
-  {
-    resolutionNo: "2023-035",
-    ordinanceNo: "Blg. 007",
-    title: "Pagtatabon o Pagtatambak sa Daluyan ng Tubig (Waterway Protection)",
-    year: 2023,
-    category: "Environment",
-    fileName: "2023-035 Ord. Blg. 007 - Pagtatabon o Pagtatambak sa Daluyan ng Tubig.pdf",
-    icon: "fa-water",
-  },
-
-  // Agriculture & Livestock
-  {
-    resolutionNo: "2023-002",
-    ordinanceNo: "Blg. 001",
-    title: "Malakihang Manukan (Large-scale Poultry)",
-    year: 2023,
-    category: "Agriculture & Livestock",
-    fileName: "2023-002 Ord. Blg. 001 - Malakihang Manukan.pdf",
-    icon: "fa-egg",
-  },
-  {
-    resolutionNo: "2024-083",
-    ordinanceNo: "Blg. 010",
-    title: "Babuyan (Piggery Regulation)",
-    year: 2024,
-    category: "Agriculture & Livestock",
-    fileName: "2024-083 Ord. Blg. 010 Babuyan.pdf",
-    icon: "fa-piggy-bank",
-  },
-
-  // Public Order
-  {
-    resolutionNo: "2024-020",
-    ordinanceNo: "No. 001",
-    title: "Adopting EO No. 297 s. 2000 - PNP Uniform",
-    year: 2024,
-    category: "Public Order",
-    fileName: "2024-020 Ord. No. 001 Adopting EO No. 297 s. 2000 - PNP Uniform.pdf",
-    icon: "fa-user-shield",
-  },
-  {
-    resolutionNo: "2024-137",
-    ordinanceNo: "Blg. 021",
-    title: "Liquor Ban",
-    year: 2024,
-    category: "Public Order",
-    fileName: "2024-137 Ord. Blg. 021 Liquor Ban.pdf",
-    icon: "fa-wine-bottle",
-  },
-  {
-    resolutionNo: "2024-138",
-    ordinanceNo: "Blg. 022",
-    title: "Pagtitipon (Assembly / Gatherings Regulation)",
-    year: 2024,
-    category: "Public Order",
-    fileName: "2024-138 Ord. Blg. 022 Pagtitipon.pdf",
-    icon: "fa-users",
-  },
-
-  // Revenue
-  {
-    resolutionNo: "2025-061",
-    ordinanceNo: "No. 045",
-    title: "Addendum to Revised Revenue Code of Tuy - Covered Court Fee",
-    year: 2025,
-    category: "Revenue",
-    fileName: "2025-061 Ord. No.  045 Addendum to Revised Revenue Code of Tuy - Covered Court Fee.pdf",
-    icon: "fa-coins",
-  },
+// Default category color palette — dynamically assigned to categories from DB
+const CATEGORY_COLOR_PALETTE: { bg: string; text: string }[] = [
+  { bg: "bg-red-100", text: "text-red-700" },
+  { bg: "bg-purple-100", text: "text-purple-700" },
+  { bg: "bg-green-100", text: "text-green-700" },
+  { bg: "bg-teal-100", text: "text-teal-700" },
+  { bg: "bg-yellow-100", text: "text-yellow-700" },
+  { bg: "bg-blue-100", text: "text-blue-700" },
+  { bg: "bg-orange-100", text: "text-orange-700" },
+  { bg: "bg-pink-100", text: "text-pink-700" },
+  { bg: "bg-indigo-100", text: "text-indigo-700" },
+  { bg: "bg-cyan-100", text: "text-cyan-700" },
 ];
-
-const categories = [
-  "All",
-  "Public Safety",
-  "Social Welfare",
-  "Health & Sanitation",
-  "Environment",
-  "Agriculture & Livestock",
-  "Public Order",
-  "Revenue",
-];
-
-const categoryColors: Record<string, { bg: string; text: string }> = {
-  "Public Safety": { bg: "bg-red-100", text: "text-red-700" },
-  "Social Welfare": { bg: "bg-purple-100", text: "text-purple-700" },
-  "Health & Sanitation": { bg: "bg-green-100", text: "text-green-700" },
-  "Environment": { bg: "bg-teal-100", text: "text-teal-700" },
-  "Agriculture & Livestock": { bg: "bg-yellow-100", text: "text-yellow-700" },
-  "Public Order": { bg: "bg-blue-100", text: "text-blue-700" },
-  "Revenue": { bg: "bg-orange-100", text: "text-orange-700" },
-};
 
 const Ordinances = () => {
   const { offset } = useParallax({ speed: 0.3 });
@@ -230,32 +27,64 @@ const Ordinances = () => {
   const browseRef = useScrollAnimation();
   const infoRef = useScrollAnimation();
 
+  const [ordinances, setOrdinances] = useState<DownloadableFile[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
 
+  useEffect(() => {
+    apiGetFiles("ordinance")
+      .then((res) => {
+        setOrdinances(res.data ?? []);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch ordinances:", err);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(ordinances.map((o) => o.category)));
+    return ["All", ...cats];
+  }, [ordinances]);
+
+  const categoryColors = useMemo(() => {
+    const colors: Record<string, { bg: string; text: string }> = {};
+    const cats = Array.from(new Set(ordinances.map((o) => o.category)));
+    cats.forEach((cat, i) => {
+      colors[cat] = CATEGORY_COLOR_PALETTE[i % CATEGORY_COLOR_PALETTE.length];
+    });
+    return colors;
+  }, [ordinances]);
+
+  const yearRange = useMemo(() => {
+    const years = ordinances.map((o) => o.year).filter((y): y is number => y !== null);
+    if (years.length === 0) return { earliest: 0, latest: 0 };
+    return { earliest: Math.min(...years), latest: Math.max(...years) };
+  }, [ordinances]);
+
   const filteredOrdinances = useMemo(() => {
-    let results = ordinancesData.filter((ord) => {
+    let results = ordinances.filter((ord) => {
       const matchesCategory =
         selectedCategory === "All" || ord.category === selectedCategory;
       const matchesSearch =
         ord.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        ord.ordinanceNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        ord.resolutionNo.toLowerCase().includes(searchTerm.toLowerCase());
+        (ord.ordinance_no ?? "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (ord.resolution_no ?? "").toLowerCase().includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
     });
 
     results.sort((a, b) =>
       sortBy === "newest"
-        ? b.resolutionNo.localeCompare(a.resolutionNo)
-        : a.resolutionNo.localeCompare(b.resolutionNo)
+        ? (b.resolution_no ?? "").localeCompare(a.resolution_no ?? "")
+        : (a.resolution_no ?? "").localeCompare(b.resolution_no ?? "")
     );
 
     return results;
-  }, [selectedCategory, searchTerm, sortBy]);
+  }, [ordinances, selectedCategory, searchTerm, sortBy]);
 
-  const filePath = (fileName: string) =>
-    `${basePath}/Tuy_Data/Resolution and Ordinance/${encodeURIComponent(fileName)}`;
+  const getFilePath = (file: DownloadableFile) => `/${file.filename}`;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -334,28 +163,34 @@ const Ordinances = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-primary/5 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-primary">
-                {ordinancesData.length}
-              </p>
-              <p className="text-sm text-gray-600">Total Ordinances</p>
+          {!loading && (
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-primary/5 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-primary">
+                  {ordinances.length}
+                </p>
+                <p className="text-sm text-gray-600">Total Ordinances</p>
+              </div>
+              <div className="bg-primary/5 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-primary">
+                  {categories.length - 1}
+                </p>
+                <p className="text-sm text-gray-600">Categories</p>
+              </div>
+              <div className="bg-primary/5 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-primary">
+                  {yearRange.earliest || "—"}
+                </p>
+                <p className="text-sm text-gray-600">Earliest</p>
+              </div>
+              <div className="bg-primary/5 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-primary">
+                  {yearRange.latest || "—"}
+                </p>
+                <p className="text-sm text-gray-600">Latest</p>
+              </div>
             </div>
-            <div className="bg-primary/5 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-primary">
-                {categories.length - 1}
-              </p>
-              <p className="text-sm text-gray-600">Categories</p>
-            </div>
-            <div className="bg-primary/5 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-primary">2022</p>
-              <p className="text-sm text-gray-600">Earliest</p>
-            </div>
-            <div className="bg-primary/5 rounded-lg p-4 text-center">
-              <p className="text-3xl font-bold text-primary">2025</p>
-              <p className="text-sm text-gray-600">Latest</p>
-            </div>
-          </div>
+          )}
         </section>
 
         {/* Browse Ordinances */}
@@ -421,83 +256,115 @@ const Ordinances = () => {
 
           {/* Results Count */}
           <p className="text-sm text-gray-500 mb-4">
-            Showing {filteredOrdinances.length} of {ordinancesData.length}{" "}
+            Showing {filteredOrdinances.length} of {ordinances.length}{" "}
             ordinances
           </p>
 
-          {/* Ordinances Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredOrdinances.map((ord, index) => {
-              const colors = categoryColors[ord.category];
-              return (
+          {/* Loading State */}
+          {loading && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((n) => (
                 <div
-                  key={index}
-                  className="bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                  key={n}
+                  className="bg-gray-50 rounded-lg shadow-md overflow-hidden animate-pulse"
                 >
-                  <div className="p-6 flex-1">
-                    {/* Icon */}
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <i
-                        className={`fas ${ord.icon} text-primary text-2xl`}
-                      ></i>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-lg font-bold text-primary mb-2 leading-snug">
-                      {ord.title}
-                    </h3>
-
-                    {/* Category Badge */}
-                    <span
-                      className={`inline-block px-3 py-1 ${colors.bg} ${colors.text} text-xs font-semibold rounded-full mb-3`}
-                    >
-                      {ord.category}
-                    </span>
-
-                    {/* Meta Info */}
-                    <div className="space-y-1 text-sm text-gray-600">
-                      <p>
-                        <i className="fas fa-gavel mr-2 text-gray-400"></i>
-                        Ordinance {ord.ordinanceNo}
-                      </p>
-                      <p>
-                        <i className="fas fa-file-alt mr-2 text-gray-400"></i>
-                        Resolution No. {ord.resolutionNo}
-                      </p>
-                      <p>
-                        <i className="fas fa-calendar mr-2 text-gray-400"></i>
-                        Year {ord.year}
-                      </p>
-                    </div>
+                  <div className="p-6">
+                    <div className="w-14 h-14 rounded-full bg-gray-200 mb-4"></div>
+                    <div className="h-5 bg-gray-200 rounded mb-2 w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-3 w-1/3"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-1 w-full"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-1 w-2/3"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
                   </div>
-
-                  {/* Actions */}
-                  <div className="p-4 pt-0 flex gap-2">
-                    <a
-                      href={filePath(ord.fileName)}
-                      download
-                      className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors text-center text-sm"
-                    >
-                      <i className="fas fa-download mr-2"></i>
-                      Download
-                    </a>
-                    <a
-                      href={filePath(ord.fileName)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
-                      title="Preview in new tab"
-                    >
-                      <i className="fas fa-eye"></i>
-                    </a>
+                  <div className="p-4 pt-0">
+                    <div className="h-10 bg-gray-200 rounded-lg"></div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
+
+          {/* Ordinances Grid */}
+          {!loading && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredOrdinances.map((ord) => {
+                const colors = categoryColors[ord.category] || { bg: "bg-gray-100", text: "text-gray-700" };
+                return (
+                  <div
+                    key={ord.id}
+                    className="bg-gray-50 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+                  >
+                    <div className="p-6 flex-1">
+                      {/* Icon */}
+                      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i
+                          className={`fas ${ord.icon} text-primary text-2xl`}
+                        ></i>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-lg font-bold text-primary mb-2 leading-snug">
+                        {ord.title}
+                      </h3>
+
+                      {/* Category Badge */}
+                      <span
+                        className={`inline-block px-3 py-1 ${colors.bg} ${colors.text} text-xs font-semibold rounded-full mb-3`}
+                      >
+                        {ord.category}
+                      </span>
+
+                      {/* Meta Info */}
+                      <div className="space-y-1 text-sm text-gray-600">
+                        {ord.ordinance_no && (
+                          <p>
+                            <i className="fas fa-gavel mr-2 text-gray-400"></i>
+                            Ordinance {ord.ordinance_no}
+                          </p>
+                        )}
+                        {ord.resolution_no && (
+                          <p>
+                            <i className="fas fa-file-alt mr-2 text-gray-400"></i>
+                            Resolution No. {ord.resolution_no}
+                          </p>
+                        )}
+                        {ord.year && (
+                          <p>
+                            <i className="fas fa-calendar mr-2 text-gray-400"></i>
+                            Year {ord.year}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="p-4 pt-0 flex gap-2">
+                      <a
+                        href={getFilePath(ord)}
+                        download
+                        className="flex-1 bg-primary text-white py-2.5 px-4 rounded-lg font-semibold hover:bg-primary-hover transition-colors text-center text-sm"
+                      >
+                        <i className="fas fa-download mr-2"></i>
+                        Download
+                      </a>
+                      <a
+                        href={getFilePath(ord)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-gray-200 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+                        title="Preview in new tab"
+                      >
+                        <i className="fas fa-eye"></i>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* No Results */}
-          {filteredOrdinances.length === 0 && (
+          {!loading && filteredOrdinances.length === 0 && (
             <div className="text-center py-12">
               <i className="fas fa-search text-6xl text-gray-300 mb-4"></i>
               <p className="text-gray-600 text-lg">
