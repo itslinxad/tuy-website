@@ -16,6 +16,8 @@ dist
 dist-ssr
 deploy
 *.local
+.htaccess
+.htaccess-*
 
 # Environment variables
 .env
